@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide JavaScript & DOM</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <aside>
+        <h1>⚡ Le Guide JavaScript & DOM</h1>
+        <p class="subtitle">Toutes les commandes JavaScript pour manipuler le DOM !</p>
+        <p>
+            <a href="html-guide.html">Guide HTML</a>
+            <a href="css-guide.html">Guide CSS</a>
+            <a href="bootstrap-guide.html">Guide Bootstrap</a>
+            <a href="git-guide.html">Guide Git</a>
+        </p>
+    </aside>
+
+    <nav>
+        <div class="nav-logo">
+            <svg viewBox="0 0 630 630" xmlns="http://www.w3.org/2000/svg">
+                <rect width="630" height="630" fill="#f7df1e"/>
+                <path d="m423.2 492.19c12.69 20.72 29.2 35.95 58.4 35.95 24.53 0 40.2-12.26 40.2-29.2 0-20.3-16.1-27.49-43.1-39.3l-14.8-6.35c-42.72-18.2-71.1-41-71.1-89.2 0-44.4 33.83-78.2 86.7-78.2 37.64 0 64.7 13.1 84.2 47.4l-46.1 29.6c-10.15-18.2-21.1-25.37-38.1-25.37-17.34 0-28.33 11-28.33 25.37 0 17.76 11 24.95 36.4 35.95l14.8 6.34c50.3 21.57 78.7 43.56 78.7 93 0 53.3-41.87 82.5-98.1 82.5-54.98 0-90.5-26.2-107.88-60.54zm-209.13 5.13c9.3 16.5 17.76 30.45 38.1 30.45 19.45 0 31.72-7.61 31.72-37.2v-201.3h59.2v202.1c0 61.3-35.94 89.2-88.4 89.2-47.4 0-74.85-24.53-88.81-54.075z"/>
+            </svg>
+        </div>
+        <ul>
+            <li><a href="#selection">Sélection</a></li>
+            <li><a href="#creation">Création</a></li>
+            <li><a href="#modification">Modification</a></li>
+            <li><a href="#evenements">Événements</a></li>
+            <li><a href="#classes">Classes & Styles</a></li>
+            <li><a href="#navigation">Navigation DOM</a></li>
+            <li><a href="#attributs">Attributs</a></li>
+        </ul>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Rechercher..." />
+        </div>
+    </nav>
+
+    <main>
+        <section id="selection">
+            <h2>🔍 Sélection d'Éléments</h2>
+
+            <div class="tag-card">
+                <h3>document.getElementById()</h3>
+                <p><strong>C'est quoi ?</strong> Sélectionne un élément HTML par son ID unique. C'est la méthode la plus rapide pour cibler un élément spécifique.</p>
+                <p><strong>Pourquoi ?</strong> Utilise-la quand tu veux manipuler un seul élément unique (ex: un bouton précis, un formulaire). Plus rapide que querySelector pour les IDs.</p>
+                <p><strong>Exemple concret :</strong> Récupérer un bouton de connexion pour ajouter un événement click ou changer son texte quand l'utilisateur se connecte.</p>
+                <code>const btnLogin = document.getElementById('btn-login');
+btnLogin.textContent = 'Connecté !';
+btnLogin.style.backgroundColor = 'green';</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>document.querySelector()</h3>
+                <p><strong>C'est quoi ?</strong> Sélectionne le PREMIER élément qui correspond au sélecteur CSS. Tu peux utiliser tous les sélecteurs CSS (classes, attributs, pseudo-classes).</p>
+                <p><strong>Pourquoi ?</strong> C'est la méthode la plus polyvalente. Utilise-la quand tu veux cibler un élément avec un sélecteur précis, comme le premier bouton d'une classe.</p>
+                <p><strong>Astuce :</strong> Si plusieurs éléments correspondent, seul le premier est retourné. Pour tous les avoir, utilise querySelectorAll.</p>
+                <code>const premierBouton = document.querySelector('.btn-primary');
+const emailInput = document.querySelector('input[type="email"]');
+const lienActif = document.querySelector('a.active:hover');</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>document.querySelectorAll()</h3>
+                <p><strong>C'est quoi ?</strong> Sélectionne TOUS les éléments qui correspondent au sélecteur CSS. Retourne une NodeList que tu peux parcourir avec forEach.</p>
+                <p><strong>Pourquoi ?</strong> Idéal pour appliquer la même action à plusieurs éléments : masquer toutes les cartes, changer la couleur de tous les boutons, etc.</p>
+                <p><strong>Exemple concret :</strong> Ajouter un événement click à tous les boutons "J'aime" d'une page de produits.</p>
+                <code>const boutonsLike = document.querySelectorAll('.btn-like');
+boutonsLike.forEach(btn => {
+    btn.addEventListener('click', () => alert('Merci !'));
+});</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>document.getElementsByClassName()</h3>
+                <p><strong>C'est quoi ?</strong> Sélectionne tous les éléments ayant une classe spécifique. Retourne une HTMLCollection "live" qui se met à jour automatiquement.</p>
+                <p><strong>Pourquoi ?</strong> Moins utilisée que querySelectorAll car elle est "live" (se met à jour automatiquement, ce qui peut causer des bugs). Préfère querySelectorAll en général.</p>
+                <p><strong>Attention :</strong> Tu ne peux pas utiliser forEach directement dessus, il faut la convertir en tableau avec Array.from().</p>
+                <code>const erreurs = document.getElementsByClassName('error');
+Array.from(erreurs).forEach(err => {
+    err.style.color = 'red';
+});</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>document.getElementsByTagName()</h3>
+                <p><strong>C'est quoi ?</strong> Sélectionne tous les éléments d'un type de balise HTML spécifique (div, p, img, button, etc.).</p>
+                <p><strong>Pourquoi ?</strong> Utile pour manipuler tous les éléments du même type en une fois, comme lazy-loader toutes les images d'une page.</p>
+                <p><strong>Exemple pratique :</strong> Ajouter un attribut loading="lazy" à toutes les images pour améliorer les performances.</p>
+                <code>const images = document.getElementsByTagName('img');
+Array.from(images).forEach(img => {
+    img.loading = 'lazy';
+    img.alt = img.alt || 'Image';
+});</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.closest()</h3>
+                <p><strong>C'est quoi ?</strong> Remonte dans l'arbre DOM pour trouver l'ancêtre le plus proche qui correspond au sélecteur. Commence par l'élément lui-même.</p>
+                <p><strong>Pourquoi ?</strong> Indispensable pour la délégation d'événements. Tu cliques sur un bouton et tu veux trouver sa carte parent pour la supprimer.</p>
+                <p><strong>Astuce :</strong> Très utile avec les listes de tâches ou cartes : clique sur "Supprimer" et trouve la carte parent pour la retirer.</p>
+                <code>document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('btn-delete')) {
+        const card = e.target.closest('.card');
+        card.remove();
+    }
+});</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.matches()</h3>
+                <p><strong>C'est quoi ?</strong> Teste si un élément correspond à un sélecteur CSS donné. Retourne true si oui, false sinon.</p>
+                <p><strong>Pourquoi ?</strong> Pratique pour filtrer les clics : tu veux réagir seulement si on clique sur un bouton avec une classe spécifique.</p>
+                <p><strong>Usage courant :</strong> Vérifie si l'élément cliqué est bien celui que tu veux traiter avant d'exécuter ton code.</p>
+                <code>document.addEventListener('click', (e) => {
+    if (e.target.matches('.btn-danger')) {
+        if (confirm('Supprimer ?')) deleteItem();
+    }
+});</code>
+            </div>
+        </section>
+
+        <section id="creation">
+            <h2>🛠️ Création d'Éléments</h2>
+
+            <div class="tag-card">
+                <h3>document.createElement()</h3>
+                <p><strong>C'est quoi ?</strong> Crée un nouvel élément HTML en mémoire. Il n'est pas encore visible, il faut l'ajouter au DOM avec appendChild ou append.</p>
+                <p><strong>Pourquoi ?</strong> Pour construire du contenu dynamique : ajouter une nouvelle carte produit, créer une notification, générer une liste de résultats.</p>
+                <p><strong>Exemple concret :</strong> Créer une nouvelle carte de tâche quand l'utilisateur clique sur "Ajouter" dans une todo-list.</p>
+                <code>const card = document.createElement('div');
+card.className = 'task-card';
+card.innerHTML = '&lt;h3&gt;Ma tâche&lt;/h3&gt;&lt;button&gt;Supprimer&lt;/button&gt;';
+document.body.appendChild(card);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>document.createTextNode()</h3>
+                <p><strong>C'est quoi ?</strong> Crée un nœud de texte pur, sans aucune balise HTML. Le texte est automatiquement échappé (sécurisé).</p>
+                <p><strong>Pourquoi ?</strong> Pour éviter les failles XSS quand tu affiches du contenu venu d'utilisateurs. Le texte sera affiché tel quel, sans être interprété comme du HTML.</p>
+                <p><strong>Sécurité :</strong> Si un utilisateur entre "&lt;script&gt;alert('hack')&lt;/script&gt;", ce sera affiché comme du texte et non exécuté.</p>
+                <code>const userInput = '&lt;script&gt;alert("XSS")&lt;/script&gt;';
+const safeText = document.createTextNode(userInput);
+element.appendChild(safeText); // Affiche le texte, pas de code exécuté</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.cloneNode()</h3>
+                <p><strong>C'est quoi ?</strong> Duplique un élément existant. Avec cloneNode(true) tu copies aussi tous les enfants, avec false seulement l'élément lui-même.</p>
+                <p><strong>Pourquoi ?</strong> Gain de temps : tu as une carte complexe que tu veux réutiliser ? Clone-la au lieu de la recréer entièrement.</p>
+                <p><strong>Astuce :</strong> Les événements ne sont PAS copiés. Tu devras les rajouter sur le clone.</p>
+                <code>const templateCard = document.querySelector('.product-card');
+const newCard = templateCard.cloneNode(true);
+newCard.querySelector('h3').textContent = 'Nouveau produit';
+document.body.appendChild(newCard);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.appendChild()</h3>
+                <p><strong>C'est quoi ?</strong> Insère un élément à la fin d'un parent. L'élément devient le dernier enfant du parent.</p>
+                <p><strong>Pourquoi ?</strong> C'est la méthode classique pour ajouter un élément au DOM et le rendre visible. Tous les éléments créés doivent être ajoutés quelque part.</p>
+                <p><strong>Attention :</strong> Si l'élément existe déjà ailleurs dans le DOM, il sera DÉPLACÉ, pas copié.</p>
+                <code>const liste = document.getElementById('task-list');
+const newTask = document.createElement('li');
+newTask.textContent = 'Faire les courses';
+liste.appendChild(newTask);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.insertBefore()</h3>
+                <p><strong>C'est quoi ?</strong> Insère un nouvel élément juste AVANT un élément de référence dans un parent donné.</p>
+                <p><strong>Pourquoi ?</strong> Pour placer précisément un élément, par exemple insérer une tâche en première position d'une liste ou ajouter une ligne avant une autre.</p>
+                <p><strong>Exemple pratique :</strong> Ajouter les nouvelles tâches en haut de la liste plutôt qu'à la fin.</p>
+                <code>const liste = document.getElementById('tasks');
+const newTask = document.createElement('li');
+newTask.textContent = 'Nouvelle tâche urgente';
+liste.insertBefore(newTask, liste.firstElementChild);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.insertAdjacentHTML()</h3>
+                <p><strong>C'est quoi ?</strong> Insère du code HTML à une position précise : beforebegin (avant), afterbegin (début intérieur), beforeend (fin intérieur), afterend (après).</p>
+                <p><strong>Pourquoi ?</strong> Très rapide pour ajouter du HTML complexe sans créer manuellement chaque élément. Parfait pour des templates.</p>
+                <p><strong>Conseil :</strong> Utilise 'beforeend' pour ajouter à la fin (comme appendChild) et 'afterbegin' pour ajouter au début.</p>
+                <code>const container = document.getElementById('notifications');
+container.insertAdjacentHTML('afterbegin',
+    '&lt;div class="alert"&gt;Nouveau message !&lt;/div&gt;');</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.insertAdjacentElement()</h3>
+                <p><strong>C'est quoi ?</strong> Comme insertAdjacentHTML mais pour insérer un élément DOM existant (pas du HTML en string).</p>
+                <p><strong>Pourquoi ?</strong> Quand tu as déjà créé un élément avec createElement et que tu veux le placer précisément par rapport à un autre.</p>
+                <p><strong>Différence clé :</strong> Prend un élément DOM, pas une string HTML. Plus sûr car pas de risque d'injection.</p>
+                <code>const newBtn = document.createElement('button');
+newBtn.textContent = 'Cliquez-moi';
+element.insertAdjacentElement('afterend', newBtn);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.append()</h3>
+                <p><strong>C'est quoi ?</strong> Version moderne de appendChild. Tu peux ajouter plusieurs éléments ET du texte directement en une seule ligne.</p>
+                <p><strong>Pourquoi ?</strong> Plus flexible et pratique. Tu peux passer du texte sans createTextNode, et ajouter plusieurs éléments d'un coup.</p>
+                <p><strong>Bonus :</strong> Contrairement à appendChild, ne retourne rien (undefined). Utilise appendChild si tu as besoin de chaîner.</p>
+                <code>const container = document.getElementById('content');
+container.append(
+    document.createElement('h2'),
+    'Voici du texte',
+    document.createElement('p')
+);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.prepend()</h3>
+                <p><strong>C'est quoi ?</strong> Comme append, mais insère au DÉBUT au lieu de la fin. Peut aussi prendre plusieurs éléments et du texte.</p>
+                <p><strong>Pourquoi ?</strong> Parfait pour ajouter les nouveaux messages en haut d'un chat, ou les nouvelles notifications en premier.</p>
+                <p><strong>Use case :</strong> Les flux d'actualités où tu veux que le contenu le plus récent apparaisse en premier.</p>
+                <code>const chatBox = document.getElementById('messages');
+const newMsg = document.createElement('div');
+newMsg.textContent = 'Nouveau message !';
+chatBox.prepend(newMsg); // Apparaît en premier</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.before()</h3>
+                <p><strong>C'est quoi ?</strong> Insère un ou plusieurs éléments juste AVANT l'élément actuel, comme des frères/sœurs au même niveau.</p>
+                <p><strong>Pourquoi ?</strong> Pour ajouter du contenu avant un élément sans toucher à son parent. Utile pour insérer des séparateurs ou du contenu adjacent.</p>
+                <p><strong>Exemple pratique :</strong> Ajouter un titre ou un avertissement juste avant un formulaire.</p>
+                <code>const form = document.querySelector('form');
+const warning = document.createElement('p');
+warning.textContent = '⚠️ Remplissez tous les champs';
+form.before(warning);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.after()</h3>
+                <p><strong>C'est quoi ?</strong> Insère un ou plusieurs éléments juste APRÈS l'élément actuel, au même niveau dans le DOM.</p>
+                <p><strong>Pourquoi ?</strong> Pratique pour ajouter des messages d'erreur après un champ de formulaire, ou des infos supplémentaires après un élément.</p>
+                <p><strong>Cas d'usage :</strong> Afficher un message d'erreur rouge juste après un input invalide.</p>
+                <code>const emailInput = document.getElementById('email');
+const error = document.createElement('span');
+error.textContent = 'Email invalide';
+error.style.color = 'red';
+emailInput.after(error);</code>
+            </div>
+        </section>
+
+        <section id="modification">
+            <h2>✏️ Modification d'Éléments</h2>
+
+            <div class="tag-card">
+                <h3>element.innerHTML</h3>
+                <p><strong>C'est quoi ?</strong> Lit ou remplace tout le contenu HTML à l'intérieur d'un élément. Attention, peut exécuter du code malveillant !</p>
+                <p><strong>Pourquoi ?</strong> Pratique pour changer rapidement tout le contenu d'un conteneur. Idéal quand tu veux insérer du HTML complet d'un coup.</p>
+                <p><strong>Attention :</strong> N'utilise JAMAIS innerHTML avec du contenu venu d'utilisateurs sans le nettoyer (risque XSS). Privilégie textContent pour du texte.</p>
+                <code>const container = document.getElementById('products');
+container.innerHTML = '&lt;div class="card"&gt;&lt;h3&gt;Produit&lt;/h3&gt;&lt;p&gt;Prix: 10€&lt;/p&gt;&lt;/div&gt;';
+// Remplace tout le contenu</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.textContent</h3>
+                <p><strong>C'est quoi ?</strong> Lit ou modifie UNIQUEMENT le texte d'un élément. Le HTML est échappé et affiché comme du texte brut.</p>
+                <p><strong>Pourquoi ?</strong> C'est la méthode SÉCURISÉE pour afficher du contenu utilisateur. Aucun risque d'exécution de code, le HTML est neutralisé.</p>
+                <p><strong>Best practice :</strong> Toujours utiliser textContent pour afficher des données utilisateur (commentaires, noms, messages).</p>
+                <code>const username = '&lt;script&gt;alert("hack")&lt;/script&gt;';
+title.textContent = username;
+// Affiche exactement: &lt;script&gt;alert("hack")&lt;/script&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.innerText</h3>
+                <p><strong>C'est quoi ?</strong> Comme textContent mais respecte les styles CSS : ignore les éléments display:none, respecte les retours à la ligne CSS.</p>
+                <p><strong>Pourquoi ?</strong> Utilise-le quand tu veux le texte "visible" tel que l'utilisateur le voit. Plus lent que textContent car calcule les styles.</p>
+                <p><strong>Différence clé :</strong> innerText ignore le contenu caché, textContent prend tout. Pour la performance, préfère textContent.</p>
+                <code>// Si un span est display:none
+element.innerText; // ignore le span caché
+element.textContent; // inclut le span caché</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.remove()</h3>
+                <p><strong>C'est quoi ?</strong> Supprime l'élément du DOM instantanément. L'élément disparaît complètement de la page.</p>
+                <p><strong>Pourquoi ?</strong> Pour nettoyer le DOM : supprimer une notification après 3 secondes, retirer une carte quand on clique sur "Supprimer".</p>
+                <p><strong>Exemple concret :</strong> Fermer une popup ou supprimer une tâche d'une todo-list au clic.</p>
+                <code>document.querySelectorAll('.btn-delete').forEach(btn => {
+    btn.addEventListener('click', () => {
+        btn.closest('.task').remove();
+    });
+});</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.removeChild()</h3>
+                <p><strong>C'est quoi ?</strong> Le parent supprime un de ses enfants spécifiques. Méthode plus ancienne, préfère element.remove() maintenant.</p>
+                <p><strong>Pourquoi ?</strong> Utilisée dans l'ancien code. Aujourd'hui, element.remove() est plus simple et direct.</p>
+                <p><strong>Astuce :</strong> Cette méthode retourne l'élément supprimé, utile si tu veux le réutiliser ailleurs ou le sauvegarder.</p>
+                <code>const parent = document.getElementById('liste');
+const premier = parent.firstElementChild;
+const removed = parent.removeChild(premier); // supprime et retourne</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.replaceChild()</h3>
+                <p><strong>C'est quoi ?</strong> Le parent remplace un de ses enfants par un nouvel élément. Méthode ancienne, préfère replaceWith().</p>
+                <p><strong>Pourquoi ?</strong> Pour échanger un élément contre un autre, comme remplacer un loader par le contenu réel une fois chargé.</p>
+                <p><strong>Note :</strong> replaceWith() est plus moderne et plus simple à utiliser.</p>
+                <code>const parent = document.getElementById('container');
+const loader = document.getElementById('loader');
+const content = document.createElement('div');
+parent.replaceChild(content, loader);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.replaceWith()</h3>
+                <p><strong>C'est quoi ?</strong> Remplace l'élément par un ou plusieurs nouveaux éléments. Plus moderne et simple que replaceChild.</p>
+                <p><strong>Pourquoi ?</strong> Super pratique : remplacer un loader par du contenu, un bouton "Modifier" par un formulaire d'édition.</p>
+                <p><strong>Exemple concret :</strong> Transformer un texte en input éditable quand on clique sur "Modifier".</p>
+                <code>const loader = document.getElementById('loader');
+const content = document.createElement('div');
+content.innerHTML = '&lt;h2&gt;Contenu chargé !&lt;/h2&gt;';
+loader.replaceWith(content);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.outerHTML</h3>
+                <p><strong>C'est quoi ?</strong> Lit ou remplace l'élément COMPLET, y compris sa balise ouvrante/fermante. innerHTML ne touche que l'intérieur.</p>
+                <p><strong>Pourquoi ?</strong> Quand tu veux remplacer l'élément ET sa balise, pas juste son contenu. Utile pour changer le type d'élément.</p>
+                <p><strong>Attention :</strong> Après remplacement, l'ancienne référence JavaScript ne fonctionne plus, récupère le nouvel élément.</p>
+                <code>const oldDiv = document.getElementById('myDiv');
+oldDiv.outerHTML = '&lt;section class="new"&gt;Nouveau&lt;/section&gt;';
+// oldDiv n'existe plus, récupère le nouveau</code>
+            </div>
+        </section>
+
+        <section id="evenements">
+            <h2>⚡ Gestion des Événements</h2>
+
+            <div class="tag-card">
+                <h3>element.addEventListener()</h3>
+                <p><strong>C'est quoi ?</strong> Écoute un événement (click, mouseover, keydown...) et exécute une fonction quand il se produit. C'est le cœur de l'interactivité web.</p>
+                <p><strong>Pourquoi ?</strong> Pour rendre ton site vivant : réagir aux clics, aux survols, à la frappe clavier. Tu peux avoir plusieurs écouteurs sur le même élément.</p>
+                <p><strong>Événements courants :</strong> 'click', 'submit', 'input', 'change', 'mouseover', 'keydown', 'scroll'. Utilise { once: true } pour un événement unique.</p>
+                <code>const btn = document.getElementById('subscribe');
+btn.addEventListener('click', () => {
+    alert('Merci de votre inscription !');
+}, { once: true }); // Se déclenche une seule fois</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.removeEventListener()</h3>
+                <p><strong>C'est quoi ?</strong> Retire un écouteur d'événement précédemment ajouté. IMPORTANT : la fonction doit être la même référence.</p>
+                <p><strong>Pourquoi ?</strong> Éviter les fuites mémoire et les bugs. Quand tu détruis un composant, nettoie ses événements.</p>
+                <p><strong>Astuce critique :</strong> Tu DOIS utiliser une fonction nommée (pas anonyme) pour pouvoir la retirer plus tard.</p>
+                <code>function handleClick() { console.log('Cliqué !'); }
+btn.addEventListener('click', handleClick);
+// Plus tard...
+btn.removeEventListener('click', handleClick); // Fonctionne ✓</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>event.preventDefault()</h3>
+                <p><strong>C'est quoi ?</strong> Annule le comportement par défaut d'un événement : empêche un lien de naviguer, un formulaire de se soumettre, etc.</p>
+                <p><strong>Pourquoi ?</strong> Pour gérer toi-même l'action avec JavaScript au lieu du comportement natif du navigateur.</p>
+                <p><strong>Use cases :</strong> Valider un formulaire avant envoi, faire un menu custom au clic droit, empêcher un lien de recharger la page.</p>
+                <code>form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    // Envoie en AJAX au lieu du rechargement de page
+});</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>event.stopPropagation()</h3>
+                <p><strong>C'est quoi ?</strong> Stoppe la propagation de l'événement vers les parents (bubbling). L'événement ne remonte plus dans l'arbre DOM.</p>
+                <p><strong>Pourquoi ?</strong> Éviter qu'un clic sur un bouton enfant déclenche aussi l'événement du parent. Utile pour les menus, modales, cartes cliquables.</p>
+                <p><strong>Exemple concret :</strong> Tu as une carte cliquable avec un bouton "Supprimer". Sans stopPropagation, cliquer "Supprimer" ouvre aussi la carte.</p>
+                <code>card.addEventListener('click', () => console.log('Carte ouverte'));
+deleteBtn.addEventListener('click', (e) => {
+    e.stopPropagation(); // N'ouvre pas la carte
+    card.remove();
+});</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>event.target</h3>
+                <p><strong>C'est quoi ?</strong> L'élément précis qui a déclenché l'événement (celui vraiment cliqué, pas son parent).</p>
+                <p><strong>Pourquoi ?</strong> Essentiel pour la délégation d'événements : un seul listener sur le parent pour gérer tous les enfants.</p>
+                <p><strong>Pattern puissant :</strong> Mettre un listener sur une liste et détecter quel item a été cliqué avec e.target.</p>
+                <code>document.getElementById('task-list').addEventListener('click', (e) => {
+    if (e.target.classList.contains('delete-btn')) {
+        e.target.closest('li').remove();
+    }
+});</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>event.currentTarget</h3>
+                <p><strong>C'est quoi ?</strong> L'élément sur lequel le listener est attaché (pas forcément celui cliqué). Différent de target si on clique sur un enfant.</p>
+                <p><strong>Pourquoi ?</strong> Pour accéder à l'élément écouté même si on clique sur un de ses enfants. Utile pour les délégations.</p>
+                <p><strong>Différence clé :</strong> target = élément cliqué, currentTarget = élément avec le listener. En pratique, on utilise plus souvent target.</p>
+                <code>card.addEventListener('click', (e) => {
+    console.log(e.target); // Le span cliqué
+    console.log(e.currentTarget); // La card (toujours)
+    e.currentTarget.classList.toggle('selected');
+});</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.dispatchEvent()</h3>
+                <p><strong>C'est quoi ?</strong> Déclenche manuellement un événement sur un élément, comme si l'utilisateur avait fait l'action.</p>
+                <p><strong>Pourquoi ?</strong> Pour simuler des interactions : déclencher un clic automatique, simuler une soumission de formulaire, créer des événements custom.</p>
+                <p><strong>Cas pratique :</strong> Déclencher automatiquement le clic sur un bouton caché de file input quand on clique sur un bouton stylisé.</p>
+                <code>// Simuler un clic sur le file input
+customBtn.addEventListener('click', () => {
+    fileInput.click();
+});
+// Ou avec dispatchEvent
+fileInput.dispatchEvent(new MouseEvent('click'));</code>
+            </div>
+        </section>
+
+        <section id="classes">
+            <h2>🎨 Classes et Styles</h2>
+
+            <div class="tag-card">
+                <h3>element.classList.add()</h3>
+                <p><strong>C'est quoi ?</strong> Ajoute une ou plusieurs classes CSS à un élément. C'est la méthode moderne pour appliquer des styles dynamiques.</p>
+                <p><strong>Pourquoi ?</strong> Pour changer l'apparence d'un élément : rendre un bouton actif, montrer une erreur, appliquer un thème. Plus propre que manipuler className.</p>
+                <p><strong>Best practice :</strong> Définis tes styles en CSS, et ajoute/retire les classes avec JS. Sépare la logique de la présentation.</p>
+                <code>const btn = document.querySelector('.btn');
+btn.classList.add('active', 'primary');
+// Ajoute plusieurs classes d'un coup</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.classList.remove()</h3>
+                <p><strong>C'est quoi ?</strong> Retire une ou plusieurs classes CSS d'un élément.</p>
+                <p><strong>Pourquoi ?</strong> Pour désactiver un état, retirer une erreur, changer l'apparence. Enlever une classe est plus propre que surcharger avec des styles inline.</p>
+                <p><strong>Astuce :</strong> Aucune erreur si la classe n'existe pas. Tu peux retirer en toute sécurité.</p>
+                <code>// Retirer un état d'erreur après validation
+input.classList.remove('error', 'invalid');
+input.classList.add('valid');</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.classList.toggle()</h3>
+                <p><strong>C'est quoi ?</strong> Inverse une classe : l'ajoute si absente, la retire si présente. Parfait pour les états on/off.</p>
+                <p><strong>Pourquoi ?</strong> Super pratique pour les menus hamburger, les accordéons, les modes dark/light, tout ce qui s'active/désactive.</p>
+                <p><strong>Bonus :</strong> Retourne true si la classe est ajoutée, false si retirée. Tu peux forcer avec un 2e paramètre : toggle('active', true) force l'ajout.</p>
+                <code>// Menu hamburger
+menuBtn.addEventListener('click', () => {
+    nav.classList.toggle('open');
+    menuBtn.classList.toggle('active');
+});</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.classList.contains()</h3>
+                <p><strong>C'est quoi ?</strong> Vérifie si un élément possède une classe donnée. Retourne true ou false.</p>
+                <p><strong>Pourquoi ?</strong> Pour conditionner ton code : exécuter une action seulement si l'élément a un certain état.</p>
+                <p><strong>Use case :</strong> Vérifier qu'un menu est ouvert avant de le fermer, ou qu'un élément est sélectionné avant de le traiter.</p>
+                <code>if (modal.classList.contains('open')) {
+    modal.classList.remove('open');
+} else {
+    modal.classList.add('open');
+}</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.classList.replace()</h3>
+                <p><strong>C'est quoi ?</strong> Remplace une classe par une autre en une seule opération.</p>
+                <p><strong>Pourquoi ?</strong> Plus efficace et lisible que remove() puis add(). Idéal pour changer d'état ou de thème.</p>
+                <p><strong>Exemple concret :</strong> Passer d'un bouton "primary" à "danger", ou changer le thème de "light" à "dark".</p>
+                <code>// Changer l'état d'un bouton
+saveBtn.classList.replace('btn-primary', 'btn-success');
+// Changer de thème
+body.classList.replace('theme-light', 'theme-dark');</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.className</h3>
+                <p><strong>C'est quoi ?</strong> Lit ou définit TOUTES les classes comme une string. Ancien système, moins pratique que classList.</p>
+                <p><strong>Pourquoi ?</strong> Utile pour remplacer toutes les classes d'un coup ou lire toutes les classes en une chaîne.</p>
+                <p><strong>Attention :</strong> Écrase toutes les classes existantes. Préfère classList pour ajouter/retirer des classes spécifiques.</p>
+                <code>// Remplacer toutes les classes
+element.className = 'box rounded shadow-lg';
+// Lire les classes
+console.log(element.className); // "box rounded shadow-lg"</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.style</h3>
+                <p><strong>C'est quoi ?</strong> Modifie les styles CSS inline directement sur l'élément. Prioritaire sur les CSS externes.</p>
+                <p><strong>Pourquoi ?</strong> Pour des styles dynamiques calculés : positions, couleurs variables, animations. Les styles inline ont la priorité maximale (sauf !important).</p>
+                <p><strong>Conseil :</strong> Préfère les classes CSS pour les styles fixes. Utilise .style pour les valeurs calculées ou temporaires.</p>
+                <code>// Positionner dynamiquement une tooltip
+tooltip.style.left = mouseX + 'px';
+tooltip.style.top = mouseY + 'px';
+tooltip.style.opacity = '1';</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.style.cssText</h3>
+                <p><strong>C'est quoi ?</strong> Définit plusieurs styles CSS en une seule string. Plus rapide que de les définir un par un.</p>
+                <p><strong>Pourquoi ?</strong> Performance : applique plusieurs styles en une seule opération. Utile pour des styles temporaires ou calculés.</p>
+                <p><strong>Attention :</strong> Écrase tous les styles inline existants. Pour ajouter sans écraser, utilise += pour concaténer.</p>
+                <code>// Appliquer plusieurs styles d'un coup
+notification.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #4caf50;
+`;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>getComputedStyle()</h3>
+                <p><strong>C'est quoi ?</strong> Récupère les styles CSS finaux calculés par le navigateur (incluant CSS externe, inline, héritage).</p>
+                <p><strong>Pourquoi ?</strong> Pour LIRE les vraies valeurs appliquées. element.style ne lit que les styles inline, pas ceux du CSS externe.</p>
+                <p><strong>Use case :</strong> Récupérer la hauteur actuelle d'un élément pour une animation, ou vérifier si un élément est visible.</p>
+                <code>const styles = getComputedStyle(element);
+const currentColor = styles.color; // "rgb(255, 0, 0)"
+const height = parseInt(styles.height); // 150</code>
+            </div>
+        </section>
+
+        <section id="navigation">
+            <h2>🧭 Navigation dans le DOM</h2>
+
+            <div class="tag-card">
+                <h3>element.parentNode / element.parentElement</h3>
+                <p><strong>C'est quoi ?</strong> Récupère le parent direct. parentElement retourne seulement les éléments HTML, parentNode peut retourner le document.</p>
+                <p><strong>Pourquoi ?</strong> Pour remonter d'un niveau dans l'arbre : trouver le conteneur d'un bouton, le formulaire d'un input.</p>
+                <p><strong>Conseil :</strong> Utilise parentElement en général, c'est plus prévisible. parentNode peut retourner des nodes non-HTML.</p>
+                <code>const deleteBtn = document.querySelector('.delete');
+const taskItem = deleteBtn.parentElement; // Le &lt;li&gt; parent
+taskItem.remove(); // Supprime toute la tâche</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.children</h3>
+                <p><strong>C'est quoi ?</strong> Retourne une HTMLCollection des enfants directs (uniquement les éléments, pas le texte).</p>
+                <p><strong>Pourquoi ?</strong> Pour parcourir les éléments enfants et les manipuler : compter les items d'une liste, styliser chaque carte.</p>
+                <p><strong>Astuce :</strong> children est "live", se met à jour automatiquement. Pour un tableau fixe, utilise Array.from(element.children).</p>
+                <code>const liste = document.getElementById('tasks');
+const nbTasks = liste.children.length;
+Array.from(liste.children).forEach((task, i) => {
+    task.textContent = `Tâche ${i + 1}`;
+});</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.childNodes</h3>
+                <p><strong>C'est quoi ?</strong> Retourne TOUS les nœuds enfants : éléments, texte, commentaires, même les espaces vides.</p>
+                <p><strong>Pourquoi ?</strong> Rarement utilisé car inclut les espaces entre balises. Préfère children pour avoir seulement les éléments.</p>
+                <p><strong>Piège :</strong> Un &lt;div&gt;⎵&lt;p&gt;&lt;/p&gt;⎵&lt;/div&gt; a 3 childNodes (texte, p, texte) mais 1 seul children (p).</p>
+                <code>// HTML: &lt;div&gt; &lt;p&gt;Texte&lt;/p&gt; &lt;/div&gt;
+div.childNodes.length; // 3 (texte, p, texte)
+div.children.length; // 1 (seulement p)</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.firstElementChild / element.lastElementChild</h3>
+                <p><strong>C'est quoi ?</strong> Accès direct au premier ou dernier enfant élément (ignore le texte et les espaces).</p>
+                <p><strong>Pourquoi ?</strong> Accès rapide sans boucle : récupérer le premier item d'une liste, le dernier message d'un chat.</p>
+                <p><strong>Best practice :</strong> Toujours préférer firstElementChild à firstChild pour éviter les nœuds texte.</p>
+                <code>const liste = document.getElementById('messages');
+const dernierMsg = liste.lastElementChild;
+dernierMsg.scrollIntoView(); // Scroll vers le dernier message</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.firstChild / element.lastChild</h3>
+                <p><strong>C'est quoi ?</strong> Premier ou dernier nœud enfant, peut être du texte vide ou un commentaire.</p>
+                <p><strong>Pourquoi ?</strong> Déconseillé car imprévisible. Un espace entre balises compte comme firstChild. Utilise firstElementChild.</p>
+                <p><strong>Erreur fréquente :</strong> &lt;ul&gt;⎵&lt;li&gt;...&lt;/li&gt;&lt;/ul&gt; : firstChild est un texte (l'espace), pas le &lt;li&gt; !</p>
+                <code>// ❌ Risqué
+ul.firstChild; // Peut être un espace
+// ✅ Sûr
+ul.firstElementChild; // Toujours le premier &lt;li&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.nextElementSibling / element.previousElementSibling</h3>
+                <p><strong>C'est quoi ?</strong> L'élément frère suivant ou précédent au même niveau dans le DOM.</p>
+                <p><strong>Pourquoi ?</strong> Pour naviguer entre éléments frères : passer d'un onglet au suivant, comparer des éléments adjacents.</p>
+                <p><strong>Use case :</strong> Créer une navigation entre slides, ou sélectionner l'item suivant dans une liste.</p>
+                <code>const currentSlide = document.querySelector('.slide.active');
+currentSlide.classList.remove('active');
+const nextSlide = currentSlide.nextElementSibling || slides[0];
+nextSlide.classList.add('active');</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.nextSibling / element.previousSibling</h3>
+                <p><strong>C'est quoi ?</strong> Le nœud frère suivant/précédent, peut être du texte. Même problème que firstChild.</p>
+                <p><strong>Pourquoi ?</strong> Évite-le. Les espaces entre balises comptent comme nœuds. Utilise nextElementSibling.</p>
+                <p><strong>Règle d'or :</strong> Tout ce qui finit par "Element" (nextElementSibling, firstElementChild) est fiable. Le reste peut retourner du texte.</p>
+                <code>// ❌ Imprévisible
+li.nextSibling; // Peut être un espace
+// ✅ Fiable
+li.nextElementSibling; // Toujours un élément</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.hasChildNodes()</h3>
+                <p><strong>C'est quoi ?</strong> Vérifie si un élément a des enfants (éléments, texte, commentaires). Retourne true/false.</p>
+                <p><strong>Pourquoi ?</strong> Pour vérifier si un conteneur est vide avant de faire une action : afficher un message "Aucun résultat".</p>
+                <p><strong>Alternative :</strong> Utilise element.children.length > 0 pour vérifier seulement les éléments (pas le texte).</p>
+                <code>const resultats = document.getElementById('search-results');
+if (resultats.children.length === 0) {
+    resultats.innerHTML = '&lt;p&gt;Aucun résultat&lt;/p&gt;';
+}</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>document.documentElement</h3>
+                <p><strong>C'est quoi ?</strong> Référence directe à la balise &lt;html&gt;, la racine du document.</p>
+                <p><strong>Pourquoi ?</strong> Pour appliquer des classes/styles globaux : mode sombre, langue, zoom. Très utilisé pour les thèmes.</p>
+                <p><strong>Pattern courant :</strong> Ajouter une classe sur &lt;html&gt; pour changer tout le thème avec CSS.</p>
+                <code>// Toggle dark mode
+const darkModeBtn = document.getElementById('theme-toggle');
+darkModeBtn.addEventListener('click', () => {
+    document.documentElement.classList.toggle('dark-theme');
+});</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>document.body</h3>
+                <p><strong>C'est quoi ?</strong> Référence directe au &lt;body&gt;. Accès rapide sans querySelector.</p>
+                <p><strong>Pourquoi ?</strong> Pour ajouter des éléments globaux (modales, overlays, notifications) ou changer le style de toute la page.</p>
+                <p><strong>Exemple concret :</strong> Ajouter une overlay de chargement, bloquer le scroll, changer la couleur de fond.</p>
+                <code>// Bloquer le scroll pendant une modale
+document.body.style.overflow = 'hidden';
+// Ajouter une notification globale
+const notif = document.createElement('div');
+document.body.appendChild(notif);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>document.head</h3>
+                <p><strong>C'est quoi ?</strong> Référence directe au &lt;head&gt;. Pour manipuler les métadonnées et ressources.</p>
+                <p><strong>Pourquoi ?</strong> Charger dynamiquement des scripts, des styles, modifier le titre ou les meta tags.</p>
+                <p><strong>Use cases :</strong> Lazy load de scripts externes, injection de styles, modification du SEO dynamique.</p>
+                <code>// Charger un script dynamiquement
+const script = document.createElement('script');
+script.src = 'https://cdn.example.com/library.js';
+document.head.appendChild(script);</code>
+            </div>
+        </section>
+
+        <section id="attributs">
+            <h2>🏷️ Gestion des Attributs</h2>
+
+            <div class="tag-card">
+                <h3>element.getAttribute()</h3>
+                <p><strong>C'est quoi ?</strong> Récupère la valeur d'un attribut HTML : href, src, data-*, alt, title, etc.</p>
+                <p><strong>Pourquoi ?</strong> Pour lire des infos stockées dans les attributs : récupérer une URL, un ID, des data attributes personnalisés.</p>
+                <p><strong>Note :</strong> Pour les attributs courants (id, src, href), utilise l'accès direct (element.id) c'est plus rapide.</p>
+                <code>const productId = card.getAttribute('data-product-id');
+const imageUrl = img.getAttribute('src');
+const linkTarget = a.getAttribute('target'); // "_blank"</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.setAttribute()</h3>
+                <p><strong>C'est quoi ?</strong> Définit ou modifie n'importe quel attribut HTML.</p>
+                <p><strong>Pourquoi ?</strong> Changer dynamiquement les attributs : modifier une image, un lien, ajouter des data attributes, changer l'accessibilité.</p>
+                <p><strong>Use cases :</strong> Changer l'image d'un carrousel, mettre à jour un lien dynamique, modifier l'attribut alt pour l'accessibilité.</p>
+                <code>// Changer l'image affichée
+productImg.setAttribute('src', newImageUrl);
+productImg.setAttribute('alt', productName);
+// Rendre un lien externe
+link.setAttribute('target', '_blank');</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.removeAttribute()</h3>
+                <p><strong>C'est quoi ?</strong> Supprime complètement un attribut d'un élément HTML.</p>
+                <p><strong>Pourquoi ?</strong> Réactiver un bouton (retirer disabled), rendre un élément visible (retirer hidden), nettoyer des data attributes.</p>
+                <p><strong>Exemple pratique :</strong> Réactiver le bouton "Envoyer" après validation du formulaire.</p>
+                <code>// Activer le bouton après chargement
+submitBtn.removeAttribute('disabled');
+// Retirer un attribut temporaire
+element.removeAttribute('data-loading');</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.hasAttribute()</h3>
+                <p><strong>C'est quoi ?</strong> Vérifie si un attribut existe sur un élément. Retourne true si présent, false sinon.</p>
+                <p><strong>Pourquoi ?</strong> Pour vérifier un état avant d'agir : est-ce que le bouton est désactivé ? L'élément a-t-il un data attribute ?</p>
+                <p><strong>Astuce :</strong> Utile pour éviter les erreurs. Vérifie que l'attribut existe avant de le lire.</p>
+                <code>if (!submitBtn.hasAttribute('disabled')) {
+    submitBtn.click(); // Clique seulement si actif
+}
+if (element.hasAttribute('data-user-id')) {
+    loadUserData(element.getAttribute('data-user-id'));
+}</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.toggleAttribute()</h3>
+                <p><strong>C'est quoi ?</strong> Ajoute l'attribut s'il est absent, le retire s'il est présent. Comme classList.toggle mais pour les attributs.</p>
+                <p><strong>Pourquoi ?</strong> Parfait pour les attributs booléens : disabled, hidden, readonly. Évite les if/else.</p>
+                <p><strong>Bonus :</strong> Retourne true si ajouté, false si retiré. Tu peux forcer : toggleAttribute('hidden', false) garantit la suppression.</p>
+                <code>// Toggle disabled sur un bouton
+loadMoreBtn.toggleAttribute('disabled');
+// Forcer un état
+input.toggleAttribute('readonly', true); // Force readonly</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.attributes</h3>
+                <p><strong>C'est quoi ?</strong> Collection de TOUS les attributs de l'élément (NamedNodeMap).</p>
+                <p><strong>Pourquoi ?</strong> Rarement utilisé. Utile pour debugger ou copier tous les attributs d'un élément à un autre.</p>
+                <p><strong>Note :</strong> En pratique, tu connais généralement les attributs que tu veux. Utilise getAttribute directement.</p>
+                <code>// Debugger : voir tous les attributs
+for (let attr of element.attributes) {
+    console.log(`${attr.name} = ${attr.value}`);
+}</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.id</h3>
+                <p><strong>C'est quoi ?</strong> Accès direct en lecture/écriture à l'ID de l'élément. Plus rapide que getAttribute('id').</p>
+                <p><strong>Pourquoi ?</strong> Modifier l'ID dynamiquement, ou le lire pour construire un sélecteur ou une URL.</p>
+                <p><strong>Use case :</strong> Générer des IDs uniques pour des éléments créés dynamiquement, ou construire des liens d'ancrage.</p>
+                <code>// Générer un ID unique
+newElement.id = `item-${Date.now()}`;
+// Créer un lien d'ancrage
+const anchorLink = `#${section.id}`;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.dataset</h3>
+                <p><strong>C'est quoi ?</strong> Objet pour accéder aux data-* attributes. data-user-id devient dataset.userId (camelCase automatique).</p>
+                <p><strong>Pourquoi ?</strong> LA méthode pour stocker des données custom sur les éléments : IDs, states, config. Plus propre que des attributs normaux.</p>
+                <p><strong>Pattern puissant :</strong> Stocke l'ID d'un produit sur sa carte, récupère-le au clic pour l'ajouter au panier.</p>
+                <code>// HTML: &lt;div class="product" data-id="42" data-price="19.99"&gt;
+card.addEventListener('click', () => {
+    addToCart(card.dataset.id, card.dataset.price);
+});</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.value</h3>
+                <p><strong>C'est quoi ?</strong> La valeur d'un champ de formulaire (input, textarea, select). C'est ce que l'utilisateur a entré.</p>
+                <p><strong>Pourquoi ?</strong> ESSENTIEL pour tous les formulaires. Récupérer le texte tapé, les options sélectionnées, vider un champ.</p>
+                <p><strong>Best practice :</strong> Toujours trim() les inputs texte pour retirer les espaces inutiles.</p>
+                <code>const email = emailInput.value.trim();
+const password = passwordInput.value;
+// Vider après envoi
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    sendData(emailInput.value);
+    emailInput.value = ''; // Vide le champ
+});</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.checked</h3>
+                <p><strong>C'est quoi ?</strong> État coché/décoché d'une checkbox ou radio button. Boolean : true = coché, false = décoché.</p>
+                <p><strong>Pourquoi ?</strong> Savoir si une case est cochée (acceptation CGV, filtre actif) ou cocher/décocher par code.</p>
+                <p><strong>Exemple concret :</strong> Activer le bouton "S'inscrire" seulement si la checkbox CGV est cochée.</p>
+                <code>const cgvCheckbox = document.getElementById('accept-terms');
+const submitBtn = document.getElementById('submit');
+cgvCheckbox.addEventListener('change', () => {
+    submitBtn.disabled = !cgvCheckbox.checked;
+});</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.disabled</h3>
+                <p><strong>C'est quoi ?</strong> Active (false) ou désactive (true) un champ de formulaire. Les champs disabled ne sont pas envoyés.</p>
+                <p><strong>Pourquoi ?</strong> Empêcher l'interaction : bloquer un bouton pendant un chargement, désactiver des champs selon des conditions.</p>
+                <p><strong>Attention :</strong> Un champ disabled n'envoie PAS sa valeur dans le formulaire. Pour envoyer quand même, utilise readonly.</p>
+                <code>// Bouton de chargement
+submitBtn.disabled = true;
+submitBtn.textContent = 'Chargement...';
+fetch('/api').then(() => submitBtn.disabled = false);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.href / element.src</h3>
+                <p><strong>C'est quoi ?</strong> Accès direct aux URLs : href pour les liens (&lt;a&gt;), src pour images/scripts (&lt;img&gt;, &lt;script&gt;).</p>
+                <p><strong>Pourquoi ?</strong> Modifier dynamiquement les liens et images. Plus simple et rapide que setAttribute.</p>
+                <p><strong>Use cases :</strong> Changer l'image d'une galerie, mettre à jour un lien selon l'état, lazy load d'images.</p>
+                <code>// Carrousel d'images
+nextBtn.addEventListener('click', () => {
+    currentIndex++;
+    mainImage.src = images[currentIndex];
+    mainImage.alt = `Image ${currentIndex + 1}`;
+});</code>
+            </div>
+        </section>
+
+        <section id="dimensions">
+            <h2>📏 Dimensions et Position</h2>
+
+            <div class="tag-card">
+                <h3>element.offsetWidth / element.offsetHeight</h3>
+                <p><strong>C'est quoi ?</strong> La taille TOTALE de l'élément incluant contenu + padding + bordures. C'est l'espace réellement occupé sur la page.</p>
+                <p><strong>Pourquoi ?</strong> Pour connaître les dimensions complètes d'un élément : dimensionner un conteneur, vérifier si un élément rentre dans un espace.</p>
+                <p><strong>Use case :</strong> Vérifier si une image est trop grande, calculer l'espace nécessaire pour un élément dynamique.</p>
+                <code>const img = document.querySelector('img');
+if (img.offsetWidth > 800) {
+    img.style.maxWidth = '100%'; // Responsive
+}
+console.log(`Taille: ${img.offsetWidth}x${img.offsetHeight}px`);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.clientWidth / element.clientHeight</h3>
+                <p><strong>C'est quoi ?</strong> Largeur/hauteur de la zone de contenu (contenu + padding) SANS les bordures ni scrollbar.</p>
+                <p><strong>Pourquoi ?</strong> Pour connaître l'espace disponible à l'intérieur : dimensionner un canvas, calculer des positions relatives au contenu.</p>
+                <p><strong>Différence clé :</strong> offsetWidth inclut les bordures, clientWidth non. Si bordure 2px, offsetWidth = clientWidth + 4px.</p>
+                <code>// Dimensionner un canvas à la taille du conteneur
+const container = document.getElementById('canvas-wrapper');
+canvas.width = container.clientWidth;
+canvas.height = container.clientHeight;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.scrollWidth / element.scrollHeight</h3>
+                <p><strong>C'est quoi ?</strong> Taille TOTALE du contenu, incluant la partie cachée par le scroll. Plus grand que clientWidth si ça déborde.</p>
+                <p><strong>Pourquoi ?</strong> Détecter si un élément a du contenu scrollable, vérifier si l'utilisateur a scrollé jusqu'en bas.</p>
+                <p><strong>Pattern utile :</strong> Détecter si l'utilisateur a lu tout le texte d'un CGU avant d'activer "J'accepte".</p>
+                <code>const terms = document.getElementById('terms');
+terms.addEventListener('scroll', () => {
+    const isBottom = terms.scrollTop + terms.clientHeight >= terms.scrollHeight - 10;
+    if (isBottom) acceptBtn.disabled = false; // Débloquer
+});</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.offsetLeft / element.offsetTop</h3>
+                <p><strong>C'est quoi ?</strong> Distance en pixels de l'élément par rapport à son offsetParent (parent positionné le plus proche).</p>
+                <p><strong>Pourquoi ?</strong> Pour calculer la position relative d'un élément dans son conteneur. Utile pour les tooltips, drag & drop.</p>
+                <p><strong>Attention :</strong> Relatif au parent positionné (position: relative/absolute/fixed), pas forcément le parent direct.</p>
+                <code>// Positionner une tooltip au-dessus d'un élément
+const tooltip = document.getElementById('tooltip');
+tooltip.style.left = element.offsetLeft + 'px';
+tooltip.style.top = (element.offsetTop - 50) + 'px';</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.scrollLeft / element.scrollTop</h3>
+                <p><strong>C'est quoi ?</strong> Position actuelle du scroll horizontal/vertical. En lecture ET écriture : tu peux lire ou modifier le scroll.</p>
+                <p><strong>Pourquoi ?</strong> Contrôler le scroll par code : scroll vers le haut, retenir la position de scroll, créer un carousel horizontal.</p>
+                <p><strong>Exemple pratique :</strong> Bouton "Retour en haut" qui scroll la page vers le top.</p>
+                <code>// Bouton retour en haut
+backToTopBtn.addEventListener('click', () => {
+    document.documentElement.scrollTop = 0;
+    // Ou avec animation:
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.getBoundingClientRect()</h3>
+                <p><strong>C'est quoi ?</strong> Retourne la taille et position de l'élément par rapport au VIEWPORT (la fenêtre visible), pas à la page.</p>
+                <p><strong>Pourquoi ?</strong> LA méthode pour détecter si un élément est visible, positionner des éléments absolus (tooltips, menus), animations au scroll.</p>
+                <p><strong>Astuce :</strong> Si rect.top < window.innerHeight et rect.bottom > 0, l'élément est visible à l'écran.</p>
+                <code>const rect = element.getBoundingClientRect();
+const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+// Tooltip au bon endroit
+tooltip.style.top = rect.bottom + 10 + 'px';
+tooltip.style.left = rect.left + 'px';</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>window.scrollTo() / window.scrollBy()</h3>
+                <p><strong>C'est quoi ?</strong> scrollTo() : scroll à une position absolue. scrollBy() : scroll relatif (ajoute à la position actuelle).</p>
+                <p><strong>Pourquoi ?</strong> Contrôler le scroll de la page : bouton "Retour en haut", navigation par sections, scroll programmatique.</p>
+                <p><strong>Option smooth :</strong> Ajoute { behavior: 'smooth' } pour une animation fluide au lieu d'un saut instantané.</p>
+                <code>// Retour en haut avec animation
+window.scrollTo({ top: 0, behavior: 'smooth' });
+// Scroll 200px vers le bas
+window.scrollBy({ top: 200, behavior: 'smooth' });</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.scrollIntoView()</h3>
+                <p><strong>C'est quoi ?</strong> Scroll automatiquement pour rendre l'élément visible dans le viewport. Support des options d'animation.</p>
+                <p><strong>Pourquoi ?</strong> Navigation vers un élément : scroll vers une erreur de formulaire, navigation par ancres, focus sur un résultat de recherche.</p>
+                <p><strong>Options :</strong> behavior:'smooth' pour l'animation, block:'center' pour centrer verticalement, inline:'nearest' pour l'horizontal.</p>
+                <code>// Scroll vers la première erreur
+const firstError = document.querySelector('.error');
+firstError?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+// Scroll vers une section
+document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });</code>
+            </div>
+        </section>
+
+        <section id="autres">
+            <h2>🔧 Autres Méthodes Utiles</h2>
+
+            <div class="tag-card">
+                <h3>element.focus() / element.blur()</h3>
+                <p><strong>C'est quoi ?</strong> focus() active l'élément (curseur dedans pour les inputs), blur() retire le focus.</p>
+                <p><strong>Pourquoi ?</strong> Améliorer l'UX : mettre le curseur automatiquement dans le champ de recherche, retirer le focus après validation.</p>
+                <p><strong>Exemple concret :</strong> Quand tu ouvres un modal de connexion, mettre le focus direct sur le champ email.</p>
+                <code>// Focus auto sur le champ de recherche
+searchModal.addEventListener('open', () => {
+    searchInput.focus();
+});
+// Retirer le focus après envoi
+form.addEventListener('submit', () => submitBtn.blur());</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.click()</h3>
+                <p><strong>C'est quoi ?</strong> Déclenche un clic programmatique sur l'élément, comme si l'utilisateur avait cliqué.</p>
+                <p><strong>Pourquoi ?</strong> Pour automatiser des actions : ouvrir un file picker custom, soumettre un formulaire, déclencher un téléchargement.</p>
+                <p><strong>Use case classique :</strong> Bouton personnalisé qui déclenche le clic sur un input file caché.</p>
+                <code>// Bouton custom pour upload de fichier
+const customBtn = document.querySelector('.custom-upload-btn');
+const fileInput = document.querySelector('input[type="file"]');
+customBtn.addEventListener('click', () => {
+    fileInput.click(); // Ouvre le sélecteur de fichiers
+});</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.contains()</h3>
+                <p><strong>C'est quoi ?</strong> Vérifie si un élément contient un autre élément dans son arbre DOM. Retourne true/false.</p>
+                <p><strong>Pourquoi ?</strong> Détecter les clics en dehors : fermer un menu si on clique à l'extérieur, fermer une modale au clic outside.</p>
+                <p><strong>Pattern essentiel :</strong> Click outside to close - ferme un élément si le clic est à l'extérieur.</p>
+                <code>// Fermer le menu si clic en dehors
+document.addEventListener('click', (e) => {
+    if (!menu.contains(e.target) && !menuBtn.contains(e.target)) {
+        menu.classList.remove('open');
+    }
+});</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>document.activeElement</h3>
+                <p><strong>C'est quoi ?</strong> Retourne l'élément qui a actuellement le focus (celui où le curseur est).</p>
+                <p><strong>Pourquoi ?</strong> Savoir où est le focus : navigation au clavier, sauvegarder la position, gérer les raccourcis clavier selon le contexte.</p>
+                <p><strong>Astuce :</strong> Si aucun élément n'a le focus, activeElement retourne le &lt;body&gt;.</p>
+                <code>// Désactiver les raccourcis clavier dans les inputs
+document.addEventListener('keydown', (e) => {
+    if (document.activeElement.tagName === 'INPUT') {
+        return; // Ne pas gérer les raccourcis
+    }
+    // Gérer les raccourcis...
+});</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>document.hasFocus()</h3>
+                <p><strong>C'est quoi ?</strong> Vérifie si la page a le focus (l'utilisateur est sur cet onglet). Retourne true/false.</p>
+                <p><strong>Pourquoi ?</strong> Mettre en pause des animations/vidéos quand l'utilisateur change d'onglet, gérer les notifications.</p>
+                <p><strong>Use case :</strong> Économiser les ressources en pausant les requêtes/animations quand l'onglet n'est pas actif.</p>
+                <code>// Pause la vidéo si l'utilisateur change d'onglet
+window.addEventListener('blur', () => {
+    if (!document.hasFocus()) video.pause();
+});
+window.addEventListener('focus', () => video.play());</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>element.isConnected</h3>
+                <p><strong>C'est quoi ?</strong> Vérifie si l'élément est connecté au DOM (existe dans la page). True = dans le DOM, false = supprimé/en mémoire.</p>
+                <p><strong>Pourquoi ?</strong> Éviter les erreurs : vérifier qu'un élément existe toujours avant de le manipuler, surtout dans les callbacks asynchrones.</p>
+                <p><strong>Cas pratique :</strong> Un élément peut être supprimé pendant une requête async. Vérifie isConnected avant de l'update.</p>
+                <code>// Vérifier avant de mettre à jour après un fetch
+fetch('/api/data').then(data => {
+    if (element.isConnected) {
+        element.textContent = data.value;
+    }
+});</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>DOMContentLoaded (événement)</h3>
+                <p><strong>C'est quoi ?</strong> Événement déclenché quand le HTML est parsé et le DOM construit, SANS attendre images/CSS.</p>
+                <p><strong>Pourquoi ?</strong> Exécuter ton JS dès que possible. Plus rapide que 'load'. C'est LE moment pour manipuler le DOM.</p>
+                <p><strong>Best practice :</strong> Utilise DOMContentLoaded pour ton code principal. Utilise 'load' seulement si tu as besoin des images.</p>
+                <code>document.addEventListener('DOMContentLoaded', () => {
+    // Le DOM est prêt, tu peux tout manipuler
+    initApp();
+    attachEventListeners();
+});</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>window.load (événement)</h3>
+                <p><strong>C'est quoi ?</strong> Se déclenche quand TOUT est chargé : HTML, CSS, images, iframes, scripts externes.</p>
+                <p><strong>Pourquoi ?</strong> Quand tu as besoin que les images soient chargées : calculer leur taille, créer un masonry layout, préloader complet.</p>
+                <p><strong>Attention :</strong> Plus lent que DOMContentLoaded. N'utilise que si vraiment nécessaire.</p>
+                <code>window.addEventListener('load', () => {
+    // Tout est chargé, même les images
+    const imgHeight = heroImage.offsetHeight;
+    initMasonryLayout();
+    hideLoader();
+});</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>IntersectionObserver</h3>
+                <p><strong>C'est quoi ?</strong> API moderne pour observer quand un élément entre/sort du viewport. Performant, pas besoin d'écouter le scroll.</p>
+                <p><strong>Pourquoi ?</strong> Lazy loading d'images (charge seulement si visible), animations au scroll, infinite scroll, analytics (temps de visibilité).</p>
+                <p><strong>Avantage :</strong> Beaucoup plus performant que d'écouter l'événement scroll et calculer getBoundingClientRect.</p>
+                <code>// Lazy loading d'images
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.src = entry.target.dataset.src;
+            observer.unobserve(entry.target);
+        }
+    });
+});
+document.querySelectorAll('img[data-src]').forEach(img => observer.observe(img));</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>MutationObserver</h3>
+                <p><strong>C'est quoi ?</strong> Observe les changements dans le DOM : éléments ajoutés/supprimés, attributs modifiés, texte changé.</p>
+                <p><strong>Pourquoi ?</strong> Réagir aux changements du DOM : adapter l'UI quand du contenu est ajouté dynamiquement, créer des composants réactifs.</p>
+                <p><strong>Use case :</strong> Détecter quand des messages sont ajoutés à un chat pour auto-scroll, réinitialiser des listeners.</p>
+                <code>const observer = new MutationObserver((mutations) => {
+    mutations.forEach(mutation => {
+        if (mutation.addedNodes.length) {
+            // Des éléments ont été ajoutés
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+    });
+});
+observer.observe(chatBox, { childList: true });</code>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>⚡ Guide JavaScript & DOM pour maîtriser l'interactivité de tes pages !</p>
+        <p>
+            <a href="html-guide.html">← Guide HTML</a> |
+            <a href="css-guide.html">Guide CSS</a> |
+            <a href="bootstrap-guide.html">Guide Bootstrap</a> |
+            <a href="git-guide.html">Guide Git</a>
+        </p>
+    </footer>
+
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const allCards = document.querySelectorAll('.tag-card');
+
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase().trim();
+
+            // Réinitialiser tous les backgrounds
+            allCards.forEach(card => {
+                card.style.backgroundColor = '';
+            });
+
+            if (searchTerm === '') return;
+
+            // Chercher dans tous les h3
+            allCards.forEach(card => {
+                const h3 = card.querySelector('h3');
+                const methodName = h3.textContent.toLowerCase().trim();
+
+                if (methodName.includes(searchTerm)) {
+                    // Surligner la carte
+                    card.style.backgroundColor = '#fff3cd';
+
+                    // Scroller vers le premier résultat
+                    if (document.querySelector('.tag-card[style*="background-color"]') === card) {
+                        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

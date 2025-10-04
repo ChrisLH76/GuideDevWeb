@@ -1,0 +1,15 @@
+# Ignorer tous les fichiers .log
+*.log
+
+# Ignorer un dossier spécifique
+node_modules/
+
+# Ignorer les fichiers temporaires de macOS
+.DS_Store
+
+# Ignorer les fichiers Python compilés
+*.pyc
+__pycache__/
+
+# Ignorer les fichiers d’environnement
+.env

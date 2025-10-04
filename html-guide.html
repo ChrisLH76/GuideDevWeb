@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide HTML</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <aside>
+        <h1>📚 Le Guide Complet des Balises HTML</h1>
+        <p class="subtitle">Toutes les balises HTML expliquées simplement !</p>
+        <p>
+            <a href="css-guide.html">Guide CSS</a>
+            <a href="js-guide.html">Guide JavaScript</a>
+            <a href="bootstrap-guide.html">Guide Bootstrap</a>
+            <a href="git-guide.html">Guide Git</a>
+        </p>
+    </aside>
+
+    <nav>
+        <div class="nav-logo">
+            <svg viewBox="0 0 452 520" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#E34F26" d="M41 460L0 0h451l-41 460-185 52"/>
+                <path fill="#EF652A" d="M226 472l149-41 35-394H226"/>
+                <path fill="#EBEBEB" d="M226 208h-75l-5-58h80V94H84l15 171h127zm0 147l-64-17-4-45h-56l7 89 117 32z"/>
+                <path fill="#FFF" d="M226 265h69l-7 73-62 17v59l115-32 16-174H226zm0-171v56h136l5-56z"/>
+            </svg>
+        </div>
+        <ul>
+            <li><a href="#structure">Structure</a></li>
+            <li><a href="#texte">Texte</a></li>
+            <li><a href="#liens">Liens & Média</a></li>
+            <li><a href="#listes">Listes</a></li>
+            <li><a href="#tableaux">Tableaux</a></li>
+            <li><a href="#formulaires">Formulaires</a></li>
+            <li><a href="#semantique">Sémantique</a></li>
+        </ul>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Rechercher..." />
+        </div>
+    </nav>
+
+    <main>
+        <section id="structure">
+            <h2>🏗️ Balises de Structure</h2>
+
+            <div class="tag-card">
+                <h3>&lt;html&gt;</h3>
+                <p><strong>C'est quoi ?</strong> C'est la balise racine qui enveloppe absolument tout ton site web, comme une grande boîte qui contient toutes les autres balises.</p>
+                <p><strong>Pourquoi ?</strong> Elle indique au navigateur "Hey, c'est du HTML qui commence ici !" et permet de définir la langue du site avec l'attribut lang="fr".</p>
+                <p><strong>Astuce :</strong> Tu dois toujours avoir UNE SEULE balise &lt;html&gt; par page, jamais plus !</p>
+                <code>&lt;html lang="fr"&gt;
+  &lt;!-- Tout ton site ici --&gt;
+&lt;/html&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;head&gt;</h3>
+                <p><strong>C'est quoi ?</strong> C'est la tête invisible de ton site qui contient toutes les infos techniques : le titre, les liens vers CSS et JavaScript, les métadonnées pour Google, etc.</p>
+                <p><strong>Pourquoi ?</strong> Le navigateur a besoin de ces infos pour bien afficher ta page, mais rien de ce qui est dans &lt;head&gt; n'apparaît directement sur la page.</p>
+                <p><strong>Exemple concret :</strong> C'est là que tu mets le titre de l'onglet, l'icône du site (favicon), et les liens vers tes fichiers CSS.</p>
+                <code>&lt;head&gt;
+  &lt;title&gt;Mon site&lt;/title&gt;
+  &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;body&gt;</h3>
+                <p><strong>C'est quoi ?</strong> C'est le corps de ton site, là où tu mets TOUT ce qui sera visible : textes, images, vidéos, boutons, formulaires, etc.</p>
+                <p><strong>Pourquoi ?</strong> C'est la zone de contenu principal. Si tu vois quelque chose sur une page web, c'est forcément dans le &lt;body&gt;.</p>
+                <p><strong>Important :</strong> Une seule balise &lt;body&gt; par page, et elle vient toujours après le &lt;head&gt;.</p>
+                <code>&lt;body&gt;
+  &lt;h1&gt;Bienvenue !&lt;/h1&gt;
+  &lt;p&gt;Ceci est visible&lt;/p&gt;
+&lt;/body&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;title&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Le titre qui s'affiche dans l'onglet de ton navigateur, dans les résultats Google, et quand tu mets la page en favoris.</p>
+                <p><strong>Pourquoi ?</strong> C'est super important pour le référencement (SEO) et pour que les gens sachent sur quelle page ils sont. Un bon titre = plus de visiteurs !</p>
+                <p><strong>Conseil :</strong> Garde-le court (50-60 caractères max) et descriptif. Évite "Page 1" ou "Sans titre", sois précis !</p>
+                <code>&lt;title&gt;Recette de cookies - Blog cuisine&lt;/title&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;meta&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Des infos invisibles sur ton site : l'encodage des caractères, la description pour Google, les mots-clés, comment le site s'affiche sur mobile, etc.</p>
+                <p><strong>Pourquoi ?</strong> Sans charset="UTF-8", les accents peuvent bugger. La description apparaît dans les résultats Google, et viewport rend ton site responsive sur téléphone.</p>
+                <p><strong>Astuce :</strong> Mets toujours charset en premier dans le &lt;head&gt; et écris une description accrocheuse de 150-160 caractères pour Google !</p>
+                <code>&lt;meta charset="UTF-8"&gt;
+&lt;meta name="description" content="Apprends le HTML facilement"&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;link&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Relie ton fichier CSS à ton HTML pour que les styles s'appliquent. Tu peux aussi l'utiliser pour ajouter une favicon (icône de l'onglet) ou des polices Google.</p>
+                <p><strong>Pourquoi ?</strong> Sans ça, ton site sera tout moche sans couleurs ni mise en page. Le CSS doit être dans un fichier séparé pour garder ton code organisé.</p>
+                <p><strong>Exemple concret :</strong> Crée un fichier style.css dans le même dossier que ton HTML, puis lie-le avec cette balise dans le &lt;head&gt;.</p>
+                <code>&lt;link rel="stylesheet" href="style.css"&gt;
+&lt;link rel="icon" href="favicon.ico"&gt;
+&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;script&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Ajoute du JavaScript à ton site pour le rendre interactif : animations, boutons qui font des actions, formulaires qui se valident, etc.</p>
+                <p><strong>Pourquoi ?</strong> HTML c'est la structure, CSS c'est le style, et JavaScript c'est l'interactivité ! Sans JS, ton site est statique comme une affiche.</p>
+                <p><strong>Conseil :</strong> Mets toujours defer dans la balise pour que le JS se charge après le HTML. Place-la juste avant &lt;/body&gt; ou dans le &lt;head&gt; avec defer.</p>
+                <code>&lt;script src="script.js" defer&gt;&lt;/script&gt;
+&lt;!-- OU directement dans le HTML : --&gt;
+&lt;script&gt;alert("Hello!");&lt;/script&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;style&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Écrit du CSS directement dans ton HTML au lieu de créer un fichier .css séparé. Pratique pour des petits tests rapides.</p>
+                <p><strong>Pourquoi ?</strong> C'est plus rapide pour tester un truc vite fait, mais pour un vrai projet, utilise toujours un fichier CSS externe (c'est plus propre et réutilisable).</p>
+                <p><strong>Astuce :</strong> Utilise &lt;style&gt; seulement pour des tests ou des styles très spécifiques à UNE page. Sinon, préfère &lt;link rel="stylesheet"&gt;.</p>
+                <code>&lt;style&gt;
+  body { background-color: #f0f0f0; }
+  h1 { color: navy; font-size: 2em; }
+&lt;/style&gt;</code>
+            </div>
+        </section>
+
+        <section id="texte">
+            <h2>✏️ Balises de Texte</h2>
+
+            <div class="tag-card">
+                <h3>&lt;h1&gt; à &lt;h6&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Les titres de ton site, de h1 (le plus important et le plus gros) à h6 (le moins important et le plus petit). C'est la hiérarchie de tes contenus.</p>
+                <p><strong>Pourquoi ?</strong> Google utilise ces balises pour comprendre la structure de ton site. Un h1 clair améliore ton référencement et aide les lecteurs d'écran (accessibilité).</p>
+                <p><strong>Règle d'or :</strong> UN SEUL h1 par page (ton titre principal), puis h2 pour les sections, h3 pour les sous-sections, etc. Ne saute pas de niveau !</p>
+                <code>&lt;h1&gt;Mon Blog de Cuisine&lt;/h1&gt;
+&lt;h2&gt;Recettes de Desserts&lt;/h2&gt;
+&lt;h3&gt;Cookies au Chocolat&lt;/h3&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;p&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Un paragraphe de texte normal. C'est la balise que tu utiliseras le PLUS souvent pour écrire du contenu lisible sur ton site.</p>
+                <p><strong>Pourquoi ?</strong> Chaque paragraphe crée automatiquement un espace avant et après, ce qui rend ton texte aéré et facile à lire. Ne mets jamais de texte sans balise !</p>
+                <p><strong>Astuce :</strong> Un paragraphe = une idée. Si tu changes de sujet, crée un nouveau &lt;p&gt;. Évite de faire des pavés de 20 lignes dans un seul &lt;p&gt; !</p>
+                <code>&lt;p&gt;Bienvenue sur mon site web !&lt;/p&gt;
+&lt;p&gt;Je partage ici mes passions : code, photo et voyages.&lt;/p&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;br&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Un saut de ligne simple, comme quand tu appuies sur Entrée. Ça passe à la ligne suivante SANS créer d'espace comme le fait &lt;p&gt;.</p>
+                <p><strong>Pourquoi ?</strong> Utile pour les adresses, les poèmes, ou quand tu veux juste sauter une ligne sans créer un nouveau paragraphe. Pas besoin de balise fermante !</p>
+                <p><strong>Attention :</strong> N'abuse pas du &lt;br&gt; ! Si tu en mets 3 d'affilée pour faire de l'espace, utilise plutôt du CSS (margin ou padding).</p>
+                <code>123 Rue de Paris&lt;br&gt;
+75001 Paris&lt;br&gt;
+France</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;hr&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Une ligne horizontale qui traverse toute la largeur de la page. Parfait pour séparer visuellement deux sections de contenu différentes.</p>
+                <p><strong>Pourquoi ?</strong> Ça indique une rupture thématique dans ton contenu, comme un changement de sujet. C'est plus fort qu'un simple espace entre deux paragraphes.</p>
+                <p><strong>Exemple concret :</strong> Tu écris un article avec une introduction, puis &lt;hr&gt;, puis le contenu principal. Ou pour séparer deux chapitres d'une histoire.</p>
+                <code>&lt;p&gt;Fin de la première partie.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Début de la seconde partie.&lt;/p&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;strong&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Met du texte en gras ET indique que c'est vraiment important. Les lecteurs d'écran vont insister sur ce mot pour les personnes aveugles.</p>
+                <p><strong>Pourquoi ?</strong> C'est pas juste pour le style (comme &lt;b&gt;), c'est pour dire "Attention, ce mot est crucial !". Google comprend aussi que c'est important.</p>
+                <p><strong>Conseil :</strong> Utilise &lt;strong&gt; pour les avertissements, les mots-clés importants. Pour juste du gras visuel sans importance, utilise &lt;b&gt; ou du CSS.</p>
+                <code>&lt;p&gt;&lt;strong&gt;Attention :&lt;/strong&gt; La date limite est demain !&lt;/p&gt;
+&lt;p&gt;Ce produit est &lt;strong&gt;en rupture de stock&lt;/strong&gt;.&lt;/p&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;em&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Met du texte en italique pour donner de l'emphase, comme quand tu insistes sur un mot en parlant. Les lecteurs d'écran changent le ton de voix.</p>
+                <p><strong>Pourquoi ?</strong> C'est pas juste pour le style (comme &lt;i&gt;), c'est pour donner du sens : mettre en valeur, exprimer une émotion, ou insister sur quelque chose.</p>
+                <p><strong>Astuce :</strong> Utilise &lt;em&gt; quand tu dirais le mot plus fort à l'oral. Pour juste de l'italique sans emphase (titre de livre), utilise &lt;i&gt;.</p>
+                <code>&lt;p&gt;Je suis &lt;em&gt;vraiment&lt;/em&gt; content de te voir !&lt;/p&gt;
+&lt;p&gt;C'est &lt;em&gt;toi&lt;/em&gt; qui as fait ça ?&lt;/p&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;b&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Met du texte en gras juste pour le style visuel, SANS indiquer que c'est important. C'est purement esthétique.</p>
+                <p><strong>Pourquoi ?</strong> Parfois tu veux juste attirer l'œil sur un mot (un nom de produit, un mot-clé) sans dire que c'est "important". C'est la différence avec &lt;strong&gt;.</p>
+                <p><strong>Quand l'utiliser ?</strong> Pour les premiers mots d'un paragraphe, les noms de produits, ou les mots-clés dans un résumé. Si c'est vraiment important, utilise &lt;strong&gt; !</p>
+                <code>&lt;p&gt;&lt;b&gt;iPhone 15 Pro&lt;/b&gt; - Le smartphone de l'année&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Ingrédients :&lt;/b&gt; farine, sucre, œufs&lt;/p&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;i&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Met du texte en italique juste pour le style, SANS donner d'emphase. Utilisé pour les termes techniques, mots étrangers, pensées, etc.</p>
+                <p><strong>Pourquoi ?</strong> C'est différent de &lt;em&gt; : ici c'est juste une convention visuelle (comme mettre en italique un titre de livre ou un mot latin).</p>
+                <p><strong>Exemples concrets :</strong> Titres d'œuvres (films, livres), mots en langue étrangère, termes scientifiques, pensées d'un personnage. Pour l'emphase, utilise &lt;em&gt; !</p>
+                <code>&lt;p&gt;J'ai adoré le film &lt;i&gt;Inception&lt;/i&gt; !&lt;/p&gt;
+&lt;p&gt;C'est du &lt;i&gt;déjà vu&lt;/i&gt; (expression française).&lt;/p&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;u&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Souligne du texte. Attention, les gens vont penser que c'est un lien cliquable ! Utilise-le avec précaution.</p>
+                <p><strong>Pourquoi ?</strong> Utile pour marquer des fautes d'orthographe dans un texte cité, des noms propres en chinois, ou des annotations. Mais évite-le pour juste "faire joli".</p>
+                <p><strong>Conseil :</strong> N'utilise JAMAIS &lt;u&gt; pour souligner un mot important (les gens vont cliquer dessus en pensant que c'est un lien). Préfère du CSS.</p>
+                <code>&lt;p&gt;Le mot &lt;u&gt;exepmle&lt;/u&gt; contient une faute.&lt;/p&gt;
+&lt;!-- Mieux : utilise CSS text-decoration: underline; --&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;small&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Affiche du texte plus petit que le texte normal. Parfait pour les mentions légales, le copyright, les notes de bas de page, ou les petits détails.</p>
+                <p><strong>Pourquoi ?</strong> Ça indique que l'info est secondaire ou moins importante. C'est mieux que de réduire la taille avec du CSS car ça a aussi un sens sémantique.</p>
+                <p><strong>Exemples concrets :</strong> "© 2025", "TVA incluse", "Sous réserve de disponibilité", ou toutes les petites lignes que personne ne lit en bas des pages !</p>
+                <code>&lt;p&gt;Prix : 99€ &lt;small&gt;(frais de port non inclus)&lt;/small&gt;&lt;/p&gt;
+&lt;small&gt;© 2025 MonSite. Tous droits réservés.&lt;/small&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;mark&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Surligne du texte avec un fond jaune (comme un surligneur fluo). Ça attire immédiatement l'œil sur les mots importants.</p>
+                <p><strong>Pourquoi ?</strong> Super utile pour mettre en évidence des résultats de recherche, des mots-clés trouvés, ou des infos qui changent (nouveau prix, mise à jour récente).</p>
+                <p><strong>Exemple concret :</strong> Imagine une barre de recherche : quand tu tapes "HTML", tous les mots "HTML" sur la page seront surlignés en jaune avec &lt;mark&gt; !</p>
+                <code>&lt;p&gt;Résultat de recherche : &lt;mark&gt;HTML&lt;/mark&gt; est un langage.&lt;/p&gt;
+&lt;p&gt;Prix : &lt;mark&gt;50€&lt;/mark&gt; au lieu de 100€&lt;/p&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;del&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Texte barré qui indique que l'info a été supprimée ou n'est plus valide. Ça montre l'ancien contenu tout en le marquant comme obsolète.</p>
+                <p><strong>Pourquoi ?</strong> Super pour montrer les changements de prix (ancien vs nouveau), les modifications dans un document, ou ce qui a été retiré d'une liste de courses.</p>
+                <p><strong>Astuce :</strong> Combine &lt;del&gt; avec &lt;ins&gt; pour montrer clairement ce qui a changé : l'ancien texte barré, le nouveau souligné ou en couleur !</p>
+                <code>&lt;p&gt;Prix : &lt;del&gt;100€&lt;/del&gt; 50€ !&lt;/p&gt;
+&lt;p&gt;&lt;del&gt;Réunion à 14h&lt;/del&gt; &lt;ins&gt;Réunion à 15h&lt;/ins&gt;&lt;/p&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;ins&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Texte souligné qui indique que c'est un ajout récent ou une nouvelle info. Par défaut, il apparaît souligné pour bien le repérer.</p>
+                <p><strong>Pourquoi ?</strong> Parfait pour montrer ce qui a été ajouté dans un document, une nouvelle fonctionnalité, ou un changement important qu'on veut mettre en évidence.</p>
+                <p><strong>Exemple concret :</strong> Sur un site e-commerce, tu peux montrer "&lt;ins&gt;Nouveau !&lt;/ins&gt; Livraison gratuite". Ou dans un changelog pour marquer les nouvelles features.</p>
+                <code>&lt;p&gt;&lt;ins&gt;Mise à jour :&lt;/ins&gt; Nouveau mode sombre disponible !&lt;/p&gt;
+&lt;p&gt;Prix : &lt;del&gt;50€&lt;/del&gt; &lt;ins&gt;30€&lt;/ins&gt;&lt;/p&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;sub&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Met du texte en indice (en dessous et plus petit), comme dans les formules chimiques ou mathématiques. Le texte descend sous la ligne normale.</p>
+                <p><strong>Pourquoi ?</strong> Indispensable pour écrire correctement des formules scientifiques. Sans ça, "H2O" ne ressemble pas à une vraie formule chimique.</p>
+                <p><strong>Exemples concrets :</strong> Formules chimiques (H₂O, CO₂), notations mathématiques (x₁, x₂), ou notes de bas de page avec des numéros en indice.</p>
+                <code>&lt;p&gt;La molécule d'eau est H&lt;sub&gt;2&lt;/sub&gt;O&lt;/p&gt;
+&lt;p&gt;Le CO&lt;sub&gt;2&lt;/sub&gt; est un gaz à effet de serre&lt;/p&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;sup&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Met du texte en exposant (au-dessus et plus petit), comme dans les puissances mathématiques ou les notes de bas de page. Le texte monte au-dessus de la ligne.</p>
+                <p><strong>Pourquoi ?</strong> Essentiel pour les formules mathématiques (x², x³), les ordinaux (1er, 2ème), ou les références (note¹, note²) qui renvoient en bas de page.</p>
+                <p><strong>Exemples concrets :</strong> E=mc², 10⁶, "il est né le 1er janvier", ou pour marquer les sources d'un texte avec des numéros en exposant.</p>
+                <code>&lt;p&gt;E = mc&lt;sup&gt;2&lt;/sup&gt; (formule d'Einstein)&lt;/p&gt;
+&lt;p&gt;5&lt;sup&gt;3&lt;/sup&gt; = 125&lt;/p&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;code&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Affiche du code informatique dans une police monospace (comme Courier). Parfait pour montrer des bouts de code au milieu d'une phrase normale.</p>
+                <p><strong>Pourquoi ?</strong> Ça différencie visuellement le code du texte normal : police différente, souvent sur fond gris. Les développeurs repèrent instantanément que c'est du code.</p>
+                <p><strong>Astuce :</strong> Pour UNE ligne de code, utilise &lt;code&gt;. Pour PLUSIEURS lignes, combine &lt;pre&gt;&lt;code&gt; ensemble pour garder l'indentation et les sauts de ligne !</p>
+                <code>&lt;p&gt;Utilise la fonction &lt;code&gt;console.log()&lt;/code&gt; pour débugger.&lt;/p&gt;
+&lt;p&gt;La variable &lt;code&gt;userName&lt;/code&gt; stocke le nom.&lt;/p&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;pre&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Texte "préformaté" qui garde TOUS les espaces, tabulations et sauts de ligne exactement comme tu les écris. Rien n'est écrasé par le navigateur.</p>
+                <p><strong>Pourquoi ?</strong> Normalement HTML ignore les doubles espaces et sauts de ligne. Avec &lt;pre&gt;, tout est conservé : parfait pour afficher du code avec son indentation !</p>
+                <p><strong>Conseil :</strong> Combine toujours &lt;pre&gt; avec &lt;code&gt; pour afficher du code multi-lignes : &lt;pre&gt;&lt;code&gt;ton code ici&lt;/code&gt;&lt;/pre&gt;. C'est le combo parfait !</p>
+                <code>&lt;pre&gt;&lt;code&gt;function hello() {
+  console.log("Hello!");
+  return true;
+}&lt;/code&gt;&lt;/pre&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;blockquote&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Une citation longue (plusieurs lignes) provenant d'une autre source. Par défaut, elle est indentée (décalée vers la droite) pour la faire ressortir.</p>
+                <p><strong>Pourquoi ?</strong> Ça indique clairement que ce n'est pas TON texte mais une citation. Tu peux ajouter l'attribut cite="URL" pour indiquer la source originale.</p>
+                <p><strong>Exemple concret :</strong> Citations de livres, témoignages clients, extraits d'articles. Pour une citation courte dans une phrase, utilise &lt;q&gt; à la place.</p>
+                <code>&lt;blockquote cite="https://source.com"&gt;
+  &lt;p&gt;"La vie c'est comme une bicyclette, il faut avancer pour ne pas perdre l'équilibre."&lt;/p&gt;
+  &lt;footer&gt;— Albert Einstein&lt;/footer&gt;
+&lt;/blockquote&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;q&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Une citation courte DANS une phrase (inline). Le navigateur ajoute automatiquement des guillemets autour, tu n'as pas besoin de les taper !</p>
+                <p><strong>Pourquoi ?</strong> C'est mieux que de juste mettre des guillemets "comme ça" car ça a un sens sémantique : Google et les lecteurs d'écran savent que c'est une citation.</p>
+                <p><strong>Différence avec blockquote :</strong> &lt;q&gt; = citation courte dans une phrase. &lt;blockquote&gt; = citation longue sur plusieurs lignes. Simple !</p>
+                <code>&lt;p&gt;Einstein a dit : &lt;q&gt;L'imagination est plus importante que le savoir.&lt;/q&gt;&lt;/p&gt;
+&lt;p&gt;Comme dirait ma mère : &lt;q&gt;Fais tes devoirs !&lt;/q&gt;&lt;/p&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;abbr&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Explique une abréviation ou un acronyme. Quand tu survoles avec la souris, une infobulle affiche la signification complète grâce à l'attribut title.</p>
+                <p><strong>Pourquoi ?</strong> Tout le monde ne connaît pas tous les acronymes ! Ça améliore l'accessibilité et aide les nouveaux visiteurs à comprendre ton contenu sans chercher sur Google.</p>
+                <p><strong>Exemple concret :</strong> NASA, HTML, CSS, ASAP, FBI, etc. Par défaut, les navigateurs soulignent en pointillés les abréviations pour montrer qu'il y a une explication.</p>
+                <code>&lt;p&gt;J'apprends le &lt;abbr title="HyperText Markup Language"&gt;HTML&lt;/abbr&gt; !&lt;/p&gt;
+&lt;p&gt;La &lt;abbr title="National Aeronautics and Space Administration"&gt;NASA&lt;/abbr&gt; explore l'espace.&lt;/p&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;span&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Un conteneur "inline" (dans la ligne) complètement neutre et invisible. Il sert UNIQUEMENT à cibler un bout de texte pour lui appliquer du style CSS ou du JavaScript.</p>
+                <p><strong>Pourquoi ?</strong> Parfois tu veux colorier un seul mot dans une phrase, ou animer juste une partie du texte. &lt;span&gt; est le conteneur parfait car il ne change rien visuellement.</p>
+                <p><strong>Astuce :</strong> &lt;span&gt; = inline (dans la ligne), &lt;div&gt; = block (prend toute la largeur). Utilise &lt;span&gt; pour un mot, &lt;div&gt; pour une section entière !</p>
+                <code>&lt;p&gt;Ce mot est &lt;span class="rouge"&gt;rouge&lt;/span&gt; et celui-là est &lt;span class="bleu"&gt;bleu&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;Prix : &lt;span id="prix"&gt;50€&lt;/span&gt;&lt;/p&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;div&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Une boîte "block" (prend toute la largeur) complètement neutre. C'est LA balise pour regrouper des éléments et créer des sections sur ton site.</p>
+                <p><strong>Pourquoi ?</strong> Tu peux y mettre plusieurs paragraphes, images, titres, etc., puis styliser TOUT le groupe en une fois avec CSS. C'est le Lego de base du web !</p>
+                <p><strong>Attention :</strong> N'abuse pas des &lt;div&gt; ! Si tu peux utiliser une balise sémantique (&lt;header&gt;, &lt;section&gt;, &lt;article&gt;), fais-le. Sinon, &lt;div&gt; c'est parfait !</p>
+                <code>&lt;div class="carte-produit"&gt;
+  &lt;h3&gt;iPhone 15&lt;/h3&gt;
+  &lt;img src="iphone.jpg"&gt;
+  &lt;p&gt;999€&lt;/p&gt;
+&lt;/div&gt;</code>
+            </div>
+        </section>
+
+        <section id="liens">
+            <h2>🔗 Liens et Médias</h2>
+
+            <div class="tag-card">
+                <h3>&lt;a&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Un lien cliquable (ancre) qui t'emmène vers une autre page web, un fichier à télécharger, une autre partie de la même page, ou même pour envoyer un email.</p>
+                <p><strong>Pourquoi ?</strong> C'est LA balise qui fait d'Internet un "web" (toile) : tout est connecté par des liens ! Sans &lt;a&gt;, tu ne pourrais pas naviguer entre les pages.</p>
+                <p><strong>Astuce :</strong> Ajoute target="_blank" pour ouvrir dans un nouvel onglet. Utilise href="#" pour les ancres internes (sauter à une section de la page).</p>
+                <code>&lt;a href="https://google.com"&gt;Aller sur Google&lt;/a&gt;
+&lt;a href="page2.html"&gt;Page suivante&lt;/a&gt;
+&lt;a href="#section2"&gt;Aller à la section 2&lt;/a&gt;
+&lt;a href="mailto:moi@email.com"&gt;M'envoyer un email&lt;/a&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;img&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Affiche une image sur ta page. src indique le chemin de l'image, alt est le texte qui s'affiche si l'image ne charge pas (important pour l'accessibilité).</p>
+                <p><strong>Pourquoi ?</strong> Sans images, Internet serait super ennuyeux ! L'attribut alt est OBLIGATOIRE : il aide les aveugles et apparaît si l'image bug.</p>
+                <p><strong>Conseil :</strong> Toujours mettre alt avec une vraie description utile (pas "image"). Ajoute width et height pour éviter que la page saute pendant le chargement.</p>
+                <code>&lt;img src="chat.jpg" alt="Un chat roux qui dort sur un canapé" width="400"&gt;
+&lt;img src="https://site.com/logo.png" alt="Logo de l'entreprise"&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;video&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Intègre une vidéo directement sur ta page (pas besoin de YouTube !). L'attribut controls ajoute les boutons play/pause/volume.</p>
+                <p><strong>Pourquoi ?</strong> Tu peux héberger tes propres vidéos sans dépendre de YouTube ou autre. C'est parfait pour des vidéos produits, tutoriels, ou portfolios.</p>
+                <p><strong>Astuce :</strong> Ajoute autoplay (lecture auto), muted (muet par défaut), loop (répète en boucle), ou poster="image.jpg" pour l'image d'aperçu avant lecture.</p>
+                <code>&lt;video src="demo.mp4" controls width="600"&gt;
+  Ton navigateur ne supporte pas la vidéo.
+&lt;/video&gt;
+&lt;video autoplay muted loop poster="thumbnail.jpg"&gt;&lt;/video&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;audio&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Intègre un fichier audio sur ta page : musique, podcast, son d'ambiance, etc. L'attribut controls affiche le lecteur audio avec play/pause.</p>
+                <p><strong>Pourquoi ?</strong> Parfait pour les sites de musiciens, les podcasts, ou ajouter des effets sonores. Tu gardes le contrôle total du design contrairement à SoundCloud.</p>
+                <p><strong>Conseil :</strong> Ajoute autoplay pour jouer automatiquement (attention, ça peut être agaçant !), loop pour répéter, ou preload="auto" pour pré-charger le fichier.</p>
+                <code>&lt;audio src="podcast.mp3" controls&gt;
+  Ton navigateur ne supporte pas l'audio.
+&lt;/audio&gt;
+&lt;audio autoplay loop&gt;&lt;source src="ambiance.mp3"&gt;&lt;/audio&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;source&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Propose plusieurs versions d'un fichier vidéo ou audio. Le navigateur choisit automatiquement celle qu'il peut lire (compatibilité maximale).</p>
+                <p><strong>Pourquoi ?</strong> Tous les navigateurs ne supportent pas tous les formats. En proposant MP4 ET WebM par exemple, tu es sûr que ça marche partout.</p>
+                <p><strong>Exemple concret :</strong> Mets plusieurs &lt;source&gt; dans un &lt;video&gt; avec différents formats. Le navigateur essaie dans l'ordre et prend le premier qu'il comprend.</p>
+                <code>&lt;video controls&gt;
+  &lt;source src="video.webm" type="video/webm"&gt;
+  &lt;source src="video.mp4" type="video/mp4"&gt;
+  Ton navigateur ne supporte pas la vidéo.
+&lt;/video&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;iframe&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Intègre une page web ENTIÈRE à l'intérieur de ta page. C'est comme une fenêtre vers un autre site : vidéos YouTube, maps Google, formulaires, etc.</p>
+                <p><strong>Pourquoi ?</strong> Au lieu de coder toi-même une carte interactive, tu intègres Google Maps. Au lieu d'héberger des vidéos, tu intègres YouTube. Pratique et rapide !</p>
+                <p><strong>Attention :</strong> N'abuse pas des iframes (ça ralentit la page). Définis toujours width et height. Certains sites bloquent l'intégration pour des raisons de sécurité.</p>
+                <code>&lt;iframe src="https://www.youtube.com/embed/VIDEO_ID" width="560" height="315"&gt;&lt;/iframe&gt;
+&lt;iframe src="https://maps.google.com/..." width="600" height="400"&gt;&lt;/iframe&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;picture&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Affiche différentes images selon la taille d'écran. Sur mobile, une petite image légère. Sur PC, une grande image HD. C'est le responsive pour les images !</p>
+                <p><strong>Pourquoi ?</strong> Ça optimise la vitesse : pourquoi charger une énorme image 4K sur un petit téléphone ? Ça économise de la data et charge plus vite.</p>
+                <p><strong>Exemple concret :</strong> Une photo portrait sur mobile, la même en paysage sur tablette, et en HD sur desktop. Le navigateur choisit automatiquement la bonne.</p>
+                <code>&lt;picture&gt;
+  &lt;source media="(min-width: 800px)" srcset="grande.jpg"&gt;
+  &lt;source media="(min-width: 400px)" srcset="moyenne.jpg"&gt;
+  &lt;img src="petite.jpg" alt="Photo responsive"&gt;
+&lt;/picture&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;svg&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Dessine des formes vectorielles : cercles, rectangles, lignes, courbes, etc. Les SVG restent nets même en zoomant à 1000% (contrairement aux JPG/PNG) !</p>
+                <p><strong>Pourquoi ?</strong> Parfait pour les logos, icônes, graphiques, ou illustrations. Le fichier est souvent plus léger qu'une image, et tu peux le styliser avec CSS.</p>
+                <p><strong>Astuce :</strong> Tu peux créer des SVG avec des outils comme Figma ou Illustrator, puis copier le code directement dans ton HTML. Changeable en CSS !</p>
+                <code>&lt;svg width="100" height="100"&gt;
+  &lt;circle cx="50" cy="50" r="40" fill="blue" /&gt;
+  &lt;rect x="20" y="20" width="60" height="60" fill="red" /&gt;
+&lt;/svg&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;canvas&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Une zone de dessin vierge que tu contrôles ENTIÈREMENT avec JavaScript. Tu peux dessiner, animer, créer des jeux, des graphiques en temps réel.</p>
+                <p><strong>Pourquoi ?</strong> Contrairement au SVG (déclaratif), le canvas te donne un contrôle pixel par pixel. Parfait pour les jeux 2D, animations complexes, ou data visualisation.</p>
+                <p><strong>Exemple concret :</strong> Jeux en 2D (comme un Snake), graphiques animés en temps réel, effets de particules, filtres photos. Tout ce qui bouge beaucoup !</p>
+                <code>&lt;canvas id="monCanvas" width="800" height="600"&gt;&lt;/canvas&gt;
+&lt;script&gt;
+  const ctx = document.getElementById('monCanvas').getContext('2d');
+  ctx.fillRect(50, 50, 100, 100); // dessine un carré
+&lt;/script&gt;</code>
+            </div>
+        </section>
+
+        <section id="listes">
+            <h2>📝 Listes</h2>
+
+            <div class="tag-card">
+                <h3>&lt;ul&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Une liste non ordonnée (Unordered List) avec des puces rondes ou carrées. Utilisée quand l'ordre des éléments n'a PAS d'importance.</p>
+                <p><strong>Pourquoi ?</strong> Parfait pour des listes de courses, caractéristiques de produits, menus de navigation. L'ordre ne compte pas : "pommes, bananes" ou "bananes, pommes", c'est pareil.</p>
+                <p><strong>Astuce :</strong> Change le style des puces avec CSS (list-style-type: circle, square, none). Chaque élément de la liste doit être dans une balise &lt;li&gt;.</p>
+                <code>&lt;ul&gt;
+  &lt;li&gt;Pommes&lt;/li&gt;
+  &lt;li&gt;Bananes&lt;/li&gt;
+  &lt;li&gt;Oranges&lt;/li&gt;
+&lt;/ul&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;ol&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Une liste ordonnée (Ordered List) avec des numéros 1, 2, 3... Utilisée quand l'ordre des éléments EST important (étapes, classement, instructions).</p>
+                <p><strong>Pourquoi ?</strong> Les étapes d'une recette, un top 10, des instructions à suivre dans l'ordre. Tu ne peux pas mélanger, l'ordre compte !</p>
+                <p><strong>Astuce :</strong> Utilise start="5" pour commencer à 5 au lieu de 1, ou type="A" pour des lettres (A, B, C), ou type="I" pour des chiffres romains (I, II, III).</p>
+                <code>&lt;ol&gt;
+  &lt;li&gt;Préchauffer le four&lt;/li&gt;
+  &lt;li&gt;Mélanger les ingrédients&lt;/li&gt;
+  &lt;li&gt;Cuire 20 minutes&lt;/li&gt;
+&lt;/ol&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;li&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Un élément de liste (List Item). C'est la puce ou le numéro dans une liste &lt;ul&gt; ou &lt;ol&gt;. Impossible de créer une liste sans &lt;li&gt; !</p>
+                <p><strong>Pourquoi ?</strong> Chaque item de ta liste a besoin de sa propre balise &lt;li&gt;. Tu peux y mettre du texte, des images, des liens, même d'autres listes imbriquées !</p>
+                <p><strong>Exemple concret :</strong> Tu peux imbriquer des listes : une liste principale avec des sous-listes dedans. Parfait pour des menus ou des plans détaillés.</p>
+                <code>&lt;ul&gt;
+  &lt;li&gt;Fruits
+    &lt;ul&gt;
+      &lt;li&gt;Pommes&lt;/li&gt;
+      &lt;li&gt;Bananes&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;dl&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Une liste de définitions (Description List), comme un dictionnaire ou un glossaire. Parfait pour associer des termes à leurs explications.</p>
+                <p><strong>Pourquoi ?</strong> Tu veux expliquer des mots, lister des caractéristiques produit (nom: valeur), ou créer une FAQ. C'est mieux structuré qu'une simple liste.</p>
+                <p><strong>Structure :</strong> Utilise &lt;dt&gt; pour le terme à définir, et &lt;dd&gt; pour sa définition. Tu peux avoir plusieurs &lt;dd&gt; pour un même &lt;dt&gt; !</p>
+                <code>&lt;dl&gt;
+  &lt;dt&gt;HTML&lt;/dt&gt;
+  &lt;dd&gt;Langage de balisage pour créer des pages web&lt;/dd&gt;
+  &lt;dt&gt;CSS&lt;/dt&gt;
+  &lt;dd&gt;Langage pour styliser les pages web&lt;/dd&gt;
+&lt;/dl&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;dt&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Le terme à définir (Definition Term) dans une liste &lt;dl&gt;. C'est le mot ou concept que tu vas expliquer juste après.</p>
+                <p><strong>Pourquoi ?</strong> Ça marque clairement ce qui est le terme (en gras généralement) vs la définition. Les moteurs de recherche comprennent la structure terme/définition.</p>
+                <p><strong>Exemple concret :</strong> Dans un glossaire technique, une liste de spécifications produit (Poids: 2kg, Couleur: Rouge), ou une FAQ (Question: réponse).</p>
+                <code>&lt;dl&gt;
+  &lt;dt&gt;Poids&lt;/dt&gt;
+  &lt;dd&gt;2 kg&lt;/dd&gt;
+  &lt;dt&gt;Dimensions&lt;/dt&gt;
+  &lt;dd&gt;30 x 20 x 10 cm&lt;/dd&gt;
+&lt;/dl&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;dd&gt;</h3>
+                <p><strong>C'est quoi ?</strong> La définition ou description (Definition Description) qui explique le terme &lt;dt&gt; juste au-dessus. C'est la réponse, la valeur, l'explication.</p>
+                <p><strong>Pourquoi ?</strong> Ça indente automatiquement la définition pour bien la séparer visuellement du terme. Tu peux mettre plusieurs &lt;dd&gt; pour un seul &lt;dt&gt;.</p>
+                <p><strong>Astuce :</strong> Tu peux mettre n'importe quoi dans &lt;dd&gt; : texte, paragraphes, listes, images. C'est super flexible pour des descriptions détaillées.</p>
+                <code>&lt;dl&gt;
+  &lt;dt&gt;Pizza Margherita&lt;/dt&gt;
+  &lt;dd&gt;Tomates, mozzarella, basilic&lt;/dd&gt;
+  &lt;dd&gt;Prix : 12€&lt;/dd&gt;
+&lt;/dl&gt;</code>
+            </div>
+        </section>
+
+        <section id="tableaux">
+            <h2>📊 Tableaux</h2>
+
+            <div class="tag-card">
+                <h3>&lt;table&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Crée un tableau avec des lignes et des colonnes pour organiser des données de façon structurée. Parfait pour des horaires, prix, statistiques.</p>
+                <p><strong>Pourquoi ?</strong> Les tableaux rendent les données comparables d'un coup d'œil. Beaucoup plus clair qu'une liste pour présenter des infos en grille.</p>
+                <p><strong>Attention :</strong> N'utilise JAMAIS les tableaux pour la mise en page de ton site (c'était la mode en 2000, maintenant on utilise CSS Flexbox/Grid).</p>
+                <code>&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Nom&lt;/th&gt;&lt;th&gt;Age&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Alice&lt;/td&gt;&lt;td&gt;25&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;tr&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Une ligne dans un tableau (Table Row). Chaque ligne contient des cellules (&lt;td&gt; ou &lt;th&gt;) qui forment les colonnes.</p>
+                <p><strong>Pourquoi ?</strong> C'est la structure de base d'un tableau : lignes horizontales contenant des cellules. Pense à une ligne Excel.</p>
+                <p><strong>Astuce :</strong> Tous les &lt;tr&gt; doivent avoir le même nombre de cellules pour que le tableau soit régulier (sauf si tu utilises colspan/rowspan).</p>
+                <code>&lt;table&gt;
+  &lt;tr&gt;&lt;td&gt;Ligne 1, Cellule 1&lt;/td&gt;&lt;td&gt;Ligne 1, Cellule 2&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;Ligne 2, Cellule 1&lt;/td&gt;&lt;td&gt;Ligne 2, Cellule 2&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;td&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Une cellule normale de données dans un tableau (Table Data). C'est là que tu mets tes infos : texte, nombres, images, etc.</p>
+                <p><strong>Pourquoi ?</strong> Chaque cellule = une donnée. Les &lt;td&gt; forment les colonnes quand tu les mets côte à côte dans un &lt;tr&gt;.</p>
+                <p><strong>Astuce :</strong> Utilise colspan="2" pour fusionner 2 cellules horizontalement, ou rowspan="2" pour fusionner verticalement. Pratique pour les en-têtes complexes.</p>
+                <code>&lt;tr&gt;
+  &lt;td&gt;Paris&lt;/td&gt;
+  &lt;td&gt;2 millions&lt;/td&gt;
+  &lt;td colspan="2"&gt;Capitale de la France&lt;/td&gt;
+&lt;/tr&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;th&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Une cellule d'en-tête de tableau (Table Header), automatiquement en gras et centrée. Utilisée pour les titres de colonnes ou de lignes.</p>
+                <p><strong>Pourquoi ?</strong> Ça dit au navigateur et aux lecteurs d'écran "ceci est un titre de colonne", pas une donnée normale. Important pour l'accessibilité !</p>
+                <p><strong>Conseil :</strong> Mets toujours &lt;th&gt; dans la première ligne (titres de colonnes) ou première colonne (titres de lignes). Évite de mélanger &lt;th&gt; et &lt;td&gt; sans raison.</p>
+                <code>&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Nom&lt;/th&gt;&lt;th&gt;Prénom&lt;/th&gt;&lt;th&gt;Age&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Dupont&lt;/td&gt;&lt;td&gt;Jean&lt;/td&gt;&lt;td&gt;30&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;thead&gt;</h3>
+                <p><strong>C'est quoi ?</strong> La section d'en-tête du tableau (Table Head). Regroupe les lignes de titres en haut du tableau. Reste fixe si le tableau scroll.</p>
+                <p><strong>Pourquoi ?</strong> Ça structure mieux ton code et permet au navigateur de répéter l'en-tête sur chaque page si tu imprimes un long tableau.</p>
+                <p><strong>Astuce :</strong> Avec du CSS (position: sticky), tu peux faire en sorte que le &lt;thead&gt; reste visible en haut même quand tu scrolles un tableau très long !</p>
+                <code>&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;&lt;th&gt;Produit&lt;/th&gt;&lt;th&gt;Prix&lt;/th&gt;&lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;td&gt;Pommes&lt;/td&gt;&lt;td&gt;3€&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;tbody&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Le corps principal du tableau (Table Body) où tu mets toutes tes données. C'est le contenu réel du tableau, pas les en-têtes ou pieds.</p>
+                <p><strong>Pourquoi ?</strong> Séparer l'en-tête (&lt;thead&gt;) et le corps (&lt;tbody&gt;) permet de mieux styliser chaque partie séparément en CSS.</p>
+                <p><strong>Exemple concret :</strong> Dans un tableau de notes : &lt;thead&gt; = Nom/Matière/Note, &lt;tbody&gt; = toutes les lignes d'élèves, &lt;tfoot&gt; = moyennes.</p>
+                <code>&lt;tbody&gt;
+  &lt;tr&gt;&lt;td&gt;Alice&lt;/td&gt;&lt;td&gt;Maths&lt;/td&gt;&lt;td&gt;18&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;Bob&lt;/td&gt;&lt;td&gt;Maths&lt;/td&gt;&lt;td&gt;15&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;tfoot&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Le pied de tableau (Table Foot) en bas, généralement pour les totaux, moyennes, résumés. Reste en bas même si le tableau scroll.</p>
+                <p><strong>Pourquoi ?</strong> Utile pour les tableaux financiers (total général), tableaux de stats (moyennes), ou toute info récapitulative qui conclut le tableau.</p>
+                <p><strong>Note bizarre :</strong> Tu peux mettre &lt;tfoot&gt; AVANT &lt;tbody&gt; dans le code HTML (mais il s'affichera quand même en bas). Pratique pour le SEO !</p>
+                <code>&lt;table&gt;
+  &lt;tfoot&gt;
+    &lt;tr&gt;&lt;th&gt;Total&lt;/th&gt;&lt;td&gt;150€&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tfoot&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;td&gt;Produit A&lt;/td&gt;&lt;td&gt;50€&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;caption&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Un titre descriptif pour tout le tableau, affiché au-dessus (par défaut). C'est comme une légende qui explique ce que contient le tableau.</p>
+                <p><strong>Pourquoi ?</strong> Essentiel pour l'accessibilité : les gens malvoyants comprennent immédiatement de quoi parle le tableau. Améliore aussi le référencement.</p>
+                <p><strong>Astuce :</strong> Toujours commencer ton &lt;table&gt; par un &lt;caption&gt; (avant &lt;thead&gt;). Tu peux le positionner en bas avec CSS caption-side: bottom.</p>
+                <code>&lt;table&gt;
+  &lt;caption&gt;Liste des notes du trimestre 2025&lt;/caption&gt;
+  &lt;thead&gt;...&lt;/thead&gt;
+  &lt;tbody&gt;...&lt;/tbody&gt;
+&lt;/table&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;colgroup&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Groupe plusieurs colonnes ensemble pour leur appliquer un style CSS commun (couleur de fond, bordure, etc.) sans toucher chaque cellule individuellement.</p>
+                <p><strong>Pourquoi ?</strong> Au lieu de styliser 50 cellules une par une, tu stylises toute une colonne d'un coup. Gain de temps énorme sur les gros tableaux !</p>
+                <p><strong>Exemple concret :</strong> Dans un tableau de prix, colorer toutes les colonnes "Prix" en vert clair pour les faire ressortir visuellement.</p>
+                <code>&lt;table&gt;
+  &lt;colgroup&gt;
+    &lt;col style="background-color: #f0f0f0"&gt;
+    &lt;col span="2" style="background-color: #e0ffe0"&gt;
+  &lt;/colgroup&gt;
+  &lt;tr&gt;&lt;th&gt;Nom&lt;/th&gt;&lt;th&gt;Prix 1&lt;/th&gt;&lt;th&gt;Prix 2&lt;/th&gt;&lt;/tr&gt;
+&lt;/table&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;col&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Définit les propriétés d'UNE colonne dans un &lt;colgroup&gt;. Utilise span="3" pour appliquer le style aux 3 prochaines colonnes.</p>
+                <p><strong>Pourquoi ?</strong> Tu peux définir la largeur, couleur de fond, bordures de toute une colonne sans toucher le contenu. Séparation style/contenu parfaite !</p>
+                <p><strong>Attention :</strong> Tu ne peux styler que certaines propriétés CSS (background, width, borders). Tu ne peux pas changer la police ou la couleur du texte.</p>
+                <code>&lt;colgroup&gt;
+  &lt;col style="width: 200px"&gt;
+  &lt;col style="width: 100px; background: yellow"&gt;
+  &lt;col span="2" style="width: 50px"&gt;
+&lt;/colgroup&gt;</code>
+            </div>
+        </section>
+
+        <section id="formulaires">
+            <h2>📋 Formulaires</h2>
+
+            <div class="tag-card">
+                <h3>&lt;form&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Un formulaire où les utilisateurs peuvent entrer des infos (contact, inscription, recherche, etc.). L'attribut action indique où envoyer les données.</p>
+                <p><strong>Pourquoi ?</strong> C'est la seule façon de collecter des infos des visiteurs : nom, email, messages, etc. Indispensable pour tout site interactif !</p>
+                <p><strong>Astuce :</strong> Ajoute method="POST" pour les données sensibles (mots de passe) ou method="GET" pour les recherches. Sans &lt;form&gt;, tes inputs ne font rien !</p>
+                <code>&lt;form action="/submit" method="POST"&gt;
+  &lt;input type="text" name="nom"&gt;
+  &lt;button type="submit"&gt;Envoyer&lt;/button&gt;
+&lt;/form&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;input&gt;</h3>
+                <p><strong>C'est quoi ?</strong> La balise LA PLUS polyvalente : texte, email, mot de passe, checkbox, radio, date, couleur, fichier... Change type="" pour changer le champ !</p>
+                <p><strong>Pourquoi ?</strong> Une seule balise pour plein de types de champs différents. Le navigateur adapte automatiquement l'apparence et la validation selon le type.</p>
+                <p><strong>Types utiles :</strong> text, email, password, checkbox, radio, date, number, file, color, range (slider), tel, url. Ajoute required pour rendre obligatoire.</p>
+                <code>&lt;input type="text" placeholder="Ton nom" required&gt;
+&lt;input type="email" placeholder="Email"&gt;
+&lt;input type="password" placeholder="Mot de passe"&gt;
+&lt;input type="checkbox" id="cgu"&gt; &lt;label for="cgu"&gt;J'accepte&lt;/label&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;textarea&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Une grande zone de texte multi-lignes pour écrire des messages longs, commentaires, descriptions. Contrairement à &lt;input&gt;, ça s'étire en hauteur.</p>
+                <p><strong>Pourquoi ?</strong> &lt;input type="text"&gt; c'est pour une ligne. &lt;textarea&gt; c'est pour des paragraphes entiers. Parfait pour les formulaires de contact ou commentaires.</p>
+                <p><strong>Astuce :</strong> rows définit la hauteur visible, cols la largeur (mais en vrai, utilise plutôt CSS width/height). Ajoute maxlength pour limiter les caractères.</p>
+                <code>&lt;textarea rows="5" cols="50" placeholder="Ton message..." maxlength="500"&gt;&lt;/textarea&gt;
+&lt;!-- OU mieux : --&gt;
+&lt;textarea style="width:100%; height:150px" required&gt;&lt;/textarea&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;button&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Un bouton cliquable. Dans un formulaire, type="submit" envoie les données. Sinon, type="button" pour des actions JavaScript personnalisées.</p>
+                <p><strong>Pourquoi ?</strong> Plus flexible que &lt;input type="submit"&gt; : tu peux mettre des icônes, images, ou texte stylisé à l'intérieur. Et c'est plus facile à styliser en CSS.</p>
+                <p><strong>Types :</strong> submit (envoie le formulaire), reset (efface tout), button (ne fait rien par défaut, pour JavaScript). Par défaut c'est submit dans un form.</p>
+                <code>&lt;button type="submit"&gt;Envoyer&lt;/button&gt;
+&lt;button type="reset"&gt;Réinitialiser&lt;/button&gt;
+&lt;button type="button" onclick="alert('Coucou')"&gt;Clique-moi&lt;/button&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;select&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Un menu déroulant (dropdown) pour choisir UNE option parmi plusieurs. Plus compact qu'une liste de boutons radio quand tu as beaucoup de choix.</p>
+                <p><strong>Pourquoi ?</strong> Économise de l'espace sur la page : 50 options prennent la même place qu'un petit menu. Parfait pour pays, villes, catégories, etc.</p>
+                <p><strong>Astuce :</strong> Ajoute multiple pour permettre plusieurs choix (maintenir Ctrl/Cmd). Utilise size="5" pour afficher 5 options visibles d'un coup au lieu d'un menu.</p>
+                <code>&lt;select name="pays" required&gt;
+  &lt;option value=""&gt;-- Choisissez --&lt;/option&gt;
+  &lt;option value="fr"&gt;France&lt;/option&gt;
+  &lt;option value="be"&gt;Belgique&lt;/option&gt;
+&lt;/select&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;option&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Une option individuelle dans un menu &lt;select&gt;. L'attribut value est ce qui est envoyé au serveur, le texte est ce que l'utilisateur voit.</p>
+                <p><strong>Pourquoi ?</strong> Séparer value (code) et texte (lisible) : value="fr" mais texte "France". Pratique pour les bases de données qui stockent des codes courts.</p>
+                <p><strong>Astuce :</strong> Ajoute selected pour présélectionner une option, ou disabled pour griser une option non-cliquable. La première option est sélectionnée par défaut.</p>
+                <code>&lt;select&gt;
+  &lt;option value="" disabled selected&gt;Choisissez...&lt;/option&gt;
+  &lt;option value="1"&gt;Option 1&lt;/option&gt;
+  &lt;option value="2" selected&gt;Option 2 (présélectionnée)&lt;/option&gt;
+&lt;/select&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;optgroup&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Groupe des options dans un &lt;select&gt; par catégorie. Crée des sections avec titres dans le menu déroulant pour mieux organiser beaucoup d'options.</p>
+                <p><strong>Pourquoi ?</strong> Un menu avec 100 options c'est le chaos. Avec &lt;optgroup&gt;, tu les organises : Fruits / Légumes / Viandes, etc. Plus lisible !</p>
+                <p><strong>Exemple concret :</strong> Pays groupés par continent, voitures par marque, plats par catégorie (entrées/plats/desserts). L'attribut label est le titre du groupe.</p>
+                <code>&lt;select&gt;
+  &lt;optgroup label="Fruits"&gt;
+    &lt;option&gt;Pomme&lt;/option&gt;
+    &lt;option&gt;Banane&lt;/option&gt;
+  &lt;/optgroup&gt;
+  &lt;optgroup label="Légumes"&gt;
+    &lt;option&gt;Carotte&lt;/option&gt;
+  &lt;/optgroup&gt;
+&lt;/select&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;label&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Un texte descriptif lié à un champ de formulaire. Quand tu cliques sur le label, ça active le champ correspondant (pratique pour les petites checkbox !)</p>
+                <p><strong>Pourquoi ?</strong> Essentiel pour l'accessibilité : les lecteurs d'écran lisent le label pour expliquer le champ. Et cliquer sur le texte active le champ (meilleure UX).</p>
+                <p><strong>Méthode :</strong> Ajoute for="id_du_champ" sur le label, et id="id_du_champ" sur l'input. Maintenant ils sont liés ! Ou enveloppe l'input dans le label.</p>
+                <code>&lt;label for="email"&gt;Ton email :&lt;/label&gt;
+&lt;input type="email" id="email" name="email"&gt;
+&lt;!-- OU : --&gt;
+&lt;label&gt;&lt;input type="checkbox"&gt; J'accepte&lt;/label&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;fieldset&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Groupe plusieurs champs de formulaire dans une boîte avec bordure. Visuellement et sémantiquement, ça dit "ces champs vont ensemble".</p>
+                <p><strong>Pourquoi ?</strong> Organise les gros formulaires : un fieldset pour "Infos personnelles", un autre pour "Adresse de livraison", etc. Améliore l'accessibilité et la lisibilité.</p>
+                <p><strong>Astuce :</strong> Ajoute disabled sur le fieldset pour désactiver TOUS les champs qu'il contient d'un coup. Pratique pour les étapes de formulaire !</p>
+                <code>&lt;fieldset&gt;
+  &lt;legend&gt;Coordonnées&lt;/legend&gt;
+  &lt;input type="text" placeholder="Nom"&gt;
+  &lt;input type="email" placeholder="Email"&gt;
+&lt;/fieldset&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;legend&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Le titre d'un &lt;fieldset&gt;, affiché dans la bordure en haut. C'est comme un h3 mais spécialement pour les groupes de champs.</p>
+                <p><strong>Pourquoi ?</strong> Donne un nom clair au groupe de champs. "Infos personnelles", "Paiement", "Adresse de livraison"... Tout de suite plus clair !</p>
+                <p><strong>Règle :</strong> &lt;legend&gt; doit TOUJOURS être le premier élément dans un &lt;fieldset&gt;, juste après la balise ouvrante. C'est obligatoire par le standard HTML.</p>
+                <code>&lt;fieldset&gt;
+  &lt;legend&gt;Informations de paiement&lt;/legend&gt;
+  &lt;input type="text" placeholder="Numéro de carte"&gt;
+  &lt;input type="text" placeholder="Date d'expiration"&gt;
+&lt;/fieldset&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;datalist&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Une liste de suggestions pour un champ &lt;input&gt;. L'utilisateur peut taper librement OU choisir dans la liste. C'est un mix input + select !</p>
+                <p><strong>Pourquoi ?</strong> Plus flexible qu'un &lt;select&gt; : tu peux taper "Par" et ça filtre automatiquement pour montrer "Paris". Parfait pour villes, marques, etc.</p>
+                <p><strong>Astuce :</strong> Lie le datalist à l'input avec list="id_datalist". Les suggestions apparaissent quand tu commences à taper. Tu peux quand même taper autre chose.</p>
+                <code>&lt;input list="villes" placeholder="Ta ville"&gt;
+&lt;datalist id="villes"&gt;
+  &lt;option value="Paris"&gt;
+  &lt;option value="Lyon"&gt;
+  &lt;option value="Marseille"&gt;
+&lt;/datalist&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;output&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Affiche le résultat d'un calcul dans un formulaire. Mis à jour dynamiquement par JavaScript. C'est une zone de résultat "en direct".</p>
+                <p><strong>Pourquoi ?</strong> Pour les calculateurs (prix total, pourcentages), conversions (kg → lbs), ou tout calcul fait côté client. Sémantiquement, c'est un résultat, pas un input.</p>
+                <p><strong>Exemple concret :</strong> Un slider qui change de 0 à 100, et l'&lt;output&gt; affiche la valeur en temps réel. Ou un formulaire de panier qui calcule le total.</p>
+                <code>&lt;input type="range" id="prix" min="0" max="100" oninput="result.value=prix.value"&gt;
+&lt;output name="result" for="prix"&gt;50&lt;/output&gt;€
+&lt;!-- Le résultat se met à jour quand tu bouges le slider --&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;progress&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Une barre de progression qui se remplit (comme un téléchargement). value est la progression actuelle, max est le total. Visuel et clair !</p>
+                <p><strong>Pourquoi ?</strong> Montre où on en est dans un processus : upload de fichier, étapes d'inscription, chargement. Bien mieux qu'un texte "70% complété".</p>
+                <p><strong>Astuce :</strong> Sans value, ça fait une barre "indéterminée" qui anime (pour les chargements dont tu ne connais pas la durée). Mise à jour avec JavaScript.</p>
+                <code>&lt;progress value="70" max="100"&gt;&lt;/progress&gt; 70%
+&lt;!-- Barre indéterminée (durée inconnue) : --&gt;
+&lt;progress&gt;&lt;/progress&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;meter&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Affiche une mesure dans une fourchette (jauge). Différent de &lt;progress&gt; : c'est une mesure statique (niveau, note), pas une progression dynamique.</p>
+                <p><strong>Pourquoi ?</strong> Pour des valeurs qui ont un min/max : niveau de batterie, notes (/10), espace disque, température. Avec zones rouge/jaune/vert automatiques !</p>
+                <p><strong>Attributs :</strong> min/max (fourchette), low/high/optimum (définit les zones colorées : vert si bon, rouge si mauvais). Le navigateur colore automatiquement.</p>
+                <code>&lt;meter value="6" min="0" max="10" low="3" high="7" optimum="9"&gt;6/10&lt;/meter&gt;
+&lt;!-- Niveau batterie : --&gt;
+&lt;meter value="30" min="0" max="100" low="20" high="80"&gt;30%&lt;/meter&gt;</code>
+            </div>
+        </section>
+
+        <section id="semantique">
+            <h2>🏷️ Balises Sémantiques</h2>
+            <p class="section-intro">Ces balises donnent du sens à ton contenu (pour les moteurs de recherche et l'accessibilité).</p>
+
+            <div class="tag-card">
+                <h3>&lt;header&gt;</h3>
+                <p><strong>C'est quoi ?</strong> L'en-tête de ta page ou d'une section. Contient généralement le logo, titre, menu de navigation. C'est l'introduction de ton site.</p>
+                <p><strong>Pourquoi ?</strong> Différent de &lt;head&gt; (invisible) : &lt;header&gt; est visible et structuré. Google comprend que c'est l'en-tête, améliore le SEO et l'accessibilité.</p>
+                <p><strong>Astuce :</strong> Tu peux avoir plusieurs &lt;header&gt; : un pour toute la page, et un dans chaque &lt;article&gt; ou &lt;section&gt;. C'est flexible !</p>
+                <code>&lt;header&gt;
+  &lt;h1&gt;Mon Blog de Voyage&lt;/h1&gt;
+  &lt;nav&gt;&lt;a href="/"&gt;Accueil&lt;/a&gt;&lt;/nav&gt;
+&lt;/header&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;nav&gt;</h3>
+                <p><strong>C'est quoi ?</strong> La zone de navigation principale du site : le menu avec les liens vers Accueil, À propos, Contact, etc. Pour les menus importants seulement.</p>
+                <p><strong>Pourquoi ?</strong> Les lecteurs d'écran permettent de sauter directement au menu. Google identifie tes pages importantes. N'utilise pas &lt;nav&gt; pour tous les liens !</p>
+                <p><strong>Règle :</strong> Réserve &lt;nav&gt; aux menus de navigation principaux (header, footer). Les liens dans un article ou sidebar n'ont pas besoin de &lt;nav&gt;.</p>
+                <code>&lt;nav&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="/"&gt;Accueil&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="/blog"&gt;Blog&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="/contact"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;main&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Le contenu principal unique de ta page. Ce qui change d'une page à l'autre. UN SEUL &lt;main&gt; par page, jamais dans &lt;header&gt;, &lt;footer&gt; ou &lt;aside&gt;.</p>
+                <p><strong>Pourquoi ?</strong> Les lecteurs d'écran sautent directement au contenu principal. Google sait quoi indexer. Ça exclut header, footer, sidebar qui se répètent partout.</p>
+                <p><strong>Important :</strong> Sur un blog, le &lt;main&gt; contient l'article. Le menu et footer sont EN DEHORS. Un seul &lt;main&gt; par page, c'est la règle !</p>
+                <code>&lt;body&gt;
+  &lt;header&gt;...menu...&lt;/header&gt;
+  &lt;main&gt;
+    &lt;h1&gt;Mon Article&lt;/h1&gt;
+    &lt;p&gt;Contenu unique de cette page...&lt;/p&gt;
+  &lt;/main&gt;
+  &lt;footer&gt;...&lt;/footer&gt;
+&lt;/body&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;section&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Une section thématique de contenu avec son propre titre. Groupe du contenu par sujet : "À propos", "Services", "Portfolio", etc.</p>
+                <p><strong>Pourquoi ?</strong> Structure ta page en blocs logiques. Chaque &lt;section&gt; devrait avoir un titre (h2, h3...). C'est plus précis qu'un simple &lt;div&gt;.</p>
+                <p><strong>Quand l'utiliser ?</strong> Si tu peux lui donner un titre clair, utilise &lt;section&gt;. Sinon, utilise &lt;div&gt;. Exemple : section "Mes compétences", "Projets récents".</p>
+                <code>&lt;main&gt;
+  &lt;section&gt;
+    &lt;h2&gt;À propos&lt;/h2&gt;
+    &lt;p&gt;Présentation...&lt;/p&gt;
+  &lt;/section&gt;
+  &lt;section&gt;
+    &lt;h2&gt;Services&lt;/h2&gt;
+    &lt;p&gt;Liste des services...&lt;/p&gt;
+  &lt;/section&gt;
+&lt;/main&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;article&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Un contenu autonome et réutilisable : article de blog, post social, commentaire, carte produit. Ça peut vivre tout seul en dehors du site.</p>
+                <p><strong>Pourquoi ?</strong> Test simple : est-ce que ce contenu aurait du sens dans un flux RSS ou partagé seul sur Facebook ? Si oui, c'est un &lt;article&gt; !</p>
+                <p><strong>Astuce :</strong> Tu peux imbriquer : plusieurs &lt;article&gt; (posts de blog) dans une &lt;section&gt; (liste de posts). Ou des &lt;article&gt; (commentaires) dans un &lt;article&gt; (post principal).</p>
+                <code>&lt;article&gt;
+  &lt;h2&gt;Guide du HTML pour débutants&lt;/h2&gt;
+  &lt;p&gt;Publié le 3 octobre 2025&lt;/p&gt;
+  &lt;p&gt;Contenu de l'article...&lt;/p&gt;
+&lt;/article&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;aside&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Un contenu complémentaire à côté du contenu principal : sidebar, publicité, infos bonus, encadré "Le saviez-vous ?", widgets.</p>
+                <p><strong>Pourquoi ?</strong> Indique que ce contenu est lié mais secondaire. Si tu le supprimes, le contenu principal reste compréhensible. Pas essentiel mais utile.</p>
+                <p><strong>Exemples concrets :</strong> Barre latérale avec "Articles populaires", bio de l'auteur, pub, liens vers réseaux sociaux, glossaire, citations liées.</p>
+                <code>&lt;main&gt;
+  &lt;article&gt;Contenu principal&lt;/article&gt;
+  &lt;aside&gt;
+    &lt;h3&gt;Articles liés&lt;/h3&gt;
+    &lt;ul&gt;...&lt;/ul&gt;
+  &lt;/aside&gt;
+&lt;/main&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;footer&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Le pied de page en bas du site ou d'une section : copyright, liens légaux, mentions, plan du site, réseaux sociaux, contact.</p>
+                <p><strong>Pourquoi ?</strong> Différent de fermer le &lt;body&gt; : &lt;footer&gt; a un sens sémantique. Google sait que c'est le pied de page, améliore la structure.</p>
+                <p><strong>Astuce :</strong> Comme &lt;header&gt;, tu peux avoir plusieurs &lt;footer&gt; : un pour toute la page, et un dans chaque &lt;article&gt; (infos auteur, date).</p>
+                <code>&lt;footer&gt;
+  &lt;p&gt;© 2025 Mon Site - &lt;a href="/mentions"&gt;Mentions légales&lt;/a&gt;&lt;/p&gt;
+  &lt;p&gt;Me suivre : Twitter | LinkedIn&lt;/p&gt;
+&lt;/footer&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;figure&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Un contenu indépendant avec légende : image, diagramme, code, graphique, illustration. Souvent avec &lt;figcaption&gt; pour la légende.</p>
+                <p><strong>Pourquoi ?</strong> Lie visuellement et sémantiquement une image à sa description. Plus propre que img + p. Tu peux le déplacer sans casser le sens.</p>
+                <p><strong>Conseil :</strong> Pas obligatoire pour toutes les images ! Utilise &lt;figure&gt; si l'image a une légende importante ou illustre un point précis du texte.</p>
+                <code>&lt;figure&gt;
+  &lt;img src="graphique.jpg" alt="Évolution des ventes"&gt;
+  &lt;figcaption&gt;Figure 1 : Les ventes ont augmenté de 50% en 2024&lt;/figcaption&gt;
+&lt;/figure&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;figcaption&gt;</h3>
+                <p><strong>C'est quoi ?</strong> La légende ou description d'une &lt;figure&gt;. Doit être le premier ou dernier élément dans &lt;figure&gt;. Explique ce qu'on voit.</p>
+                <p><strong>Pourquoi ?</strong> Différent de alt (qui remplace l'image si elle charge pas) : &lt;figcaption&gt; est une vraie légende visible pour tout le monde, comme dans un livre.</p>
+                <p><strong>Astuce :</strong> Tu peux y mettre du HTML : liens, mise en forme. "Photo de &lt;a href="..."&gt;Paris&lt;/a&gt; prise en octobre 2024".</p>
+                <code>&lt;figure&gt;
+  &lt;img src="tour-eiffel.jpg" alt="Tour Eiffel"&gt;
+  &lt;figcaption&gt;La Tour Eiffel vue depuis le Trocadéro&lt;/figcaption&gt;
+&lt;/figure&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;details&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Un widget interactif qui se déplie/replie au clic. Parfait pour FAQ, accordéons, "Lire la suite", spoilers. Pas besoin de JavaScript !</p>
+                <p><strong>Pourquoi ?</strong> Masque du contenu secondaire pour ne pas surcharger la page. L'utilisateur clique pour voir plus. Natif HTML, aucun code JS nécessaire !</p>
+                <p><strong>Astuce :</strong> Ajoute l'attribut open pour que ce soit ouvert par défaut. Stylise avec CSS pour changer la flèche. Pratique pour les "En savoir plus".</p>
+                <code>&lt;details&gt;
+  &lt;summary&gt;Comment installer Node.js ?&lt;/summary&gt;
+  &lt;p&gt;Va sur nodejs.org, télécharge l'installateur, lance-le...&lt;/p&gt;
+&lt;/details&gt;
+&lt;details open&gt;&lt;summary&gt;Ouvert par défaut&lt;/summary&gt;...&lt;/details&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;summary&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Le titre cliquable d'un &lt;details&gt;. C'est ce qui reste toujours visible. Quand tu cliques dessus, le contenu caché apparaît.</p>
+                <p><strong>Pourquoi ?</strong> OBLIGATOIRE comme premier élément de &lt;details&gt;. C'est le texte du bouton qui ouvre/ferme. Sans &lt;summary&gt;, le navigateur affiche "Détails".</p>
+                <p><strong>Conseil :</strong> Rends-le clair et incitatif : "Voir plus d'infos", "Afficher la réponse", "Spoiler : cliquez pour révéler". Encourage le clic !</p>
+                <code>&lt;details&gt;
+  &lt;summary&gt;Cliquez pour voir les ingrédients&lt;/summary&gt;
+  &lt;ul&gt;
+    &lt;li&gt;250g de farine&lt;/li&gt;
+    &lt;li&gt;3 œufs&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/details&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;dialog&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Une boîte de dialogue modale ou popup native HTML. Par défaut invisible, tu l'ouvres/fermes avec JavaScript. Parfait pour alertes, confirmations, formulaires popup.</p>
+                <p><strong>Pourquoi ?</strong> Avant, il fallait coder des popups complexes en JavaScript. Maintenant c'est natif ! Gère automatiquement le focus, l'overlay, l'accessibilité.</p>
+                <p><strong>Utilisation :</strong> Ajoute open pour l'afficher directement, ou utilise dialog.showModal() en JavaScript. Appuie sur Échap pour fermer automatiquement.</p>
+                <code>&lt;dialog id="maPopup"&gt;
+  &lt;h2&gt;Êtes-vous sûr ?&lt;/h2&gt;
+  &lt;button onclick="maPopup.close()"&gt;Oui&lt;/button&gt;
+  &lt;button onclick="maPopup.close()"&gt;Non&lt;/button&gt;
+&lt;/dialog&gt;
+&lt;button onclick="maPopup.showModal()"&gt;Ouvrir popup&lt;/button&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;address&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Les coordonnées de contact de l'auteur/propriétaire : adresse postale, email, téléphone, réseaux sociaux. Généralement en italique par défaut.</p>
+                <p><strong>Pourquoi ?</strong> Indique sémantiquement que c'est une adresse de contact. Google et les lecteurs d'écran le comprennent. Attention : pas pour toutes les adresses du texte !</p>
+                <p><strong>Important :</strong> Utilise &lt;address&gt; uniquement pour les contacts de l'auteur du site/article, pas pour parler d'une adresse dans le texte ("j'habite à Paris").</p>
+                <code>&lt;footer&gt;
+  &lt;address&gt;
+    Contact : &lt;a href="mailto:hello@example.com"&gt;hello@example.com&lt;/a&gt;&lt;br&gt;
+    123 Rue de Paris, 75001 Paris
+  &lt;/address&gt;
+&lt;/footer&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;time&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Indique une date ou heure précise. L'attribut datetime contient le format machine (YYYY-MM-DD), le texte est lisible pour les humains.</p>
+                <p><strong>Pourquoi ?</strong> Les moteurs de recherche comprennent les dates (agenda, événements). Les navigateurs peuvent proposer d'ajouter l'événement au calendrier.</p>
+                <p><strong>Formats datetime :</strong> Date : "2025-10-03", Heure : "14:30", DateTime : "2025-10-03T14:30". Le texte affiché peut être différent (plus joli).</p>
+                <code>&lt;p&gt;Publié le &lt;time datetime="2025-10-03"&gt;3 octobre 2025&lt;/time&gt;&lt;/p&gt;
+&lt;p&gt;Rendez-vous à &lt;time datetime="2025-12-25T10:00"&gt;Noël à 10h&lt;/time&gt;&lt;/p&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;data&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Lie un contenu lisible (pour humains) à une valeur machine (pour ordinateurs). L'attribut value contient la valeur technique.</p>
+                <p><strong>Pourquoi ?</strong> Utile pour les bases de données, tri, ou JavaScript. Tu affiches "iPhone 15" mais value="12345" (code produit). Sépare affichage et données.</p>
+                <p><strong>Exemple concret :</strong> Liste de produits triables : affiche le nom, mais value contient le SKU. Ou classement : affiche "1er" mais value="1" pour trier numériquement.</p>
+                <code>&lt;ul&gt;
+  &lt;li&gt;&lt;data value="12345"&gt;iPhone 15 Pro&lt;/data&gt; - 999€&lt;/li&gt;
+  &lt;li&gt;&lt;data value="67890"&gt;MacBook Air&lt;/data&gt; - 1299€&lt;/li&gt;
+&lt;/ul&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;template&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Un modèle HTML invisible qui n'est PAS rendu par le navigateur. Tu le clones et l'insères avec JavaScript quand tu en as besoin.</p>
+                <p><strong>Pourquoi ?</strong> Parfait pour créer des éléments répétitifs (cartes produits, posts) sans les coder en JavaScript. Tu définis la structure une fois, tu la réutilises à l'infini.</p>
+                <p><strong>Utilisation :</strong> Avec JavaScript : const clone = document.querySelector('template').content.cloneNode(true); puis modifie et insère le clone.</p>
+                <code>&lt;template id="carte-produit"&gt;
+  &lt;div class="carte"&gt;
+    &lt;h3 class="nom"&gt;&lt;/h3&gt;
+    &lt;p class="prix"&gt;&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+&lt;!-- Invisible jusqu'à ce que JavaScript le clone --&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;slot&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Un emplacement dans un Web Component où tu peux insérer du contenu personnalisé. C'est pour les composants réutilisables avancés.</p>
+                <p><strong>Pourquoi ?</strong> Crée des composants flexibles : le composant définit la structure, &lt;slot&gt; laisse l'utilisateur insérer son contenu. Comme un trou à remplir.</p>
+                <p><strong>Niveau avancé :</strong> Utilisé avec les Custom Elements (Web Components). Si tu débutes, tu n'en auras probablement pas besoin tout de suite.</p>
+                <code>&lt;!-- Dans le composant : --&gt;
+&lt;template&gt;
+  &lt;div class="card"&gt;
+    &lt;slot name="title"&gt;Titre par défaut&lt;/slot&gt;
+    &lt;slot&gt;Contenu par défaut&lt;/slot&gt;
+  &lt;/div&gt;
+&lt;/template&gt;</code>
+            </div>
+        </section>
+
+        <section id="autres">
+            <h2>🔧 Autres Balises Utiles</h2>
+
+            <div class="tag-card">
+                <h3>&lt;!DOCTYPE html&gt;</h3>
+                <p><strong>C'est quoi ?</strong> La TOUTE première ligne de ton fichier HTML (même avant &lt;html&gt;). Elle dit au navigateur "c'est du HTML5 ici !".</p>
+                <p><strong>Pourquoi ?</strong> Sans ça, le navigateur se met en "mode quirks" (mode bizarre) et peut afficher ton site de façon cassée. Toujours obligatoire !</p>
+                <p><strong>Important :</strong> Toujours en première ligne, avant &lt;html&gt;. Pas de balise fermante, c'est une déclaration. Sensible à la casse (majuscules OK).</p>
+                <code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;!-- le reste de ton code --&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;!-- commentaire --&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Un commentaire invisible sur la page web. Tu peux écrire des notes pour toi ou d'autres développeurs. Les visiteurs ne le voient pas.</p>
+                <p><strong>Pourquoi ?</strong> Pour expliquer ton code, laisser des TODOs, désactiver temporairement du code sans le supprimer. Super utile en équipe ou pour te rappeler pourquoi tu as fait ça.</p>
+                <p><strong>Astuce :</strong> Tu peux commenter plusieurs lignes. Les commentaires apparaissent dans le code source (Ctrl+U), donc ne mets jamais de mots de passe ou infos sensibles !</p>
+                <code>&lt;!-- Ceci est un commentaire sur une ligne --&gt;
+
+&lt;!--
+  Commentaire sur
+  plusieurs lignes
+--&gt;
+
+&lt;!-- TODO: Ajouter le footer plus tard --&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;base&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Définit l'URL de base pour TOUS les liens relatifs de ta page. Tous les href="page.html" seront relatifs à cette URL.</p>
+                <p><strong>Pourquoi ?</strong> Pratique si ton site est dans un sous-dossier ou si tu testes localement. Tu changes une seule ligne au lieu de tous tes liens.</p>
+                <p><strong>Attention :</strong> Utilisé rarement. Ça peut créer des bugs si tu oublies que c'est là. Une seule balise &lt;base&gt; par page, dans le &lt;head&gt;.</p>
+                <code>&lt;head&gt;
+  &lt;base href="https://monsite.com/blog/"&gt;
+  &lt;!-- Maintenant href="article.html" pointe vers monsite.com/blog/article.html --&gt;
+&lt;/head&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;noscript&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Contenu affiché SEULEMENT si JavaScript est désactivé dans le navigateur. Message de secours pour prévenir l'utilisateur.</p>
+                <p><strong>Pourquoi ?</strong> Certains utilisateurs désactivent JavaScript pour la sécurité/vie privée. Tu peux afficher "Désolé, ce site nécessite JavaScript pour fonctionner".</p>
+                <p><strong>Exemple concret :</strong> Si ton site est une appli React (100% JavaScript), mets un &lt;noscript&gt; pour dire "Activez JavaScript SVP". Sinon, page blanche !</p>
+                <code>&lt;noscript&gt;
+  &lt;p&gt;Ce site nécessite JavaScript. Merci de l'activer dans votre navigateur.&lt;/p&gt;
+&lt;/noscript&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;embed&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Intègre du contenu externe de n'importe quel type : PDF, plugins, applications. Moins utilisé maintenant (Flash est mort).</p>
+                <p><strong>Pourquoi ?</strong> Autrefois pour Flash, maintenant surtout pour les PDFs. Mais &lt;iframe&gt; ou &lt;object&gt; sont souvent meilleurs car plus flexibles.</p>
+                <p><strong>Conseil :</strong> Pour un PDF, préfère &lt;iframe&gt; ou &lt;object&gt;. &lt;embed&gt; n'a pas de fallback si le navigateur ne supporte pas le fichier.</p>
+                <code>&lt;embed src="document.pdf" type="application/pdf" width="600" height="400"&gt;
+&lt;!-- Mais préfère : --&gt;
+&lt;iframe src="document.pdf" width="600" height="400"&gt;&lt;/iframe&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;object&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Intègre des objets externes : PDF, images, vidéos, applications. Plus flexible que &lt;embed&gt; car tu peux mettre un contenu de fallback à l'intérieur.</p>
+                <p><strong>Pourquoi ?</strong> Si le navigateur ne peut pas afficher l'objet, il montre le contenu à l'intérieur (texte, image de remplacement, etc.). Meilleure accessibilité.</p>
+                <p><strong>Exemple concret :</strong> Intégrer un PDF avec message de secours si le navigateur ne supporte pas : "Votre navigateur ne peut pas afficher les PDFs. Téléchargez-le ici."</p>
+                <code>&lt;object data="brochure.pdf" type="application/pdf" width="600" height="400"&gt;
+  &lt;p&gt;Impossible d'afficher le PDF. &lt;a href="brochure.pdf"&gt;Téléchargez-le&lt;/a&gt;&lt;/p&gt;
+&lt;/object&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;param&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Définit des paramètres pour un élément &lt;object&gt; : autoplay, volume, loop, etc. Configure le comportement de l'objet embarqué.</p>
+                <p><strong>Pourquoi ?</strong> Autrefois crucial pour Flash (RIP). Maintenant rarement utilisé, sauf pour des plugins très spécifiques ou anciennes applis Java.</p>
+                <p><strong>Note :</strong> La plupart des développeurs n'utilisent plus &lt;param&gt; aujourd'hui. Les vidéos modernes (&lt;video&gt;) ont leurs propres attributs (controls, autoplay).</p>
+                <code>&lt;object data="app.swf"&gt;
+  &lt;param name="autoplay" value="true"&gt;
+  &lt;param name="loop" value="false"&gt;
+&lt;/object&gt;
+&lt;!-- Rarement utilisé en 2025 --&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;map&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Crée une image avec des zones cliquables (image map) : différentes parties de l'image mènent à différents liens. Utilisé avec &lt;area&gt;.</p>
+                <p><strong>Pourquoi ?</strong> Utile pour les cartes géographiques interactives, schémas, plans, infographies où chaque zone va vers une page différente.</p>
+                <p><strong>Exemple concret :</strong> Une carte de France où tu cliques sur une région pour voir ses infos. Ou un plan d'appartement où chaque pièce est cliquable.</p>
+                <code>&lt;img src="france.jpg" usemap="#carte-france"&gt;
+&lt;map name="carte-france"&gt;
+  &lt;area shape="rect" coords="0,0,100,100" href="paris.html" alt="Paris"&gt;
+  &lt;area shape="circle" coords="200,150,50" href="lyon.html" alt="Lyon"&gt;
+&lt;/map&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;area&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Définit UNE zone cliquable dans une &lt;map&gt;. shape peut être rect (rectangle), circle (cercle), ou poly (polygone). coords définit la position.</p>
+                <p><strong>Pourquoi ?</strong> Chaque &lt;area&gt; = un lien différent sur l'image. Tu peux avoir 20 zones cliquables sur une seule image !</p>
+                <p><strong>Coords :</strong> rect="x1,y1,x2,y2" (coin haut-gauche, coin bas-droite), circle="x,y,rayon", poly="x1,y1,x2,y2,x3,y3..." (liste de points).</p>
+                <code>&lt;map name="menu"&gt;
+  &lt;area shape="rect" coords="0,0,100,50" href="accueil.html" alt="Accueil"&gt;
+  &lt;area shape="rect" coords="100,0,200,50" href="blog.html" alt="Blog"&gt;
+  &lt;area shape="rect" coords="200,0,300,50" href="contact.html" alt="Contact"&gt;
+&lt;/map&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;wbr&gt;</h3>
+                <p><strong>C'est quoi ?</strong> "Word Break Opportunity" : suggère un point où un long mot PEUT se couper si besoin (si l'écran est trop petit), mais ne force rien.</p>
+                <p><strong>Pourquoi ?</strong> Pour les URLs très longues, mots composés allemands géants, ou noms de fichiers sans espaces. Évite que le texte déborde de la page sur mobile.</p>
+                <p><strong>Différence avec &lt;br&gt; :</strong> &lt;br&gt; force TOUJOURS un saut de ligne. &lt;wbr&gt; suggère juste "tu peux couper ici si besoin", sinon rien ne se passe.</p>
+                <code>&lt;p&gt;URL : https://www.example.com/&lt;wbr&gt;tres/&lt;wbr&gt;long/&lt;wbr&gt;chemin/&lt;wbr&gt;vers/&lt;wbr&gt;page&lt;/p&gt;
+&lt;p&gt;Fichier : mon&lt;wbr&gt;super&lt;wbr&gt;long&lt;wbr&gt;nom&lt;wbr&gt;de&lt;wbr&gt;fichier.pdf&lt;/p&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;bdi&gt;</h3>
+                <p><strong>C'est quoi ?</strong> "Bi-Directional Isolation" : isole du texte qui peut être dans une direction différente (arabe, hébreu = droite à gauche). Évite les bugs d'affichage.</p>
+                <p><strong>Pourquoi ?</strong> Si tu affiches des noms d'utilisateurs arabes au milieu d'un texte français, sans &lt;bdi&gt; ça peut tout mélanger. Avec &lt;bdi&gt;, chaque morceau garde sa direction.</p>
+                <p><strong>Exemple concret :</strong> Un classement avec des noms en plusieurs langues : "1. محمد 2. Sophie 3. יוסף". Sans &lt;bdi&gt;, les numéros peuvent se mélanger.</p>
+                <code>&lt;ul&gt;
+  &lt;li&gt;1. &lt;bdi&gt;محمد&lt;/bdi&gt; - 100 points&lt;/li&gt;
+  &lt;li&gt;2. &lt;bdi&gt;Sophie&lt;/bdi&gt; - 95 points&lt;/li&gt;
+  &lt;li&gt;3. &lt;bdi&gt;יוסף&lt;/bdi&gt; - 90 points&lt;/li&gt;
+&lt;/ul&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;bdo&gt;</h3>
+                <p><strong>C'est quoi ?</strong> "Bi-Directional Override" : FORCE la direction du texte. dir="rtl" = droite à gauche (arabe), dir="ltr" = gauche à droite (français).</p>
+                <p><strong>Pourquoi ?</strong> Utile pour montrer comment le texte arabe/hébreu s'écrit, ou pour des effets spéciaux (texte à l'envers). Différent de &lt;bdi&gt; qui isole sans forcer.</p>
+                <p><strong>Effet rigolo :</strong> Tu peux inverser du texte français pour faire un effet miroir : "BONJOUR" devient "RUOJNOB". Mais surtout utilisé pour les langues RTL.</p>
+                <code>&lt;p&gt;Normal : Bonjour&lt;/p&gt;
+&lt;p&gt;Inversé : &lt;bdo dir="rtl"&gt;Bonjour&lt;/bdo&gt;&lt;/p&gt;
+&lt;!-- Affiche "ruojnoB" --&gt;
+
+&lt;p&gt;Texte arabe : &lt;bdo dir="rtl"&gt;مرحبا بك&lt;/bdo&gt;&lt;/p&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;ruby&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Annotations ruby pour le japonais/chinois : affiche la prononciation au-dessus des caractères (kanji). Utilisé avec &lt;rt&gt; et &lt;rp&gt;.</p>
+                <p><strong>Pourquoi ?</strong> En japonais, les kanji sont difficiles. On met des hiragana au-dessus pour aider à lire. Comme des sous-titres pour les caractères compliqués.</p>
+                <p><strong>Exemple concret :</strong> Le kanji 漢字 (kanji) avec sa prononciation かんじ (kanji) affichée au-dessus en petit. Super utile pour apprendre le japonais !</p>
+                <code>&lt;ruby&gt;
+  漢字
+  &lt;rt&gt;かんじ&lt;/rt&gt;
+&lt;/ruby&gt;
+
+&lt;ruby&gt;
+  東京
+  &lt;rt&gt;とうきょう&lt;/rt&gt;
+&lt;/ruby&gt; (Tokyo)</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;rt&gt;</h3>
+                <p><strong>C'est quoi ?</strong> "Ruby Text" : la prononciation affichée au-dessus des caractères dans un élément &lt;ruby&gt;. C'est le petit texte explicatif.</p>
+                <p><strong>Pourquoi ?</strong> Contient les hiragana (ou pinyin pour le chinois) qui expliquent comment prononcer le kanji. Affiché en petit au-dessus.</p>
+                <p><strong>Note :</strong> Si tu ne fais pas de site en japonais/chinois, tu n'utiliseras probablement jamais &lt;ruby&gt; et &lt;rt&gt; !</p>
+                <code>&lt;p&gt;Capitale du Japon :
+  &lt;ruby&gt;
+    東京
+    &lt;rt&gt;Tokyo&lt;/rt&gt;
+  &lt;/ruby&gt;
+&lt;/p&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;rp&gt;</h3>
+                <p><strong>C'est quoi ?</strong> "Ruby Parenthesis" : parenthèses de secours pour les navigateurs qui ne supportent pas &lt;ruby&gt;. Ils affichent "(prononciation)" au lieu de l'afficher au-dessus.</p>
+                <p><strong>Pourquoi ?</strong> Vieux navigateurs qui ne comprennent pas &lt;ruby&gt; afficheront au moins la prononciation entre parenthèses. C'est un fallback de politesse.</p>
+                <p><strong>Utilisation :</strong> Tu entoures le &lt;rt&gt; avec des &lt;rp&gt;(&lt;/rp&gt; et &lt;rp&gt;)&lt;/rp&gt;. Les navigateurs modernes les cachent automatiquement.</p>
+                <code>&lt;ruby&gt;
+  漢字
+  &lt;rp&gt;(&lt;/rp&gt;
+  &lt;rt&gt;kanji&lt;/rt&gt;
+  &lt;rp&gt;)&lt;/rp&gt;
+&lt;/ruby&gt;
+&lt;!-- Navigateur moderne : 漢字 avec "kanji" au-dessus
+     Vieux navigateur : 漢字(kanji) --&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;kbd&gt;</h3>
+                <p><strong>C'est quoi ?</strong> "Keyboard" : affiche une touche de clavier. Généralement avec une police monospace et un style "touche". Indique ce que l'utilisateur doit taper.</p>
+                <p><strong>Pourquoi ?</strong> Visuellement plus clair que "appuie sur Ctrl+C". Ça ressemble à une vraie touche de clavier. Améliore la lisibilité des tutoriels.</p>
+                <p><strong>Astuce :</strong> Combine plusieurs &lt;kbd&gt; pour les raccourcis : &lt;kbd&gt;Ctrl&lt;/kbd&gt; + &lt;kbd&gt;C&lt;/kbd&gt;. Tu peux les styliser en CSS pour ressembler à de vraies touches.</p>
+                <code>&lt;p&gt;Pour copier : &lt;kbd&gt;Ctrl&lt;/kbd&gt; + &lt;kbd&gt;C&lt;/kbd&gt;&lt;/p&gt;
+&lt;p&gt;Pour sauvegarder : &lt;kbd&gt;Ctrl&lt;/kbd&gt; + &lt;kbd&gt;S&lt;/kbd&gt;&lt;/p&gt;
+&lt;p&gt;Tapez &lt;kbd&gt;npm install&lt;/kbd&gt; dans le terminal&lt;/p&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;samp&gt;</h3>
+                <p><strong>C'est quoi ?</strong> "Sample" : affiche un exemple de sortie d'un programme informatique (message d'erreur, résultat d'une commande). Police monospace par défaut.</p>
+                <p><strong>Pourquoi ?</strong> Différencie la sortie du programme (ce que l'ordi dit) de ta saisie (ce que tu tapes). Utile dans les tutoriels techniques.</p>
+                <p><strong>Trio complet :</strong> &lt;kbd&gt; = ce que TU tapes, &lt;code&gt; = le code du programme, &lt;samp&gt; = ce que l'ordinateur répond. Chacun a son rôle !</p>
+                <code>&lt;p&gt;Si tu tapes &lt;kbd&gt;node -v&lt;/kbd&gt;, tu verras :&lt;/p&gt;
+&lt;samp&gt;v18.16.0&lt;/samp&gt;
+
+&lt;p&gt;Message d'erreur : &lt;samp&gt;Error 404: File not found&lt;/samp&gt;&lt;/p&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;var&gt;</h3>
+                <p><strong>C'est quoi ?</strong> "Variable" : indique une variable mathématique ou de programmation. Généralement en italique. Pour les formules et équations.</p>
+                <p><strong>Pourquoi ?</strong> Sémantiquement, ça dit "ceci est une variable". Différent de &lt;i&gt; qui est juste de l'italique sans sens. Important pour les maths et la programmation.</p>
+                <p><strong>Exemple concret :</strong> Dans une formule mathématique, les lettres comme x, y, n sont des variables. Ou dans un tutoriel code : "la variable userName stocke le nom".</p>
+                <code>&lt;p&gt;Si &lt;var&gt;x&lt;/var&gt; = 5 et &lt;var&gt;y&lt;/var&gt; = 3, alors &lt;var&gt;x&lt;/var&gt; + &lt;var&gt;y&lt;/var&gt; = 8&lt;/p&gt;
+&lt;p&gt;La variable &lt;var&gt;userName&lt;/var&gt; contient le nom de l'utilisateur.&lt;/p&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;cite&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Cite le titre d'une œuvre créative : livre, film, chanson, peinture, article. Par défaut en italique. Pour les titres uniquement, pas le contenu.</p>
+                <p><strong>Pourquoi ?</strong> Indique sémantiquement que c'est un titre d'œuvre. Différent de &lt;blockquote&gt; (pour citer le contenu) : &lt;cite&gt; c'est juste le titre.</p>
+                <p><strong>Exemples :</strong> Livres, films, albums, tableaux, articles de journal. "J'ai lu &lt;cite&gt;Harry Potter&lt;/cite&gt;", "J'ai vu &lt;cite&gt;Inception&lt;/cite&gt;".</p>
+                <code>&lt;p&gt;Mon livre préféré est &lt;cite&gt;Le Seigneur des Anneaux&lt;/cite&gt;&lt;/p&gt;
+&lt;p&gt;J'ai adoré le film &lt;cite&gt;Interstellar&lt;/cite&gt; de Nolan&lt;/p&gt;
+&lt;p&gt;Article paru dans &lt;cite&gt;Le Monde&lt;/cite&gt;&lt;/p&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>&lt;dfn&gt;</h3>
+                <p><strong>C'est quoi ?</strong> "Definition" : indique qu'on est en train de DÉFINIR un terme pour la première fois. Le mot défini est généralement en italique.</p>
+                <p><strong>Pourquoi ?</strong> Marque la première occurrence d'un terme technique dans un texte explicatif. Les moteurs de recherche comprennent que c'est une définition.</p>
+                <p><strong>Conseil :</strong> Utilise &lt;dfn&gt; la PREMIÈRE fois que tu définis un mot, puis utilise-le normalement après. Souvent combiné avec &lt;abbr&gt; pour les acronymes.</p>
+                <code>&lt;p&gt;&lt;dfn&gt;HTML&lt;/dfn&gt; (HyperText Markup Language) est le langage de balisage pour créer des pages web.&lt;/p&gt;
+&lt;p&gt;Maintenant que tu connais le HTML, on peut continuer...&lt;/p&gt;
+
+&lt;p&gt;Un &lt;dfn&gt;&lt;abbr title="Application Programming Interface"&gt;API&lt;/abbr&gt;&lt;/dfn&gt; est une interface de programmation.&lt;/p&gt;</code>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>🎓 Guide créé pour apprendre le HTML simplement !</p>
+        <p>
+            <a href="css-guide.html">Guide CSS</a> |
+            <a href="js-guide.html">Guide JavaScript</a> |
+            <a href="bootstrap-guide.html">Guide Bootstrap</a> |
+            <a href="git-guide.html">Guide Git</a>
+        </p>
+    </footer>
+
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const allCards = document.querySelectorAll('.tag-card');
+
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase().trim();
+
+            // Réinitialiser tous les backgrounds
+            allCards.forEach(card => {
+                card.style.backgroundColor = '';
+            });
+
+            if (searchTerm === '') return;
+
+            // Chercher dans tous les h3
+            allCards.forEach(card => {
+                const h3 = card.querySelector('h3');
+                const tagName = h3.textContent.toLowerCase().replace(/[<>]/g, '');
+
+                if (tagName.includes(searchTerm)) {
+                    // Surligner la carte
+                    card.style.backgroundColor = '#fff3cd';
+
+                    // Scroller vers le premier résultat
+                    if (document.querySelector('.tag-card[style*="background-color"]') === card) {
+                        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

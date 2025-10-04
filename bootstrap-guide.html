@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide Bootstrap 5</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <aside>
+        <h1>📚 Guide Bootstrap 5</h1>
+        <p class="subtitle">Toutes les classes Bootstrap 5 expliquées simplement</p>
+        <p>
+            <a href="html-guide.html">Guide HTML</a>
+            <a href="css-guide.html">Guide CSS</a>
+            <a href="js-guide.html">Guide JavaScript</a>
+            <a href="git-guide.html">Guide Git</a>
+        </p>
+    </aside>
+
+    <nav>
+        <div class="nav-logo">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 118 94">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M24.509 0c-6.733 0-11.715 5.893-11.492 12.284.214 6.14-.064 14.092-2.066 20.577C8.943 39.365 5.547 43.485 0 44.014v5.972c5.547.529 8.943 4.649 10.951 11.153 2.002 6.485 2.28 14.437 2.066 20.577C12.794 88.106 17.776 94 24.51 94H93.5c6.733 0 11.714-5.893 11.491-12.284-.214-6.14.064-14.092 2.066-20.577 2.009-6.504 5.396-10.624 10.943-11.153v-5.972c-5.547-.529-8.934-4.649-10.943-11.153-2.002-6.484-2.28-14.437-2.066-20.577C105.214 5.894 100.233 0 93.5 0H24.508zM80 57.863C80 66.663 73.436 72 62.543 72H44a2 2 0 01-2-2V24a2 2 0 012-2h18.437c9.083 0 15.044 4.92 15.044 12.474 0 5.302-4.01 10.049-9.119 10.88v.277C75.317 46.394 80 51.21 80 57.863zM60.521 28.34H49.948v14.934h8.905c6.884 0 10.68-2.772 10.68-7.727 0-4.643-3.264-7.207-9.012-7.207zM49.948 49.2v16.458H60.91c7.167 0 10.964-2.876 10.964-8.281 0-5.406-3.903-8.178-11.425-8.178H49.948z" fill="#7952B3"/>
+            </svg>
+        </div>
+        <ul>
+            <li><a href="#layout">Layout & Grid</a></li>
+            <li><a href="#spacing">Spacing</a></li>
+            <li><a href="#colors">Couleurs</a></li>
+            <li><a href="#typography">Typographie</a></li>
+            <li><a href="#display">Display</a></li>
+            <li><a href="#flexbox">Flexbox</a></li>
+            <li><a href="#components">Composants</a></li>
+            <li><a href="#utilities">Utilitaires</a></li>
+            <li><a href="#forms">Formulaires</a></li>
+            <li><a href="#images">Images</a></li>
+        </ul>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Rechercher..." />
+        </div>
+    </nav>
+
+    <main>
+        <section id="layout">
+            <h2>📐 Layout & Grid</h2>
+
+            <div class="tag-card">
+                <h3>.container</h3>
+                <p><strong>C'est quoi ?</strong> Un conteneur responsive à largeur fixe qui centre ton contenu. Il a des largeurs maximales différentes selon les breakpoints : 540px (sm), 720px (md), 960px (lg), 1140px (xl), 1320px (xxl).</p>
+                <p><strong>Pourquoi ?</strong> C'est la base de tout layout Bootstrap ! Il empêche ton contenu de s'étaler sur toute la largeur d'un grand écran (ce serait illisible). Le contenu reste centré et lisible, avec des marges automatiques des deux côtés.</p>
+                <p><strong>Usage :</strong> Enveloppe tout ton contenu principal dedans. Pour un conteneur pleine largeur : utilise .container-fluid à la place.</p>
+                <code>&lt;div class="container"&gt;
+  &lt;!-- Ton contenu ici --&gt;
+&lt;/div&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.container-fluid</h3>
+                <p><strong>C'est quoi ?</strong> Un conteneur qui prend toujours 100% de la largeur de l'écran, quelle que soit la taille. Contrairement à .container qui a des largeurs max, lui s'étend sur toute la largeur disponible.</p>
+                <p><strong>Pourquoi ?</strong> Parfait pour des designs edge-to-edge (bord à bord), des hero sections plein écran, ou quand tu veux que ton contenu occupe toute la largeur sans limites.</p>
+                <p><strong>Astuce :</strong> Combine avec .container à l'intérieur pour des sections pleine largeur avec du contenu centré dedans.</p>
+                <code>&lt;div class="container-fluid"&gt;
+  &lt;!-- Contenu pleine largeur --&gt;
+&lt;/div&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.row</h3>
+                <p><strong>C'est quoi ?</strong> Crée une ligne dans le système de grille Bootstrap. C'est un wrapper Flexbox pour tes colonnes (.col). Une row contient jusqu'à 12 colonnes maximum (système de 12 colonnes de Bootstrap).</p>
+                <p><strong>Pourquoi ?</strong> Obligatoire pour utiliser le système de grid ! .row gère l'espacement (gutters) entre les colonnes et fait en sorte que les .col s'alignent correctement. Sans .row, les .col ne fonctionnent pas.</p>
+                <p><strong>Important :</strong> Toujours mettre .row dans un .container ou .container-fluid, et mettre tes .col dans une .row !</p>
+                <code>&lt;div class="container"&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="col"&gt;Colonne 1&lt;/div&gt;
+    &lt;div class="col"&gt;Colonne 2&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.col / .col-*</h3>
+                <p><strong>C'est quoi ?</strong> Les colonnes du système de grille. .col = largeur auto égale. .col-6 = prend 6/12 de la largeur (50%). .col-md-4 = prend 4/12 (33%) à partir du breakpoint md (768px). Jusqu'à 12 colonnes par row.</p>
+                <p><strong>Pourquoi ?</strong> Le cœur du système responsive de Bootstrap ! Tu peux créer des layouts qui s'adaptent automatiquement : 3 colonnes sur desktop (.col-md-4), 1 colonne sur mobile. Super flexible et puissant !</p>
+                <p><strong>Breakpoints :</strong> .col-sm (≥576px), .col-md (≥768px), .col-lg (≥992px), .col-xl (≥1200px), .col-xxl (≥1400px). Pas de breakpoint = mobile-first (toutes tailles).</p>
+                <code>&lt;div class="row"&gt;
+  &lt;div class="col-md-6"&gt;50% sur desktop&lt;/div&gt;
+  &lt;div class="col-md-6"&gt;50% sur desktop&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="row"&gt;
+  &lt;div class="col"&gt;Auto&lt;/div&gt;
+  &lt;div class="col"&gt;Auto&lt;/div&gt;
+  &lt;div class="col"&gt;Auto&lt;/div&gt;
+&lt;/div&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.g-* / .gx-* / .gy-*</h3>
+                <p><strong>C'est quoi ?</strong> Contrôle l'espacement (gutters) entre les colonnes. .g-3 = gutter taille 3 (horizontal ET vertical). .gx-3 = gutter horizontal uniquement. .gy-3 = gutter vertical uniquement. Valeurs : 0 à 5.</p>
+                <p><strong>Pourquoi ?</strong> Ajuste l'espace entre tes colonnes sans toucher au CSS ! .g-0 pour coller les colonnes, .g-5 pour beaucoup d'espace. Beaucoup plus simple que gérer des margins/paddings manuellement.</p>
+                <p><strong>Tailles :</strong> 0 (0px), 1 (0.25rem), 2 (0.5rem), 3 (1rem - défaut), 4 (1.5rem), 5 (3rem).</p>
+                <code>&lt;div class="row g-0"&gt;&lt;!-- Pas d'espace --&gt;&lt;/div&gt;
+&lt;div class="row g-3"&gt;&lt;!-- Espace moyen --&gt;&lt;/div&gt;
+&lt;div class="row gx-5 gy-2"&gt;&lt;!-- Horizontal large, vertical petit --&gt;&lt;/div&gt;</code>
+            </div>
+        </section>
+
+        <section id="spacing">
+            <h2>📏 Spacing (Marges & Padding)</h2>
+
+            <div class="tag-card">
+                <h3>.m-* / .p-*</h3>
+                <p><strong>C'est quoi ?</strong> Classes d'espacement. m = margin, p = padding. Suivies d'une taille (0 à 5). .m-3 = margin 1rem. .p-2 = padding 0.5rem. Super rapide pour espacer sans CSS custom !</p>
+                <p><strong>Pourquoi ?</strong> Ajoute de l'espace en 2 secondes sans écrire de CSS ! Parfait pour prototyper rapidement ou ajuster l'espacement. Les tailles sont cohérentes dans tout le site (design system).</p>
+                <p><strong>Tailles :</strong> 0 (0), 1 (0.25rem/4px), 2 (0.5rem/8px), 3 (1rem/16px - base), 4 (1.5rem/24px), 5 (3rem/48px), auto (margin auto pour centrer).</p>
+                <code>&lt;div class="m-3"&gt;Margin 1rem&lt;/div&gt;
+&lt;div class="p-4"&gt;Padding 1.5rem&lt;/div&gt;
+&lt;div class="mx-auto"&gt;Centré horizontalement&lt;/div&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.mt-* / .mb-* / .ms-* / .me-*</h3>
+                <p><strong>C'est quoi ?</strong> Marges directionnelles. mt = margin-top, mb = margin-bottom, ms = margin-start (left en LTR), me = margin-end (right en LTR). Pareil pour padding : .pt-*, .pb-*, .ps-*, .pe-*.</p>
+                <p><strong>Pourquoi ?</strong> Contrôle précis de l'espacement ! Au lieu de mettre de la marge partout avec .m-3, tu peux juste .mb-3 pour espacer vers le bas. Économise de l'espace et plus propre.</p>
+                <p><strong>Combos utiles :</strong> .mt-5 .mb-3 (marge top large, bottom moyenne), .px-4 (padding horizontal des deux côtés), .py-2 (padding vertical haut+bas).</p>
+                <code>&lt;h1 class="mb-4"&gt;Titre avec espace en bas&lt;/h1&gt;
+&lt;div class="px-3 py-2"&gt;Padding horizontal 1rem, vertical 0.5rem&lt;/div&gt;
+&lt;button class="mt-3"&gt;Bouton avec marge top&lt;/button&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.mx-* / .my-*</h3>
+                <p><strong>C'est quoi ?</strong> Raccourcis pour marges/paddings sur 2 côtés. mx = margin left + right (horizontal). my = margin top + bottom (vertical). Même chose pour padding : .px-* et .py-*.</p>
+                <p><strong>Pourquoi ?</strong> Encore plus rapide ! .mx-auto est LE truc pour centrer un bloc horizontalement. .py-5 pour du padding vertical large en une classe. Très utilisé !</p>
+                <p><strong>Astuce de pro :</strong> .mx-auto sur un élément avec une largeur fixe = centrage parfait. Combine avec .d-block si c'est un élément inline.</p>
+                <code>&lt;div class="mx-auto" style="width: 500px;"&gt;Centré&lt;/div&gt;
+&lt;section class="py-5"&gt;Section avec beaucoup d'espace vertical&lt;/section&gt;
+&lt;img class="mx-auto d-block" src="..."&gt;&lt;!-- Image centrée --&gt;</code>
+            </div>
+        </section>
+
+        <section id="colors">
+            <h2>🎨 Couleurs & Backgrounds</h2>
+
+            <div class="tag-card">
+                <h3>.text-primary / .text-*</h3>
+                <p><strong>C'est quoi ?</strong> Change la couleur du texte selon les couleurs du thème Bootstrap. primary (bleu), secondary (gris), success (vert), danger (rouge), warning (jaune), info (cyan), light (blanc cassé), dark (noir), muted (gris clair).</p>
+                <p><strong>Pourquoi ?</strong> Cohérence des couleurs dans tout ton site ! Les couleurs ont un sens : danger = erreur/suppression, success = validation, warning = attention. L'utilisateur comprend instinctivement.</p>
+                <p><strong>Usage sémantique :</strong> .text-danger pour messages d'erreur, .text-success pour confirmations, .text-muted pour texte secondaire moins important.</p>
+                <code>&lt;p class="text-primary"&gt;Texte bleu (principal)&lt;/p&gt;
+&lt;p class="text-danger"&gt;Texte rouge (erreur)&lt;/p&gt;
+&lt;span class="text-muted"&gt;Texte gris discret&lt;/span&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.bg-primary / .bg-*</h3>
+                <p><strong>C'est quoi ?</strong> Change la couleur de fond. Mêmes couleurs que .text-* : primary, secondary, success, danger, warning, info, light, dark. Bootstrap ajuste automatiquement la couleur du texte pour le contraste.</p>
+                <p><strong>Pourquoi ?</strong> Crée des badges, alerts, cards colorés rapidement ! .bg-primary met un fond bleu avec texte blanc automatique. .bg-light met un fond clair avec texte foncé. Le contraste est géré pour toi.</p>
+                <p><strong>Combine avec .text-* :</strong> Pour forcer une couleur de texte spécifique : .bg-dark .text-warning (fond noir, texte jaune).</p>
+                <code>&lt;div class="bg-primary text-white p-3"&gt;Fond bleu, texte blanc&lt;/div&gt;
+&lt;div class="bg-success p-2"&gt;Fond vert (texte auto blanc)&lt;/div&gt;
+&lt;span class="bg-warning text-dark px-2"&gt;Badge jaune&lt;/span&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.bg-opacity-*</h3>
+                <p><strong>C'est quoi ?</strong> Contrôle l'opacité du background. Valeurs : 10, 25, 50, 75, 100. .bg-primary .bg-opacity-50 = fond bleu semi-transparent à 50%. Classe Bootstrap 5.1+.</p>
+                <p><strong>Pourquoi ?</strong> Crée des overlays, des effets de profondeur, des fonds semi-transparents sans CSS custom ! Combine avec .text-* pour des effets stylés.</p>
+                <p><strong>Exemple cool :</strong> Overlay sur une image : position relative sur l'image, .bg-dark .bg-opacity-75 en absolute dessus → effet teinté pro !</p>
+                <code>&lt;div class="bg-primary bg-opacity-25"&gt;Bleu très transparent&lt;/div&gt;
+&lt;div class="bg-dark bg-opacity-50"&gt;Noir semi-transparent&lt;/div&gt;</code>
+            </div>
+        </section>
+
+        <section id="typography">
+            <h2>📝 Typographie</h2>
+
+            <div class="tag-card">
+                <h3>.fs-1 / .fs-* (font-size)</h3>
+                <p><strong>C'est quoi ?</strong> Tailles de police prédéfinies. .fs-1 = très grand (2.5rem), .fs-2 = grand (2rem), .fs-3 (1.75rem), .fs-4 (1.5rem), .fs-5 (1.25rem), .fs-6 = normal (1rem). Échelle cohérente et responsive.</p>
+                <p><strong>Pourquoi ?</strong> Hiérarchie typographique instantanée ! .fs-1 pour les titres principaux, .fs-6 pour le texte normal. Les tailles s'adaptent automatiquement sur mobile. Plus besoin de gérer font-size manuellement.</p>
+                <p><strong>Astuce :</strong> Combine avec .fw-bold (gras), .text-primary pour créer des titres impactants rapidement.</p>
+                <code>&lt;h1 class="fs-1"&gt;Titre énorme&lt;/h1&gt;
+&lt;p class="fs-3"&gt;Sous-titre grand&lt;/p&gt;
+&lt;p class="fs-6"&gt;Texte normal&lt;/p&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.fw-bold / .fw-* (font-weight)</h3>
+                <p><strong>C'est quoi ?</strong> Contrôle l'épaisseur du texte. .fw-bold = gras (700), .fw-normal = normal (400), .fw-light = léger (300), .fw-lighter = très léger, .fw-bolder = très gras, .fw-semibold = semi-gras (600).</p>
+                <p><strong>Pourquoi ?</strong> Met en valeur du texte important sans changer la taille ! .fw-bold pour les labels, prix, call-to-actions. .fw-light pour du texte élégant et discret.</p>
+                <p><strong>Combo puissant :</strong> .fs-2 .fw-bold .text-primary = titre grand, gras, bleu → super impactant en 3 classes !</p>
+                <code>&lt;p class="fw-bold"&gt;Texte en gras&lt;/p&gt;
+&lt;span class="fw-light"&gt;Texte léger&lt;/span&gt;
+&lt;h2 class="fw-semibold"&gt;Titre semi-gras&lt;/h2&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.text-center / .text-start / .text-end</h3>
+                <p><strong>C'est quoi ?</strong> Aligne le texte. .text-center = centré, .text-start = gauche (en LTR), .text-end = droite (en LTR). Responsive : .text-md-center (centré sur ≥768px seulement).</p>
+                <p><strong>Pourquoi ?</strong> Contrôle l'alignement sans CSS ! .text-center pour les titres, citations. .text-end pour les prix, timestamps. Les versions responsive permettent des alignements différents mobile vs desktop.</p>
+                <p><strong>Responsive :</strong> .text-center .text-md-start = centré sur mobile, aligné à gauche sur desktop (≥768px). Super pratique !</p>
+                <code>&lt;h1 class="text-center"&gt;Titre centré&lt;/h1&gt;
+&lt;p class="text-end"&gt;Texte à droite&lt;/p&gt;
+&lt;div class="text-center text-md-start"&gt;Centré mobile, gauche desktop&lt;/div&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.text-uppercase / .text-lowercase / .text-capitalize</h3>
+                <p><strong>C'est quoi ?</strong> Transforme la casse du texte. .text-uppercase = TOUT EN MAJUSCULES, .text-lowercase = tout en minuscules, .text-capitalize = Première Lettre De Chaque Mot En Majuscule.</p>
+                <p><strong>Pourquoi ?</strong> Change le style du texte sans modifier le HTML ! .text-uppercase pour les titres, badges, boutons qui claquent. .text-capitalize pour les noms propres.</p>
+                <p><strong>Astuce design :</strong> .text-uppercase .fw-bold .fs-6 .text-muted = petit texte gris en majuscules gras → parfait pour les labels de section !</p>
+                <code>&lt;p class="text-uppercase"&gt;tout en majuscules&lt;/p&gt;
+&lt;span class="text-capitalize"&gt;première lettre majuscule&lt;/span&gt;
+&lt;small class="text-uppercase text-muted"&gt;Label section&lt;/small&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.text-decoration-none / .text-decoration-underline</h3>
+                <p><strong>C'est quoi ?</strong> Contrôle le soulignement du texte. .text-decoration-none = enlève le soulignement (souvent sur les liens), .text-decoration-underline = souligne le texte, .text-decoration-line-through = texte barré.</p>
+                <p><strong>Pourquoi ?</strong> .text-decoration-none est ULTRA utilisé sur les liens stylisés en boutons ou cards pour enlever le soulignement moche. .text-decoration-line-through pour les prix barrés (promotions).</p>
+                <p><strong>Usage typique :</strong> &lt;a class="text-decoration-none"&gt; pour des liens propres sans soulignement, surtout dans les cards et boutons.</p>
+                <code>&lt;a href="#" class="text-decoration-none"&gt;Lien sans soulignement&lt;/a&gt;
+&lt;p class="text-decoration-underline"&gt;Texte souligné&lt;/p&gt;
+&lt;span class="text-decoration-line-through"&gt;29.99€&lt;/span&gt; 19.99€</code>
+            </div>
+        </section>
+
+        <section id="display">
+            <h2>👁️ Display & Visibility</h2>
+
+            <div class="tag-card">
+                <h3>.d-none / .d-block / .d-flex / .d-grid</h3>
+                <p><strong>C'est quoi ?</strong> Contrôle le display CSS. .d-none = display: none (caché), .d-block = display: block, .d-flex = Flexbox, .d-grid = CSS Grid, .d-inline, .d-inline-block. Toutes les valeurs CSS display !</p>
+                <p><strong>Pourquoi ?</strong> Change le comportement d'affichage sans CSS ! .d-none pour cacher, .d-flex pour layout Flexbox, .d-grid pour Grid. Les versions responsive (.d-md-block) permettent d'afficher/cacher selon l'écran.</p>
+                <p><strong>Responsive magic :</strong> .d-none .d-md-block = caché sur mobile, visible sur desktop ≥768px. Parfait pour menus, sidebars !</p>
+                <code>&lt;div class="d-none"&gt;Caché&lt;/div&gt;
+&lt;div class="d-flex"&gt;Flexbox container&lt;/div&gt;
+&lt;div class="d-none d-lg-block"&gt;Visible seulement desktop large&lt;/div&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.d-*-none (responsive display)</h3>
+                <p><strong>C'est quoi ?</strong> Cache/affiche selon les breakpoints. .d-sm-none = caché sur ≥576px. .d-md-block = affiché en block sur ≥768px. Combine pour afficher/cacher à différentes tailles. Breakpoints : sm, md, lg, xl, xxl.</p>
+                <p><strong>Pourquoi ?</strong> Crée des interfaces adaptatives ! Menu mobile caché sur desktop, menu desktop caché sur mobile, sans JavaScript ! Juste avec des classes. Mega puissant.</p>
+                <p><strong>Pattern courant :</strong> Menu mobile : .d-block .d-lg-none (visible mobile, caché desktop). Menu desktop : .d-none .d-lg-block (caché mobile, visible desktop).</p>
+                <code>&lt;!-- Menu mobile (visible &lt;992px) --&gt;
+&lt;div class="d-block d-lg-none"&gt;☰ Menu mobile&lt;/div&gt;
+
+&lt;!-- Menu desktop (visible ≥992px) --&gt;
+&lt;nav class="d-none d-lg-block"&gt;Menu complet&lt;/nav&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.visible / .invisible</h3>
+                <p><strong>C'est quoi ?</strong> .invisible = visibility: hidden (caché mais prend de la place). Différent de .d-none qui supprime complètement l'élément du flux. L'élément invisible reste là, juste transparent.</p>
+                <p><strong>Pourquoi ?</strong> Quand tu veux cacher visuellement mais garder l'espace ! Utile pour des animations, des placeholders, ou garder la structure du layout intacte. .d-none détruit le layout, .invisible le garde.</p>
+                <p><strong>Différence clé :</strong> .d-none = disparaît complètement (autres éléments prennent sa place). .invisible = reste là, juste invisible (garde son espace).</p>
+                <code>&lt;div class="invisible"&gt;Caché mais prend de l'espace&lt;/div&gt;
+&lt;div class="d-none"&gt;Complètement retiré du layout&lt;/div&gt;</code>
+            </div>
+        </section>
+
+        <section id="flexbox">
+            <h2>💪 Flexbox Utilities</h2>
+
+            <div class="tag-card">
+                <h3>.d-flex</h3>
+                <p><strong>C'est quoi ?</strong> Active Flexbox sur un conteneur (display: flex). Les enfants directs deviennent des flex items. Base de tous les layouts Flexbox Bootstrap. Indispensable pour utiliser les autres classes flex-*.</p>
+                <p><strong>Pourquoi ?</strong> Flexbox = layout moderne ultra-puissant ! Aligne, distribue, centre des éléments facilement. .d-flex transforme n'importe quel élément en conteneur Flexbox prêt à styler.</p>
+                <p><strong>Responsive :</strong> .d-md-flex = Flexbox seulement sur ≥768px. Sur mobile : comportement block normal. Super pour des layouts qui changent mobile/desktop !</p>
+                <code>&lt;div class="d-flex"&gt;
+  &lt;div&gt;Item 1&lt;/div&gt;
+  &lt;div&gt;Item 2&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="d-md-flex"&gt;Flex sur desktop, block sur mobile&lt;/div&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.justify-content-*</h3>
+                <p><strong>C'est quoi ?</strong> Aligne les flex items sur l'axe principal (horizontal par défaut). start = gauche, center = centré, end = droite, between = espaces entre items, around = espaces autour items, evenly = espaces égaux partout.</p>
+                <p><strong>Pourquoi ?</strong> Distribue l'espace horizontal sans margins ! .justify-content-center pour centrer, .justify-content-between pour espacer (menu avec logo gauche, liens droite). Super pratique !</p>
+                <p><strong>Combos populaires :</strong> .d-flex .justify-content-between = items aux extrémités. .d-flex .justify-content-center = tous centrés. Responsive : .justify-content-md-end.</p>
+                <code>&lt;div class="d-flex justify-content-center"&gt;Centré&lt;/div&gt;
+&lt;div class="d-flex justify-content-between"&gt;
+  &lt;div&gt;Gauche&lt;/div&gt;
+  &lt;div&gt;Droite&lt;/div&gt;
+&lt;/div&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.align-items-*</h3>
+                <p><strong>C'est quoi ?</strong> Aligne les flex items sur l'axe secondaire (vertical par défaut). start = haut, center = centré verticalement, end = bas, baseline = sur la ligne de base du texte, stretch = étire pour remplir (défaut).</p>
+                <p><strong>Pourquoi ?</strong> LE truc pour centrer verticalement ! .d-flex .align-items-center = centrage vertical parfait. Fini les hacks avec transform ou position. Flexbox le fait naturellement.</p>
+                <p><strong>Centrage parfait :</strong> .d-flex .justify-content-center .align-items-center = centré horizontal ET vertical. La sainte trinité du centrage !</p>
+                <code>&lt;div class="d-flex align-items-center" style="height: 200px;"&gt;
+  &lt;div&gt;Centré verticalement&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="d-flex justify-content-center align-items-center" style="height: 100vh;"&gt;
+  Parfaitement centré !
+&lt;/div&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.flex-row / .flex-column</h3>
+                <p><strong>C'est quoi ?</strong> Direction des flex items. .flex-row = horizontal (défaut), .flex-column = vertical (items empilés). .flex-row-reverse = horizontal inversé, .flex-column-reverse = vertical inversé.</p>
+                <p><strong>Pourquoi ?</strong> Change l'orientation du layout ! .flex-column pour empiler verticalement. Les versions responsive (.flex-md-row) permettent : colonne sur mobile, ligne sur desktop → pattern ultra-courant !</p>
+                <p><strong>Pattern mobile-first :</strong> .flex-column .flex-md-row = items empilés sur mobile, côte à côte sur desktop. Parfait pour cards, images+texte.</p>
+                <code>&lt;div class="d-flex flex-column"&gt;Items empilés&lt;/div&gt;
+
+&lt;div class="d-flex flex-column flex-md-row"&gt;
+  &lt;div&gt;Image&lt;/div&gt;
+  &lt;div&gt;Texte&lt;/div&gt;
+  &lt;!-- Empilé mobile, côte à côte desktop --&gt;
+&lt;/div&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.flex-wrap / .flex-nowrap</h3>
+                <p><strong>C'est quoi ?</strong> Contrôle si les flex items passent à la ligne. .flex-wrap = items passent à la ligne si pas assez de place, .flex-nowrap = tout sur une ligne (défaut), .flex-wrap-reverse = wrap inversé.</p>
+                <p><strong>Pourquoi ?</strong> Pour des galeries, grilles flexibles ! .flex-wrap permet aux items de passer à la ligne automatiquement. Combine avec .justify-content-* pour des grilles responsive parfaites.</p>
+                <p><strong>Grille flexible :</strong> .d-flex .flex-wrap avec items en .col-6 ou .col-4 = grille qui s'adapte. Alternative simple à CSS Grid.</p>
+                <code>&lt;div class="d-flex flex-wrap"&gt;
+  &lt;div class="col-6"&gt;Item 1&lt;/div&gt;
+  &lt;div class="col-6"&gt;Item 2&lt;/div&gt;
+  &lt;div class="col-6"&gt;Item 3&lt;/div&gt;
+  &lt;!-- Grille 2 colonnes flexible --&gt;
+&lt;/div&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.flex-fill / .flex-grow-* / .flex-shrink-*</h3>
+                <p><strong>C'est quoi ?</strong> Contrôle la croissance des flex items. .flex-fill = remplit l'espace disponible également, .flex-grow-1 = grandit pour remplir, .flex-shrink-1 = rétrécit si besoin, .flex-grow-0 = ne grandit pas.</p>
+                <p><strong>Pourquoi ?</strong> Pour des layouts où un élément prend l'espace restant ! Exemple : navbar avec logo (taille fixe) + menu (flex-fill, prend le reste). Ou cards où le contenu grandit mais le footer reste collé en bas.</p>
+                <p><strong>Pattern navbar :</strong> Logo sans flex, liens avec .flex-fill ou .ms-auto → liens poussés à droite. Très utilisé !</p>
+                <code>&lt;div class="d-flex"&gt;
+  &lt;div&gt;Logo&lt;/div&gt;
+  &lt;div class="flex-fill"&gt;Prend l'espace restant&lt;/div&gt;
+  &lt;div&gt;Bouton&lt;/div&gt;
+&lt;/div&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.gap-*</h3>
+                <p><strong>C'est quoi ?</strong> Espacement entre les flex items (ou grid items). .gap-3 = 1rem d'espace entre chaque item. Valeurs : 0 à 5 (mêmes que spacing). Plus simple que margins sur chaque item !</p>
+                <p><strong>Pourquoi ?</strong> UNE classe pour espacer tous les items ! Avant il fallait mettre des margins sur chaque item et enlever sur le dernier avec :last-child. Maintenant : .gap-3 et c'est réglé. Magique !</p>
+                <p><strong>Note :</strong> Fonctionne avec Flexbox ET Grid. Tu peux aussi .row-gap-* et .column-gap-* pour contrôler séparément.</p>
+                <code>&lt;div class="d-flex gap-3"&gt;
+  &lt;div&gt;Item 1&lt;/div&gt;
+  &lt;div&gt;Item 2&lt;/div&gt;
+  &lt;div&gt;Item 3&lt;/div&gt;
+  &lt;!-- Espace de 1rem entre chaque --&gt;
+&lt;/div&gt;</code>
+            </div>
+        </section>
+
+        <section id="components">
+            <h2>🧩 Composants</h2>
+
+            <div class="tag-card">
+                <h3>.btn / .btn-primary / .btn-*</h3>
+                <p><strong>C'est quoi ?</strong> Styles de boutons Bootstrap. .btn = base (obligatoire), puis .btn-primary (bleu), .btn-secondary (gris), .btn-success (vert), .btn-danger (rouge), .btn-warning (jaune), .btn-info (cyan), .btn-light, .btn-dark. Aussi .btn-outline-* pour versions avec bordure.</p>
+                <p><strong>Pourquoi ?</strong> Boutons beaux et cohérents sans CSS ! .btn-primary pour action principale, .btn-secondary pour actions secondaires, .btn-danger pour suppressions. Les utilisateurs comprennent intuitivement grâce aux couleurs.</p>
+                <p><strong>Variantes :</strong> .btn-outline-primary (bordure bleue, fond transparent), .btn-lg (grand), .btn-sm (petit), .btn-block (pleine largeur - Bootstrap 4, utilise .w-100 en v5).</p>
+                <code>&lt;button class="btn btn-primary"&gt;Action principale&lt;/button&gt;
+&lt;button class="btn btn-outline-danger"&gt;Supprimer&lt;/button&gt;
+&lt;button class="btn btn-success btn-lg"&gt;Grand bouton vert&lt;/button&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.alert / .alert-*</h3>
+                <p><strong>C'est quoi ?</strong> Messages d'alerte/notification. .alert = base, puis .alert-success (vert - succès), .alert-danger (rouge - erreur), .alert-warning (jaune - avertissement), .alert-info (cyan - info). Avec .alert-dismissible pour bouton fermer.</p>
+                <p><strong>Pourquoi ?</strong> Affiche des messages utilisateur stylés ! Confirmation après soumission : .alert-success. Erreur de formulaire : .alert-danger. Avertissement : .alert-warning. Les couleurs communiquent le type de message.</p>
+                <p><strong>Dismissible :</strong> Ajoute .alert-dismissible + bouton avec data-bs-dismiss="alert" pour que l'utilisateur puisse fermer l'alerte.</p>
+                <code>&lt;div class="alert alert-success"&gt;✓ Enregistré avec succès !&lt;/div&gt;
+&lt;div class="alert alert-danger"&gt;✗ Erreur : champ requis&lt;/div&gt;
+&lt;div class="alert alert-warning alert-dismissible"&gt;
+  ⚠ Attention !
+  &lt;button type="button" class="btn-close" data-bs-dismiss="alert"&gt;&lt;/button&gt;
+&lt;/div&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.badge / .bg-*</h3>
+                <p><strong>C'est quoi ?</strong> Petits labels/compteurs. .badge = base, combine avec .bg-primary, .bg-danger, etc. pour la couleur. .rounded-pill pour badges arrondis en pilule. Parfait pour compteurs, statuts, labels.</p>
+                <p><strong>Pourquoi ?</strong> Affiche des infos compactes : notifications (5 messages), statuts (Nouveau, En stock), labels de catégorie. Petit et visible, attire l'œil sans prendre de place.</p>
+                <p><strong>Usage :</strong> Notifications : .badge .bg-danger sur un compteur. Statuts : .badge .bg-success pour "Actif". Tags : .badge .bg-secondary pour catégories.</p>
+                <code>&lt;span class="badge bg-primary"&gt;New&lt;/span&gt;
+&lt;button class="btn btn-primary"&gt;
+  Messages &lt;span class="badge bg-danger"&gt;5&lt;/span&gt;
+&lt;/button&gt;
+&lt;span class="badge rounded-pill bg-success"&gt;En stock&lt;/span&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.card / .card-body / .card-title</h3>
+                <p><strong>C'est quoi ?</strong> Conteneur flexible pour afficher du contenu. .card = conteneur, .card-body = contenu principal, .card-title = titre, .card-text = paragraphe, .card-img-top = image en haut, .card-header/.card-footer = en-tête/pied.</p>
+                <p><strong>Pourquoi ?</strong> LE composant le plus utilisé de Bootstrap ! Parfait pour produits, articles, profils, posts, portfolios. Structure claire et modulable. Combine avec grid pour des galeries de cards.</p>
+                <p><strong>Structure typique :</strong> .card &gt; .card-img-top (image) + .card-body &gt; .card-title + .card-text + bouton. Ajoute .shadow pour ombre stylée !</p>
+                <code>&lt;div class="card" style="width: 18rem;"&gt;
+  &lt;img src="..." class="card-img-top"&gt;
+  &lt;div class="card-body"&gt;
+    &lt;h5 class="card-title"&gt;Titre card&lt;/h5&gt;
+    &lt;p class="card-text"&gt;Description...&lt;/p&gt;
+    &lt;a href="#" class="btn btn-primary"&gt;Action&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.navbar / .navbar-expand-*</h3>
+                <p><strong>C'est quoi ?</strong> Barre de navigation responsive. .navbar = base, .navbar-expand-lg = menu complet sur ≥992px (hamburger sur mobile). .navbar-light/.navbar-dark pour thème clair/sombre. Avec .navbar-brand (logo), .navbar-nav (liens), .navbar-toggler (bouton menu mobile).</p>
+                <p><strong>Pourquoi ?</strong> Navigation professionnelle en quelques classes ! Sur desktop : menu horizontal. Sur mobile : menu hamburger qui se plie automatiquement. Responsive sans JavaScript (enfin presque, toggler nécessite Bootstrap JS).</p>
+                <p><strong>Structure :</strong> .navbar + .container + .navbar-brand + .navbar-toggler + .collapse .navbar-collapse &gt; .navbar-nav. Breakpoints : navbar-expand-sm/md/lg/xl/xxl.</p>
+                <code>&lt;nav class="navbar navbar-expand-lg navbar-light bg-light"&gt;
+  &lt;div class="container"&gt;
+    &lt;a class="navbar-brand" href="#"&gt;Logo&lt;/a&gt;
+    &lt;button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav"&gt;
+      &lt;span class="navbar-toggler-icon"&gt;&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;div class="collapse navbar-collapse" id="nav"&gt;
+      &lt;ul class="navbar-nav"&gt;
+        &lt;li class="nav-item"&gt;&lt;a class="nav-link" href="#"&gt;Lien&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/nav&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.modal</h3>
+                <p><strong>C'est quoi ?</strong> Fenêtre modale (popup) qui s'affiche par-dessus le contenu. Nécessite Bootstrap JavaScript. Structure : .modal &gt; .modal-dialog &gt; .modal-content &gt; .modal-header + .modal-body + .modal-footer.</p>
+                <p><strong>Pourquoi ?</strong> Affiche des formulaires, confirmations, images agrandies sans changer de page. L'overlay sombre focus l'attention sur le modal. data-bs-toggle="modal" sur un bouton l'ouvre automatiquement.</p>
+                <p><strong>Tailles :</strong> .modal-sm (petit), .modal-lg (large), .modal-xl (extra-large), .modal-fullscreen (plein écran). .modal-dialog-centered pour centrer verticalement.</p>
+                <code>&lt;button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal"&gt;
+  Ouvrir modal
+&lt;/button&gt;
+
+&lt;div class="modal fade" id="myModal"&gt;
+  &lt;div class="modal-dialog"&gt;
+    &lt;div class="modal-content"&gt;
+      &lt;div class="modal-header"&gt;
+        &lt;h5 class="modal-title"&gt;Titre&lt;/h5&gt;
+        &lt;button class="btn-close" data-bs-dismiss="modal"&gt;&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div class="modal-body"&gt;Contenu...&lt;/div&gt;
+      &lt;div class="modal-footer"&gt;
+        &lt;button class="btn btn-secondary" data-bs-dismiss="modal"&gt;Fermer&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code>
+            </div>
+        </section>
+
+        <section id="utilities">
+            <h2>🔧 Utilitaires</h2>
+
+            <div class="tag-card">
+                <h3>.w-* / .h-* (width/height)</h3>
+                <p><strong>C'est quoi ?</strong> Largeur et hauteur en pourcentages. .w-25 (25%), .w-50 (50%), .w-75 (75%), .w-100 (100%), .w-auto (auto). Pareil pour hauteur : .h-25, .h-50, .h-75, .h-100.</p>
+                <p><strong>Pourquoi ?</strong> Contrôle rapide de la taille ! .w-100 pour forcer pleine largeur (boutons, images). .w-50 pour moitié. .h-100 pour pleine hauteur d'un parent. Plus besoin de CSS custom pour ça.</p>
+                <p><strong>Combos :</strong> .w-100 .h-auto pour images responsive (largeur 100%, hauteur proportionnelle). .mw-100 (max-width: 100%) et .mh-100 (max-height: 100%) aussi disponibles.</p>
+                <code>&lt;img src="..." class="w-100 h-auto"&gt;&lt;!-- Image responsive --&gt;
+&lt;button class="btn btn-primary w-100"&gt;Bouton pleine largeur&lt;/button&gt;
+&lt;div class="w-50"&gt;50% de largeur&lt;/div&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.border / .border-*</h3>
+                <p><strong>C'est quoi ?</strong> Ajoute/enlève des bordures. .border = bordure complète, .border-top/bottom/start/end = un côté seulement, .border-0 = enlève bordure. .border-primary/danger/etc. pour couleur. .border-1 à .border-5 pour épaisseur.</p>
+                <p><strong>Pourquoi ?</strong> Ajoute visuellement des séparations ! .border sur cards, inputs. .border-bottom sur headers pour souligner. .border-primary pour accents colorés. .border-0 pour enlever les bordures moches par défaut.</p>
+                <p><strong>Styles :</strong> Combine avec .rounded (coins arrondis), .rounded-circle (cercle parfait), .rounded-pill (pilule). .shadow pour ombre.</p>
+                <code>&lt;div class="border p-3"&gt;Avec bordure&lt;/div&gt;
+&lt;div class="border border-primary border-3 rounded"&gt;Bordure bleue épaisse arrondie&lt;/div&gt;
+&lt;img src="..." class="border rounded-circle"&gt;&lt;!-- Avatar rond --&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.rounded / .rounded-*</h3>
+                <p><strong>C'est quoi ?</strong> Coins arrondis. .rounded = arrondi léger, .rounded-0 = carrés, .rounded-1/2/3 = niveaux d'arrondi, .rounded-circle = cercle parfait (pour carrés), .rounded-pill = capsule/pilule, .rounded-top/bottom/start/end = un côté.</p>
+                <p><strong>Pourquoi ?</strong> Design moderne et doux ! .rounded sur cards, boutons, images pour un look pro. .rounded-circle pour avatars circulaires. .rounded-pill pour badges et boutons pilule stylés.</p>
+                <p><strong>Avatars :</strong> Image carrée + .rounded-circle = avatar rond parfait. .rounded-pill sur badges/boutons = style moderne iOS/Android.</p>
+                <code>&lt;img src="..." class="rounded"&gt;&lt;!-- Image coins arrondis --&gt;
+&lt;img src="avatar.jpg" class="rounded-circle" width="50"&gt;&lt;!-- Avatar rond --&gt;
+&lt;span class="badge rounded-pill bg-primary"&gt;Badge pilule&lt;/span&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.shadow / .shadow-*</h3>
+                <p><strong>C'est quoi ?</strong> Ombres portées. .shadow = ombre standard, .shadow-sm = petite ombre, .shadow-lg = grande ombre, .shadow-none = pas d'ombre. Ajoute de la profondeur et hiérarchie visuelle.</p>
+                <p><strong>Pourquoi ?</strong> Donne du relief et de la modernité ! .shadow sur cards pour les faire "flotter" au-dessus de la page. .shadow-lg au :hover pour effet de survol. Les ombres guident l'œil et créent de la hiérarchie.</p>
+                <p><strong>Material Design :</strong> Combine .shadow avec .rounded pour un look type Material Design Google. Ajoute transition pour un hover fluide : .shadow .shadow-lg au :hover.</p>
+                <code>&lt;div class="card shadow"&gt;Card avec ombre&lt;/div&gt;
+&lt;button class="btn btn-primary shadow-lg"&gt;Bouton avec grosse ombre&lt;/button&gt;
+&lt;img src="..." class="rounded shadow-sm"&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.position-* / .top-* / .start-*</h3>
+                <p><strong>C'est quoi ?</strong> Positionnement CSS. .position-relative, .position-absolute, .position-fixed, .position-sticky. Puis .top-0, .bottom-0, .start-0, .end-0 pour placer (0 ou 50 ou 100). .translate-middle pour centrer.</p>
+                <p><strong>Pourquoi ?</strong> Contrôle le positionnement sans CSS custom ! .position-relative sur parent, .position-absolute sur enfant = positionnement libre. .position-fixed pour headers qui restent. .position-sticky pour headers qui collent au scroll.</p>
+                <p><strong>Centrage absolu :</strong> .position-absolute .top-50 .start-50 .translate-middle = parfaitement centré dans un parent .position-relative. Pattern très utilisé !</p>
+                <code>&lt;div class="position-relative"&gt;
+  &lt;div class="position-absolute top-0 end-0"&gt;Coin haut-droit&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="position-fixed bottom-0 end-0 m-3"&gt;Bouton flottant&lt;/div&gt;
+
+&lt;div class="position-absolute top-50 start-50 translate-middle"&gt;Centré&lt;/div&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.overflow-* / .text-truncate</h3>
+                <p><strong>C'est quoi ?</strong> Gère le débordement. .overflow-auto (scrollbar si besoin), .overflow-hidden (coupe), .overflow-visible (déborde), .overflow-scroll (scrollbar toujours). .text-truncate pour texte avec "..." si trop long.</p>
+                <p><strong>Pourquoi ?</strong> .overflow-hidden pour couper du contenu, empêcher le scroll horizontal. .overflow-auto pour zones scrollables (chatbox, lists). .text-truncate pour couper les titres longs avec ellipsis élégamment.</p>
+                <p><strong>Ellipsis :</strong> .text-truncate nécessite display: block ou inline-block et width fixe. Résultat : "Texte très long qui..." → propre et pro !</p>
+                <code>&lt;div class="overflow-auto" style="height: 200px;"&gt;Contenu scrollable&lt;/div&gt;
+&lt;div class="overflow-hidden"&gt;Coupe le contenu débordant&lt;/div&gt;
+&lt;p class="text-truncate" style="max-width: 200px;"&gt;Texte long qui sera coupé...&lt;/p&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.float-start / .float-end / .clearfix</h3>
+                <p><strong>C'est quoi ?</strong> Flottants CSS. .float-start = float left, .float-end = float right, .float-none = pas de float. .clearfix sur parent pour contenir les floats. Responsive : .float-md-start, etc.</p>
+                <p><strong>Pourquoi ?</strong> Fait flotter des éléments à gauche/droite avec texte qui entoure. Classique : image .float-start avec texte à côté. .clearfix empêche le parent de s'effondrer quand enfants sont floatés.</p>
+                <p><strong>Note moderne :</strong> Flexbox/Grid remplacent souvent les floats aujourd'hui. Mais floats restent utiles pour images dans du texte (articles, blogs).</p>
+                <code>&lt;div class="clearfix"&gt;
+  &lt;img src="..." class="float-start me-3"&gt;
+  &lt;p&gt;Texte qui entoure l'image...&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;button class="float-end"&gt;Bouton à droite&lt;/button&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.ratio / .ratio-*</h3>
+                <p><strong>C'est quoi ?</strong> Maintient un ratio aspect (largeur/hauteur) pour vidéos, iframes, embeds. .ratio .ratio-16x9 (16:9), .ratio-4x3 (4:3), .ratio-1x1 (carré), .ratio-21x9. L'élément enfant remplit automatiquement en gardant le ratio.</p>
+                <p><strong>Pourquoi ?</strong> Parfait pour vidéos YouTube/Vimeo responsive ! Sans .ratio, les iframes ont taille fixe et débordent sur mobile. Avec .ratio-16x9, la vidéo s'adapte en gardant son ratio. Plus de vidéos cassées !</p>
+                <p><strong>Usage typique :</strong> Wrap une iframe YouTube dans .ratio .ratio-16x9 → vidéo parfaitement responsive qui garde ses proportions.</p>
+                <code>&lt;div class="ratio ratio-16x9"&gt;
+  &lt;iframe src="https://youtube.com/embed/..." allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;div class="ratio ratio-1x1"&gt;
+  &lt;img src="..." class="object-fit-cover"&gt;&lt;!-- Image carrée --&gt;
+&lt;/div&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.vstack / .hstack</h3>
+                <p><strong>C'est quoi ?</strong> Raccourcis Flexbox. .vstack = empile verticalement (flex-column), .hstack = aligne horizontalement (flex-row). Avec gap automatique si tu ajoutes .gap-*. Bootstrap 5.1+.</p>
+                <p><strong>Pourquoi ?</strong> Plus simple que .d-flex .flex-column ! .vstack pour empiler, .hstack pour aligner. Combine avec .gap-3 pour espacer. Parfait pour listes, formulaires, boutons en ligne.</p>
+                <p><strong>Avantage :</strong> .hstack .gap-2 = items en ligne avec espace entre, en 2 classes. Sans ça : .d-flex + justify/align + spacing custom → beaucoup plus long !</p>
+                <code>&lt;div class="vstack gap-3"&gt;
+  &lt;div&gt;Item 1&lt;/div&gt;
+  &lt;div&gt;Item 2&lt;/div&gt;
+  &lt;div&gt;Item 3&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="hstack gap-2"&gt;
+  &lt;button class="btn btn-primary"&gt;OK&lt;/button&gt;
+  &lt;button class="btn btn-secondary"&gt;Annuler&lt;/button&gt;
+&lt;/div&gt;</code>
+            </div>
+        </section>
+
+        <section id="forms">
+            <h2>📝 Formulaires</h2>
+
+            <div class="tag-card">
+                <h3>.form-control</h3>
+                <p><strong>C'est quoi ?</strong> Style Bootstrap pour inputs (&lt;input&gt;, &lt;textarea&gt;, &lt;select&gt;). Ajoute bordures, padding, focus states stylés. Base de tous les formulaires Bootstrap.</p>
+                <p><strong>Pourquoi ?</strong> Inputs beaux et cohérents ! Les inputs HTML bruts sont moches et différents selon les navigateurs. .form-control unifie tout : même style partout, focus bleu, tailles cohérentes.</p>
+                <p><strong>Tailles :</strong> .form-control-sm (petit), .form-control-lg (grand). .form-control-plaintext pour affichage texte read-only stylé.</p>
+                <code>&lt;input type="text" class="form-control" placeholder="Nom"&gt;
+&lt;textarea class="form-control" rows="3"&gt;&lt;/textarea&gt;
+&lt;select class="form-control"&gt;
+  &lt;option&gt;Option 1&lt;/option&gt;
+&lt;/select&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.form-label / .form-text</h3>
+                <p><strong>C'est quoi ?</strong> Labels et texte d'aide pour formulaires. .form-label sur &lt;label&gt; = style cohérent. .form-text = texte d'aide gris petit sous l'input (pour instructions, formats attendus, etc.).</p>
+                <p><strong>Pourquoi ?</strong> Structure claire des formulaires ! .form-label en gras au-dessus de l'input, .form-text en gris en dessous pour guider l'utilisateur. Améliore l'UX et l'accessibilité.</p>
+                <p><strong>Accessibilité :</strong> Toujours mettre un &lt;label&gt; avec for="inputId" + id sur l'input. Les lecteurs d'écran lisent le label. .form-label le stylise joliment.</p>
+                <code>&lt;label for="email" class="form-label"&gt;Email&lt;/label&gt;
+&lt;input type="email" class="form-control" id="email"&gt;
+&lt;div class="form-text"&gt;Ne sera jamais partagé.&lt;/div&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.form-check / .form-check-input / .form-check-label</h3>
+                <p><strong>C'est quoi ?</strong> Styles pour checkboxes et radio buttons. .form-check = wrapper, .form-check-input sur &lt;input type="checkbox/radio"&gt;, .form-check-label sur le label. Rend les checkboxes jolies (au lieu des carrés moches du navigateur).</p>
+                <p><strong>Pourquoi ?</strong> Checkboxes et radios par défaut sont horribles et petits. .form-check les agrandit, les stylise, ajoute des états hover/focus. Beaucoup plus cliquables et pros !</p>
+                <p><strong>Variantes :</strong> .form-check-inline pour aligner horizontalement. .form-switch pour transformer checkbox en toggle switch (iOS-style). Super stylé !</p>
+                <code>&lt;div class="form-check"&gt;
+  &lt;input class="form-check-input" type="checkbox" id="check1"&gt;
+  &lt;label class="form-check-label" for="check1"&gt;J'accepte&lt;/label&gt;
+&lt;/div&gt;
+
+&lt;div class="form-check form-switch"&gt;
+  &lt;input class="form-check-input" type="checkbox" id="switch1"&gt;
+  &lt;label class="form-check-label" for="switch1"&gt;Activer&lt;/label&gt;
+&lt;/div&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.input-group / .input-group-text</h3>
+                <p><strong>C'est quoi ?</strong> Groupe input + addon (texte ou bouton collé). .input-group = wrapper, .input-group-text = addon texte (icône, @, €, etc.), bouton collé directement. Parfait pour champs avec unités, recherche avec bouton, etc.</p>
+                <p><strong>Pourquoi ?</strong> Clarifie le format attendu ! Input prix avec "€" collé après, email avec "@" avant, recherche avec bouton loupe collé. Visuellement groupé = l'utilisateur comprend que c'est lié.</p>
+                <p><strong>Exemples :</strong> Prix : addon "€" après. Email : addon "@" avant. Recherche : bouton après. URL : addon "https://" avant. Super pratique !</p>
+                <code>&lt;div class="input-group"&gt;
+  &lt;span class="input-group-text"&gt;@&lt;/span&gt;
+  &lt;input type="text" class="form-control" placeholder="Username"&gt;
+&lt;/div&gt;
+
+&lt;div class="input-group"&gt;
+  &lt;input type="text" class="form-control" placeholder="Rechercher"&gt;
+  &lt;button class="btn btn-primary"&gt;🔍&lt;/button&gt;
+&lt;/div&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.is-valid / .is-invalid</h3>
+                <p><strong>C'est quoi ?</strong> États de validation de formulaire. .is-valid = input valide (bordure verte, icône ✓), .is-invalid = input invalide (bordure rouge, icône ✗). Avec .valid-feedback et .invalid-feedback pour messages.</p>
+                <p><strong>Pourquoi ?</strong> Feedback visuel immédiat pour l'utilisateur ! Après soumission ou validation en temps réel : champs corrects en vert, erreurs en rouge avec messages explicatifs. L'utilisateur voit exactement quoi corriger.</p>
+                <p><strong>Workflow :</strong> Validation côté client (JS) → ajoute .is-valid ou .is-invalid selon le résultat. Affiche .valid-feedback (message de succès) ou .invalid-feedback (message d'erreur).</p>
+                <code>&lt;input type="email" class="form-control is-valid"&gt;
+&lt;div class="valid-feedback"&gt;✓ Email valide !&lt;/div&gt;
+
+&lt;input type="password" class="form-control is-invalid"&gt;
+&lt;div class="invalid-feedback"&gt;✗ 8 caractères minimum requis.&lt;/div&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.form-select</h3>
+                <p><strong>C'est quoi ?</strong> Style Bootstrap pour &lt;select&gt; (dropdown/liste déroulante). Remplace le style par défaut moche du navigateur. Cohérent avec .form-control. Tailles : .form-select-sm, .form-select-lg.</p>
+                <p><strong>Pourquoi ?</strong> Les &lt;select&gt; par défaut sont très différents selon navigateurs (Chrome vs Safari vs Firefox). .form-select les unifie : même apparence partout, flèche custom, focus stylé.</p>
+                <p><strong>Note :</strong> En Bootstrap 5, c'est .form-select (plus .form-control comme en v4). La flèche dropdown est customisée en CSS avec background-image.</p>
+                <code>&lt;select class="form-select"&gt;
+  &lt;option selected&gt;Choisir...&lt;/option&gt;
+  &lt;option value="1"&gt;Option 1&lt;/option&gt;
+  &lt;option value="2"&gt;Option 2&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;select class="form-select form-select-lg"&gt;Grand dropdown&lt;/select&gt;</code>
+            </div>
+        </section>
+
+        <section id="images">
+            <h2>🖼️ Images</h2>
+
+            <div class="tag-card">
+                <h3>.img-fluid</h3>
+                <p><strong>C'est quoi ?</strong> Rend l'image responsive : max-width: 100% et height: auto. L'image ne dépasse jamais son conteneur et garde ses proportions. LA classe pour toutes les images responsive.</p>
+                <p><strong>Pourquoi ?</strong> Sans ça, une grande image déborde sur mobile et casse le layout ! .img-fluid force l'image à s'adapter : pleine largeur sur petit écran, taille native sur grand écran (sans dépasser). Automatique et parfait.</p>
+                <p><strong>Usage :</strong> Mets .img-fluid sur TOUTES tes images (sauf icônes/logos petits). Combine avec .rounded, .shadow pour styliser.</p>
+                <code>&lt;img src="photo.jpg" class="img-fluid" alt="Photo"&gt;
+&lt;img src="banner.jpg" class="img-fluid rounded shadow"&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.img-thumbnail</h3>
+                <p><strong>C'est quoi ?</strong> Transforme l'image en thumbnail (vignette) : bordure arrondie légère, padding, fond blanc. Style "photo imprimée". Combine .img-fluid dedans pour responsive.</p>
+                <p><strong>Pourquoi ?</strong> Look de galerie photo pro ! Parfait pour grilles d'images, portfolios, galleries produits. L'effet "cadre photo" fait ressortir les images et les sépare visuellement.</p>
+                <p><strong>Galerie :</strong> Combine avec grid : .row .g-3 + .col-md-4 avec .img-thumbnail dedans = galerie de thumbnails responsive magnifique !</p>
+                <code>&lt;img src="photo.jpg" class="img-thumbnail" alt="Vignette"&gt;
+
+&lt;div class="row g-3"&gt;
+  &lt;div class="col-md-4"&gt;&lt;img src="1.jpg" class="img-thumbnail"&gt;&lt;/div&gt;
+  &lt;div class="col-md-4"&gt;&lt;img src="2.jpg" class="img-thumbnail"&gt;&lt;/div&gt;
+  &lt;div class="col-md-4"&gt;&lt;img src="3.jpg" class="img-thumbnail"&gt;&lt;/div&gt;
+&lt;/div&gt;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>.object-fit-*</h3>
+                <p><strong>C'est quoi ?</strong> Contrôle comment l'image remplit son conteneur (object-fit CSS). .object-fit-contain = rentre entièrement, .object-fit-cover = remplit en rognant, .object-fit-fill = étire, .object-fit-scale-down, .object-fit-none.</p>
+                <p><strong>Pourquoi ?</strong> Pour images avec width/height fixes ! .object-fit-cover est le plus utilisé : l'image remplit parfaitement l'espace sans se déformer (comme background-size: cover). Parfait pour avatars, cards avec images taille fixe.</p>
+                <p><strong>Avatar parfait :</strong> img avec width/height fixes + .object-fit-cover + .rounded-circle = avatar rond qui crop bien les visages, aucune déformation !</p>
+                <code>&lt;img src="photo.jpg" class="object-fit-cover" style="width: 300px; height: 200px;"&gt;
+
+&lt;img src="avatar.jpg" class="rounded-circle object-fit-cover" width="100" height="100"&gt;</code>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>🚀 Guide Bootstrap 5 créé pour accélérer ton développement web !</p>
+        <p>
+            <a href="html-guide.html">← Guide HTML</a> |
+            <a href="css-guide.html">Guide CSS</a> |
+            <a href="js-guide.html">Guide JavaScript</a> |
+            <a href="git-guide.html">Guide Git</a>
+        </p>
+    </footer>
+
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const allCards = document.querySelectorAll('.tag-card');
+
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase().trim();
+
+            // Réinitialiser tous les backgrounds
+            allCards.forEach(card => {
+                card.style.backgroundColor = '';
+            });
+
+            if (searchTerm === '') return;
+
+            // Chercher dans les h3
+            let firstMatch = null;
+            allCards.forEach(card => {
+                const h3 = card.querySelector('h3');
+                if (h3 && h3.textContent.toLowerCase().includes(searchTerm)) {
+                    card.style.backgroundColor = '#fff3cd';
+                    if (!firstMatch) {
+                        firstMatch = card;
+                    }
+                }
+            });
+
+            // Scroller vers le premier résultat
+            if (firstMatch) {
+                firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide Git</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <aside>
+        <h1>🔀 Guide Git</h1>
+        <p class="subtitle">Toutes les commandes Git expliquées simplement</p>
+        <p>
+            <a href="html-guide.html">Guide HTML</a>
+            <a href="css-guide.html">Guide CSS</a>
+            <a href="js-guide.html">Guide JavaScript</a>
+            <a href="bootstrap-guide.html">Guide Bootstrap</a>
+        </p>
+    </aside>
+
+    <nav>
+        <div class="nav-logo">
+            <svg viewBox="0 0 92 92" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#F05032" d="M90.156 41.965L50.036 1.848a5.913 5.913 0 0 0-8.368 0l-8.332 8.332 10.566 10.566a7.03 7.03 0 0 1 7.23 1.684 7.043 7.043 0 0 1 1.673 7.277l10.183 10.184a7.026 7.026 0 0 1 7.278 1.672 7.04 7.04 0 0 1 0 9.957 7.045 7.045 0 0 1-9.961 0 7.038 7.038 0 0 1-1.532-7.66l-9.5-9.497V59.36a7.04 7.04 0 0 1 1.86 11.29 7.04 7.04 0 0 1-9.957 0 7.04 7.04 0 0 1 0-9.958 7.034 7.034 0 0 1 2.308-1.539V33.926a7.001 7.001 0 0 1-2.308-1.535 7.049 7.049 0 0 1-1.516-7.7L29.242 14.273 1.734 41.777a5.918 5.918 0 0 0 0 8.371l40.12 40.118a5.918 5.918 0 0 0 8.371 0l39.931-39.934a5.914 5.914 0 0 0 0-8.367"/>
+            </svg>
+        </div>
+        <ul>
+            <li><a href="#config">Configuration</a></li>
+            <li><a href="#base">Commandes de Base</a></li>
+            <li><a href="#branches">Branches</a></li>
+            <li><a href="#remote">Remote & Sync</a></li>
+            <li><a href="#history">Historique</a></li>
+            <li><a href="#advanced">Avancé</a></li>
+            <li><a href="#undo">Annuler/Corriger</a></li>
+        </ul>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Rechercher..." />
+        </div>
+    </nav>
+
+    <main>
+        <section id="config">
+            <h2>⚙️ Configuration</h2>
+
+            <div class="tag-card">
+                <h3>git config --global user.name "ton nom"</h3>
+                <p><strong>C'est quoi ?</strong> Configure ton nom d'utilisateur Git qui apparaîtra sur tous tes commits. C'est ton identité dans Git ! Le --global applique ce réglage à tous tes projets sur ta machine.</p>
+                <p><strong>Pourquoi ?</strong> Git a besoin de savoir qui fait les modifications. Ton nom apparaît dans l'historique des commits pour que tout le monde sache qui a écrit quoi. Essentiel pour le travail en équipe !</p>
+                <p><strong>Première fois :</strong> À faire une seule fois après l'installation de Git. Sans ça, Git refusera de faire des commits. Utilise ton vrai nom ou ton pseudo GitHub.</p>
+                <code>git config --global user.name "Marie Dupont"
+git config --global user.name "DevMaster42"</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git config --global user.email "email@exemple.com"</h3>
+                <p><strong>C'est quoi ?</strong> Configure ton email Git qui sera associé à tous tes commits. Comme le nom, mais pour l'email. Le --global l'applique partout sur ta machine.</p>
+                <p><strong>Pourquoi ?</strong> Ton email permet de te contacter et lie tes commits à ton compte GitHub/GitLab. Si l'email correspond à ton compte GitHub, tes contributions apparaîtront dans ton profil (les petits carrés verts) !</p>
+                <p><strong>Astuce GitHub :</strong> Utilise le même email que ton compte GitHub pour que tes commits soient comptés dans tes contributions. GitHub peut aussi générer un email privé (noreply) si tu veux rester anonyme.</p>
+                <code>git config --global user.email "marie@exemple.com"
+git config --global user.email "123456+user@users.noreply.github.com"</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git config --list</h3>
+                <p><strong>C'est quoi ?</strong> Affiche toute ta configuration Git actuelle : nom, email, éditeur par défaut, alias, etc. Pratique pour vérifier que tout est bien configuré.</p>
+                <p><strong>Pourquoi ?</strong> Pour checker rapidement tes paramètres ! Tu viens d'installer Git ? Vérifie avec git config --list que ton nom et email sont bien configurés. Tu as un problème ? Regarde si un paramètre bizarre est configuré.</p>
+                <p><strong>Filtrer :</strong> Trop de lignes ? Utilise git config --global --list pour voir seulement les configs globales, ou git config user.name pour voir juste ton nom.</p>
+                <code>git config --list
+git config --global --list
+git config user.name
+git config user.email</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git config --global core.editor "nom_editeur"</h3>
+                <p><strong>C'est quoi ?</strong> Définit l'éditeur de texte que Git utilisera pour les messages de commit, résolutions de conflits, etc. Par défaut c'est vim (difficile pour débutants).</p>
+                <p><strong>Pourquoi ?</strong> Vim c'est puissant mais compliqué ! Si tu galères avec vim, configure ton éditeur préféré : VS Code, nano, notepad++. Les messages de commit s'ouvriront dans ton éditeur familier.</p>
+                <p><strong>Éditeurs courants :</strong> VS Code : "code --wait", Nano : "nano", Sublime : "subl -n -w", Notepad++ : "notepad++". Le --wait est important pour que Git attende la fermeture de l'éditeur.</p>
+                <code>git config --global core.editor "code --wait"
+git config --global core.editor "nano"
+git config --global core.editor "subl -n -w"</code>
+            </div>
+        </section>
+
+        <section id="base">
+            <h2>🚀 Commandes de Base</h2>
+
+            <div class="tag-card">
+                <h3>git init</h3>
+                <p><strong>C'est quoi ?</strong> Initialise un nouveau dépôt Git dans le dossier actuel. Crée un dossier caché .git qui contient toute l'histoire et la config du projet. C'est la toute première commande pour démarrer un projet Git !</p>
+                <p><strong>Pourquoi ?</strong> Pour transformer un dossier normal en projet Git ! Sans git init, Git ne peut rien faire. Cette commande crée la base de données Git locale qui trackera toutes tes modifications.</p>
+                <p><strong>Attention :</strong> À faire UNE SEULE FOIS par projet, dans le dossier racine. Ne fais JAMAIS git init dans un dossier qui contient déjà un .git (projet déjà initialisé) !</p>
+                <code>cd mon-projet
+git init
+# Initialized empty Git repository in mon-projet/.git/</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git clone &lt;url&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Télécharge un dépôt Git distant (GitHub, GitLab) sur ton ordinateur avec tout son historique. Crée un dossier avec le nom du projet et configure automatiquement le remote "origin".</p>
+                <p><strong>Pourquoi ?</strong> Pour récupérer un projet existant ! Tu veux contribuer à un projet GitHub ? git clone. Tu changes d'ordinateur ? git clone. C'est comme télécharger mais avec tout l'historique Git en plus.</p>
+                <p><strong>HTTPS vs SSH :</strong> HTTPS : plus simple, demande mot de passe. SSH : plus sécurisé, nécessite clé SSH configurée. Les deux marchent, SSH est mieux pour usage fréquent (pas de mot de passe à taper).</p>
+                <code>git clone https://github.com/user/projet.git
+git clone git@github.com:user/projet.git
+git clone &lt;url&gt; mon-dossier  # Clone dans un dossier spécifique</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git status</h3>
+                <p><strong>C'est quoi ?</strong> Affiche l'état actuel de ton dépôt : fichiers modifiés, fichiers en staging, fichiers non trackés, branche actuelle. C'est LE commandement que tu utiliseras le plus souvent !</p>
+                <p><strong>Pourquoi ?</strong> Pour savoir où tu en es ! Quels fichiers j'ai modifiés ? Qu'est-ce qui sera dans mon prochain commit ? Sur quelle branche je suis ? git status répond à tout ça. Utilise-le constamment !</p>
+                <p><strong>Lecture :</strong> Rouge = modifié mais pas en staging. Vert = en staging (prêt à commit). "Untracked" = nouveau fichier que Git ne connaît pas encore. "nothing to commit" = tout est propre !</p>
+                <code>git status
+# On branch main
+# Changes not staged: fichiers.txt (en rouge)
+# Untracked files: nouveau.txt
+git status -s  # Version courte, plus compact</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git add &lt;fichier&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Ajoute des fichiers à la zone de staging (index) pour préparer le prochain commit. Les fichiers "stagés" seront inclus dans le commit. Tu peux ajouter un fichier, plusieurs, ou tous.</p>
+                <p><strong>Pourquoi ?</strong> Git te donne le contrôle ! Tu peux choisir EXACTEMENT quels changements mettre dans ton commit. Modifié 10 fichiers mais veux commit que 2 ? git add ces 2 fichiers. Ça crée des commits propres et logiques.</p>
+                <p><strong>Patterns courants :</strong> git add . = ajoute TOUT (attention !). git add *.js = tous les .js. git add dossier/ = tout un dossier. git add -A = tout, même suppressions.</p>
+                <code>git add fichier.txt
+git add fichier1.txt fichier2.js
+git add .                    # Tout dans le dossier actuel
+git add -A                   # TOUT dans le projet
+git add *.css                # Tous les fichiers CSS</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git commit -m "message"</h3>
+                <p><strong>C'est quoi ?</strong> Crée un commit (snapshot) avec tous les fichiers en staging. Le -m permet d'ajouter le message directement dans la commande. Le commit est enregistré dans l'historique local avec ton nom, email, date, message.</p>
+                <p><strong>Pourquoi ?</strong> Les commits = points de sauvegarde de ton projet ! Chaque commit capture l'état exact de ton code à un moment donné. Tu peux revenir en arrière, comparer, partager. C'est la base de Git.</p>
+                <p><strong>Message parfait :</strong> Impératif présent ("Ajoute login", pas "Ajouté login"). Court et descriptif. Dit POURQUOI, pas juste quoi. Exemples : "Corrige bug connexion mobile", "Ajoute validation email formulaire".</p>
+                <code>git commit -m "Ajoute page d'accueil"
+git commit -m "Corrige bug affichage mobile"
+git commit -m "Refactor: simplifie fonction authentification"
+git commit               # Ouvre l'éditeur pour message long</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git log</h3>
+                <p><strong>C'est quoi ?</strong> Affiche l'historique des commits du plus récent au plus ancien : hash du commit, auteur, date, message. C'est le journal de bord de ton projet !</p>
+                <p><strong>Pourquoi ?</strong> Pour voir l'histoire de ton projet ! Qui a fait quoi et quand ? Quel commit a introduit un bug ? À quel moment cette feature a été ajoutée ? git log raconte tout.</p>
+                <p><strong>Options utiles :</strong> --oneline = une ligne par commit (compact). --graph = affiche l'arbre des branches. -n 5 = montre seulement les 5 derniers. --author="nom" = commits d'une personne.</p>
+                <code>git log
+git log --oneline            # Version compacte
+git log --graph --oneline    # Avec arbre des branches
+git log -n 5                 # 5 derniers commits
+git log --author="Marie"     # Commits de Marie</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git diff</h3>
+                <p><strong>C'est quoi ?</strong> Montre les différences entre fichiers : ce qui a changé ligne par ligne. Par défaut, compare les fichiers modifiés avec le dernier commit. Lignes rouges (-) = supprimées, vertes (+) = ajoutées.</p>
+                <p><strong>Pourquoi ?</strong> Pour voir EXACTEMENT ce qui a changé avant de commit ! "J'ai modifié quoi déjà ?" → git diff. Vérifie que tu commit les bonnes choses. Revois ton code avant de le sauvegarder.</p>
+                <p><strong>Variantes :</strong> git diff = modifs non stagées. git diff --staged = modifs en staging (prêtes à commit). git diff HEAD = toutes les modifs. git diff commit1 commit2 = compare deux commits.</p>
+                <code>git diff                     # Modifs non stagées
+git diff --staged            # Modifs en staging
+git diff HEAD                # Toutes les modifs
+git diff main feature        # Compare 2 branches
+git diff abc123 def456       # Compare 2 commits</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git rm &lt;fichier&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Supprime un fichier du projet ET de Git en même temps. Équivalent à supprimer le fichier + git add pour stager la suppression. La suppression sera dans le prochain commit.</p>
+                <p><strong>Pourquoi ?</strong> Plus simple que supprimer manuellement puis git add ! git rm fait les deux d'un coup. Le fichier disparaît de ton disque ET Git arrête de le tracker.</p>
+                <p><strong>Options :</strong> git rm --cached fichier = retire du Git SANS supprimer du disque (utile pour .gitignore oublié). git rm -r dossier/ = supprime un dossier récursivement.</p>
+                <code>git rm fichier.txt
+git rm --cached secret.env   # Retire de Git, garde sur disque
+git rm -r ancien-dossier/    # Supprime dossier complet
+git commit -m "Supprime fichiers obsolètes"</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git mv &lt;ancien&gt; &lt;nouveau&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Renomme ou déplace un fichier dans Git. Équivalent à renommer manuellement + git rm ancien + git add nouveau, mais en une seule commande. Git trackera que c'est un renommage, pas une suppression+création.</p>
+                <p><strong>Pourquoi ?</strong> Git détecte mieux les renommages si tu utilises git mv ! Si tu renommes manuellement, Git peut penser que tu as supprimé un fichier et créé un nouveau (historique perdu). git mv préserve l'historique.</p>
+                <p><strong>Déplacer aussi :</strong> git mv peut aussi déplacer dans un autre dossier. C'est utile pour réorganiser ton projet sans perdre l'historique Git des fichiers.</p>
+                <code>git mv ancien-nom.txt nouveau-nom.txt
+git mv fichier.js src/fichier.js
+git mv old-folder/ new-folder/
+git commit -m "Renomme fichiers pour cohérence"</code>
+            </div>
+        </section>
+
+        <section id="branches">
+            <h2>🌿 Branches</h2>
+
+            <div class="tag-card">
+                <h3>git branch</h3>
+                <p><strong>C'est quoi ?</strong> Liste toutes les branches locales. La branche actuelle est marquée avec une étoile (*) et en couleur. Sans argument, c'est juste un affichage, ça ne crée rien.</p>
+                <p><strong>Pourquoi ?</strong> Pour savoir sur quelle branche tu es et quelles branches existent ! "Je suis sur main ou feature ?" → git branch. Rapide et essentiel avant de faire des modifs.</p>
+                <p><strong>Options :</strong> git branch -a = toutes les branches (locales + distantes). git branch -r = branches distantes seulement. git branch -v = avec dernier commit de chaque branche.</p>
+                <code>git branch
+# * main
+#   feature-login
+#   bugfix-mobile
+git branch -a      # Toutes (locales + remote)
+git branch -v      # Avec infos commits</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git branch &lt;nom-branche&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Crée une NOUVELLE branche à partir du commit actuel. La branche est créée mais tu n'y es PAS encore (tu restes sur ta branche actuelle). C'est comme créer une copie parallèle de ton projet.</p>
+                <p><strong>Pourquoi ?</strong> Les branches = travailler sur plusieurs choses en parallèle sans toucher au code principal ! Feature en cours ? Crée une branche. Bug urgent ? Crée une branche. Le main reste propre pendant que tu expérimentes.</p>
+                <p><strong>Convention :</strong> Noms descriptifs : feature/login, bugfix/mobile-menu, hotfix/security. Évite les noms vagues comme "test" ou "nouveau". Tu veux savoir en un coup d'œil ce qu'il y a dans la branche.</p>
+                <code>git branch feature-login
+git branch bugfix-mobile-menu
+git branch hotfix-security
+git branch                    # Vérifie qu'elle existe</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git checkout &lt;branche&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Change de branche active. Tous tes fichiers se transforment pour correspondre à cette branche ! Si tu as des modifs non commitées, Git te bloquera (ou les déplacera avec toi selon les cas).</p>
+                <p><strong>Pourquoi ?</strong> Pour switcher entre différentes versions de ton code ! Tu étais sur main, tu passes à feature → les fichiers changent instantanément pour refléter l'état de feature. Magique mais déroutant au début !</p>
+                <p><strong>Sécurité :</strong> Git refuse si tu as des modifs non sauvegardées qui seraient écrasées. Commit ou stash avant de checkout ! Sinon : "error: Your local changes would be overwritten".</p>
+                <code>git checkout feature-login
+git checkout main
+git checkout -                # Retourne à la branche précédente
+git status                    # Confirme sur quelle branche tu es</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git checkout -b &lt;nom-branche&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Crée une nouvelle branche ET switch dessus immédiatement. C'est le raccourci de git branch + git checkout. Super pratique, c'est ce que tout le monde utilise !</p>
+                <p><strong>Pourquoi ?</strong> Gain de temps ! Au lieu de git branch feature puis git checkout feature, tu fais git checkout -b feature. Une commande au lieu de deux. Tu créés et commences à travailler direct.</p>
+                <p><strong>Workflow courant :</strong> Tu es sur main, tu veux une nouvelle feature : git checkout -b feature/super-truc → tu es immédiatement sur la nouvelle branche et peux commencer à coder !</p>
+                <code>git checkout -b feature-login
+git checkout -b bugfix-responsive
+git checkout -b hotfix/urgent-security
+# Équivalent à :
+# git branch feature-login
+# git checkout feature-login</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git switch &lt;branche&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Commande moderne (Git 2.23+) pour changer de branche. Fait la même chose que git checkout mais plus clair (checkout fait trop de choses différentes). C'est la façon recommandée maintenant.</p>
+                <p><strong>Pourquoi ?</strong> git checkout est confusant car il fait plein de trucs : changer de branche, restaurer fichiers, créer branches... git switch est dédié au changement de branche uniquement. Plus simple à comprendre !</p>
+                <p><strong>Créer + switch :</strong> git switch -c nouvelle-branche = crée et switch (comme checkout -b). Les deux commandements (switch et checkout) marchent, utilise celui que tu préfères.</p>
+                <code>git switch main
+git switch feature-login
+git switch -c nouvelle-feature    # Crée + switch
+git switch -                      # Retour branche précédente</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git merge &lt;branche&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Fusionne une branche dans ta branche actuelle. Les commits de la branche cible sont intégrés. Par exemple, sur main, git merge feature-login intègre tous les commits de feature-login dans main.</p>
+                <p><strong>Pourquoi ?</strong> Pour ramener tes modifications dans la branche principale ! Feature terminée sur ta branche ? Retourne sur main et merge ta branche feature. Ton travail rejoint le code principal.</p>
+                <p><strong>Conflits :</strong> Si Git ne peut pas merger automatiquement (même ligne modifiée différemment), il te demande de résoudre manuellement. Ouvre les fichiers en conflit, choisis quelle version garder, puis git add + git commit.</p>
+                <code>git checkout main
+git merge feature-login      # Intègre feature-login dans main
+# Si conflit :
+# Résous manuellement dans les fichiers
+git add .
+git commit -m "Merge feature-login"</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git branch -d &lt;branche&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Supprime une branche locale. Le -d (delete) est "sûr" : refuse si la branche a des commits non mergés (protection contre perte de travail). Pour forcer : -D majuscule.</p>
+                <p><strong>Pourquoi ?</strong> Nettoyer les branches terminées ! Feature mergée dans main ? Supprime la branche feature, plus besoin. Garde ton projet propre, évite d'accumuler 50 branches obsolètes.</p>
+                <p><strong>Sécurité :</strong> -d = sûr, refuse si non mergée. -D = force, supprime même si non mergée (attention, perte de commits !). Toujours -d d'abord, -D seulement si tu es SÛR de vouloir perdre le travail.</p>
+                <code>git branch -d feature-login     # Sûr
+git branch -D branche-test        # Force (attention !)
+git branch -d old-feature
+# error: not fully merged → utilise -D si vraiment sûr</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git branch -m &lt;nouveau-nom&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Renomme la branche actuelle. Le -m (move) change le nom sans toucher aux commits. Tu peux aussi git branch -m ancien nouveau pour renommer une autre branche.</p>
+                <p><strong>Pourquoi ?</strong> Corriger une faute de frappe ou améliorer le nom ! Tu as créé "featur-login" (typo) ? git branch -m feature-login. Ou tu veux un nom plus clair pour une branche existante.</p>
+                <p><strong>Attention remote :</strong> Si la branche existe sur GitHub, renommer localement ne suffit pas. Il faut aussi push la nouvelle, supprimer l'ancienne sur remote : git push origin :ancien nouveau.</p>
+                <code>git branch -m nouveau-nom              # Renomme branche actuelle
+git branch -m ancien-nom nouveau-nom    # Renomme autre branche
+git branch -m featur-login feature-login  # Corrige typo</code>
+            </div>
+        </section>
+
+        <section id="remote">
+            <h2>☁️ Remote & Synchronisation</h2>
+
+            <div class="tag-card">
+                <h3>git remote add origin &lt;url&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Connecte ton dépôt local à un dépôt distant (GitHub, GitLab). "origin" est le nom conventionnel du remote principal. L'URL peut être HTTPS ou SSH.</p>
+                <p><strong>Pourquoi ?</strong> Pour pousser ton code sur GitHub ! Tu as fait git init localement ? Maintenant relie-le à un repo GitHub avec git remote add. Ensuite tu pourras push/pull.</p>
+                <p><strong>Une seule fois :</strong> git clone configure origin automatiquement. git remote add n'est nécessaire que si tu as fait git init (projet créé localement d'abord). Vérifie avec git remote -v.</p>
+                <code>git remote add origin https://github.com/user/projet.git
+git remote add origin git@github.com:user/projet.git
+git remote -v                # Vérifie que origin est configuré</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git remote -v</h3>
+                <p><strong>C'est quoi ?</strong> Liste tous les remotes configurés avec leurs URLs. Le -v (verbose) montre les URLs pour fetch (télécharger) et push (envoyer). Généralement tu as juste "origin".</p>
+                <p><strong>Pourquoi ?</strong> Pour vérifier vers où tu push/pull ! "Mon push va où ?" → git remote -v. Utile pour confirmer que origin pointe vers le bon repo GitHub, ou découvrir les remotes existants.</p>
+                <p><strong>Lecture :</strong> origin suivi de 2 lignes : (fetch) pour pull, (push) pour push. Si les URLs sont identiques (cas normal), fetch et push vont au même endroit.</p>
+                <code>git remote -v
+# origin  https://github.com/user/projet.git (fetch)
+# origin  https://github.com/user/projet.git (push)
+git remote    # Juste les noms (sans URLs)</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git push origin &lt;branche&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Envoie tes commits locaux vers le dépôt distant (GitHub). origin = nom du remote, branche = quelle branche envoyer. Tes commits deviennent visibles sur GitHub pour ton équipe.</p>
+                <p><strong>Pourquoi ?</strong> Sauvegarder ton code sur GitHub et partager avec l'équipe ! Commits faits localement ? Ils restent sur ton PC. git push les envoie sur GitHub. Backup + collaboration.</p>
+                <p><strong>Première fois :</strong> git push -u origin main configure le "upstream" (lien branche locale ↔ distante). Après, juste git push suffit. -u = --set-upstream, à faire une fois par branche.</p>
+                <code>git push origin main
+git push origin feature-login
+git push -u origin nouvelle-branche   # Première fois
+git push                               # Après avoir fait -u</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git pull</h3>
+                <p><strong>C'est quoi ?</strong> Télécharge les nouveaux commits du remote ET les merge dans ta branche actuelle. C'est git fetch + git merge en une seule commande. Synchronise ton code local avec GitHub.</p>
+                <p><strong>Pourquoi ?</strong> Récupérer le travail des autres ! Ton collègue a push sur GitHub ? git pull pour intégrer ses modifs dans ton code local. Garde ton projet à jour avec le remote.</p>
+                <p><strong>Conflit possible :</strong> Si toi ET quelqu'un d'autre avez modifié la même ligne, git pull créera un conflit de merge. Résous-le manuellement, puis git add + git commit.</p>
+                <code>git pull
+git pull origin main
+git pull origin feature-login
+# Si conflit : résous dans fichiers, puis
+git add .
+git commit -m "Résout conflits merge"</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git fetch</h3>
+                <p><strong>C'est quoi ?</strong> Télécharge les nouveaux commits du remote SANS les merger. Met à jour tes branches remote/origin/... mais ne touche PAS à tes branches locales. C'est "voir ce qu'il y a de nouveau" sans appliquer.</p>
+                <p><strong>Pourquoi ?</strong> Vérifier ce qui a changé sur GitHub sans risque ! git fetch = regarder. git pull = regarder + appliquer. Fetch d'abord, regarde les différences (git log origin/main), puis décide de merge ou non.</p>
+                <p><strong>Workflow sûr :</strong> git fetch → git diff origin/main (voir différences) → git merge origin/main (si ok) ou git pull direct si confiant. Fetch est plus prudent que pull.</p>
+                <code>git fetch
+git fetch origin
+git log origin/main       # Voir commits téléchargés
+git diff origin/main      # Voir différences
+git merge origin/main     # Appliquer si ok</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git push --force (ou -f)</h3>
+                <p><strong>C'est quoi ?</strong> Force le push même si ça écrase l'historique distant. DANGEREUX ! Remplace complètement la branche distante par ta version locale, même si elle a des commits que tu n'as pas.</p>
+                <p><strong>Pourquoi ?</strong> Après un rebase ou un commit --amend qui réécrit l'historique. Git refuse le push normal (historiques divergents) → --force écrase le remote. Utilise UNIQUEMENT sur TES branches, JAMAIS sur main/develop partagés !</p>
+                <p><strong>Alternative safer :</strong> --force-with-lease refuse si quelqu'un a push entre temps (protection supplémentaire). Préfère ça à --force brut. Mais sérieusement, fais gaffe, tu peux perdre le travail des autres.</p>
+                <code>git push --force origin feature     # DANGEREUX !
+git push --force-with-lease origin feature  # Safer
+git push -f origin ma-branche-solo          # OK si branche perso
+# JAMAIS sur main/develop partagés !</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git push --delete origin &lt;branche&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Supprime une branche sur le remote (GitHub). La branche locale reste intacte, seule la version GitHub est supprimée. Syntaxe alternative : git push origin :branche.</p>
+                <p><strong>Pourquoi ?</strong> Nettoyer GitHub après un merge ! Feature mergée dans main sur GitHub (via Pull Request) ? Supprime la branche feature devenue inutile. Garde GitHub propre.</p>
+                <p><strong>Workflow :</strong> Branche locale supprimée (git branch -d) + branche remote supprimée (git push --delete) = nettoyage complet. Ou laisse GitHub supprimer auto après merge de PR.</p>
+                <code>git push --delete origin feature-login
+git push origin :feature-login     # Syntaxe alternative
+git branch -d feature-login        # Supprime aussi en local</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git clone --depth 1 &lt;url&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Clone seulement le dernier commit (historique réduit), sans tout l'historique du projet. Beaucoup plus rapide et léger ! Appelé "shallow clone".</p>
+                <p><strong>Pourquoi ?</strong> Pour les gros projets avec des années d'historique ! Linux kernel = 3GB avec historique complet, 200MB avec --depth 1. Tu veux juste le code actuel sans l'historique ? Shallow clone.</p>
+                <p><strong>Limitation :</strong> Tu ne peux pas voir l'historique complet, revenir loin en arrière, ou facilement contribuer. Parfait pour déploiements, CI/CD, ou juste regarder le code. Pas pour développement actif.</p>
+                <code>git clone --depth 1 https://github.com/user/gros-projet.git
+git clone --depth 5 &lt;url&gt;   # 5 derniers commits
+# Pour récupérer l'historique après :
+git fetch --unshallow</code>
+            </div>
+        </section>
+
+        <section id="history">
+            <h2>📜 Historique & Inspection</h2>
+
+            <div class="tag-card">
+                <h3>git log --oneline</h3>
+                <p><strong>C'est quoi ?</strong> Affiche l'historique des commits en format compact : une ligne par commit avec hash court + message. Beaucoup plus lisible que git log normal quand il y a beaucoup de commits.</p>
+                <p><strong>Pourquoi ?</strong> Vue d'ensemble rapide ! git log normal est verbeux (auteur, date, message long). --oneline = juste l'essentiel. Tu peux voir 50 commits en un écran.</p>
+                <p><strong>Combos :</strong> --oneline --graph = arbre des branches + compact. --oneline -n 10 = 10 derniers seulement. --oneline --all = toutes les branches. Très utilisé au quotidien !</p>
+                <code>git log --oneline
+# a1b2c3d Ajoute page login
+# e4f5g6h Corrige bug mobile
+git log --oneline --graph
+git log --oneline -n 10</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git log --graph</h3>
+                <p><strong>C'est quoi ?</strong> Affiche l'historique avec un graphique ASCII des branches et merges. Montre visuellement comment les branches divergent et se rejoignent. Parfait pour comprendre l'arbre des commits.</p>
+                <p><strong>Pourquoi ?</strong> Voir la structure du projet ! Combien de branches ? Quand ont-elles mergé ? --graph dessine l'arbre avec des lignes et étoiles. Combine avec --oneline pour version lisible.</p>
+                <p><strong>Version ultimate :</strong> git log --oneline --graph --all --decorate = vue complète : toutes branches, graphique, tags, compact. Crée un alias pour ça (c'est long à taper) !</p>
+                <code>git log --graph
+git log --oneline --graph --all
+git log --oneline --graph --decorate --all
+# Alias pratique :
+git config --global alias.tree "log --oneline --graph --all"
+git tree</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git show &lt;commit&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Affiche les détails d'un commit spécifique : auteur, date, message, et DIFF complet (tout ce qui a changé). C'est comme git log + git diff pour un commit précis.</p>
+                <p><strong>Pourquoi ?</strong> Inspecter un commit ! "Qu'est-ce qui a changé dans ce commit ?" → git show abc123. Très utile pour comprendre un bug, revivre les modifs, ou vérifier ce qu'un collègue a fait.</p>
+                <p><strong>Raccourcis :</strong> git show = dernier commit (HEAD). git show HEAD~1 = avant-dernier. git show HEAD~3 = 3 commits avant. git show branch:fichier.txt = contenu d'un fichier sur une branche.</p>
+                <code>git show abc123
+git show HEAD           # Dernier commit
+git show HEAD~2         # 2 commits avant
+git show main:file.txt  # Fichier sur branche main</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git blame &lt;fichier&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Montre qui a modifié chaque ligne d'un fichier, quand, et dans quel commit. Chaque ligne = auteur + date + hash commit + contenu. Parfait pour trouver l'origine d'un changement !</p>
+                <p><strong>Pourquoi ?</strong> "Qui a écrit cette ligne ?" → git blame. Debugging : trouver qui a introduit un bug. Historique : comprendre pourquoi ce code existe. Pas pour "blâmer", juste pour tracer l'origine.</p>
+                <p><strong>GitHub :</strong> Sur GitHub, le bouton "Blame" dans l'interface fait pareil mais plus joli. En CLI, git blame -L 10,20 fichier.txt = lignes 10 à 20 seulement.</p>
+                <code>git blame fichier.js
+git blame -L 50,100 app.js    # Lignes 50-100 seulement
+git blame -e fichier.txt       # Affiche emails des auteurs
+git blame --since="1 month ago" code.py</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git shortlog</h3>
+                <p><strong>C'est quoi ?</strong> Résumé des commits groupés par auteur. Affiche combien de commits chaque personne a fait + leurs messages. Statistiques de contribution !</p>
+                <p><strong>Pourquoi ?</strong> Voir qui contribue au projet ! Combien de commits par développeur ? Qui est le plus actif ? Génère des stats automatiquement. Utile pour rapports, crédits, comprendre l'équipe.</p>
+                <p><strong>Options :</strong> -s = seulement nombres (pas les messages). -n = tri par nombre de commits. -e = affiche emails. Combine : git shortlog -sn = classement des contributeurs.</p>
+                <code>git shortlog
+git shortlog -sn          # Classement par nb commits
+git shortlog -sne         # Avec emails
+git shortlog --since="1 month"  # Dernier mois</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git log --since / --until</h3>
+                <p><strong>C'est quoi ?</strong> Filtre l'historique par date. --since = depuis quand, --until = jusqu'à quand. Accepte dates absolues (2024-01-01) ou relatives (1 week ago, 2 months ago).</p>
+                <p><strong>Pourquoi ?</strong> Voir ce qui s'est passé dans une période ! "Qu'est-ce qui a changé la semaine dernière ?" → git log --since="1 week ago". Rapport mensuel ? --since="1 month ago".</p>
+                <p><strong>Formats :</strong> "2024-01-15", "1 week ago", "yesterday", "2 months ago", "2024-01-01..2024-01-31". Très flexible ! Combine avec --author ou --grep pour filtres multiples.</p>
+                <code>git log --since="2 weeks ago"
+git log --since="2024-01-01" --until="2024-01-31"
+git log --since="yesterday"
+git log --since="1 month ago" --author="Marie"</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git log --grep "&lt;pattern&gt;"</h3>
+                <p><strong>C'est quoi ?</strong> Cherche dans les messages de commit. Affiche seulement les commits dont le message contient le pattern. Case-insensitive avec -i. Regex supporté !</p>
+                <p><strong>Pourquoi ?</strong> Trouver des commits spécifiques ! "Quel commit a corrigé le bug mobile ?" → git log --grep="mobile". Chercher toutes les features, bugfixes, ou mentions d'un ticket.</p>
+                <p><strong>Patterns utiles :</strong> git log --grep="fix" = tous les bugfixes. git log --grep="feature" = features. git log --grep="#123" = commits liés au ticket #123. Combine avec --since pour période.</p>
+                <code>git log --grep="bug"
+git log --grep="fix" -i          # Case-insensitive
+git log --grep="feature" --oneline
+git log --grep="#123"             # Numéro de ticket</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git log --author="&lt;nom&gt;"</h3>
+                <p><strong>C'est quoi ?</strong> Filtre les commits par auteur. Affiche seulement les commits d'une personne spécifique. Pas besoin du nom complet, une partie suffit.</p>
+                <p><strong>Pourquoi ?</strong> Voir ce qu'une personne a fait ! "Qu'est-ce que Marie a codé ?" → git log --author="Marie". Revue de code, statistiques perso, comprendre les contributions.</p>
+                <p><strong>Patterns :</strong> git log --author="Marie" match "Marie Dupont", "marie@exemple.com", tout ce qui contient "Marie". Combine avec --since pour "commits de Marie ce mois-ci".</p>
+                <code>git log --author="Marie"
+git log --author="marie@exemple.com"
+git log --author="Marie" --since="1 month ago"
+git log --author="Marie" --oneline</code>
+            </div>
+        </section>
+
+        <section id="advanced">
+            <h2>⚡ Commandes Avancées</h2>
+
+            <div class="tag-card">
+                <h3>git stash</h3>
+                <p><strong>C'est quoi ?</strong> Sauvegarde temporairement tes modifications non commitées dans une "cachette" et nettoie ton working directory. Les modifs disparaissent (mais sont stockées). Tu peux les récupérer plus tard avec git stash pop.</p>
+                <p><strong>Pourquoi ?</strong> Changer de branche sans commit ! Tu codes une feature, urgence sur main : git stash (sauvegarde), git checkout main (résous urgence), git checkout feature, git stash pop (récupère modifs). Temporaire parfait !</p>
+                <p><strong>Use cases :</strong> Switch branches sans commit. Pull alors que tu as des modifs. Tester quelque chose puis revenir. Stash = tiroir temporaire pour tes modifs.</p>
+                <code>git stash                  # Sauvegarde modifs
+git stash list              # Liste stashs
+git stash pop               # Récupère + supprime stash
+git stash apply             # Récupère sans supprimer</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git stash pop</h3>
+                <p><strong>C'est quoi ?</strong> Récupère les modifications du dernier stash ET supprime ce stash de la pile. C'est l'inverse de git stash : remet tes modifs dans le working directory.</p>
+                <p><strong>Pourquoi ?</strong> Reprendre là où tu t'étais arrêté ! Tu as stash avant de changer de branche ? Reviens sur ta branche, git stash pop, et tes modifs réapparaissent. Comme un Ctrl+Z inversé.</p>
+                <p><strong>Conflit possible :</strong> Si tu as modifié les mêmes lignes entre le stash et maintenant, Git créera un conflit. Résous-le, puis supprime le stash manuellement (git stash drop) si besoin.</p>
+                <code>git stash pop
+# Si conflit : résous manuellement
+git stash pop stash@{1}     # Pop un stash spécifique
+git stash apply             # Applique sans supprimer</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git tag &lt;nom&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Crée un tag (étiquette) sur le commit actuel. Les tags marquent des points importants : versions, releases. Exemple : v1.0, v2.1.3. Contrairement aux branches, les tags ne bougent jamais.</p>
+                <p><strong>Pourquoi ?</strong> Marquer les releases ! v1.0.0 sortie ? git tag v1.0.0. Tu peux checkout ce tag plus tard pour revenir exactement à cette version. GitHub crée des releases automatiquement à partir des tags.</p>
+                <p><strong>Types :</strong> Lightweight (juste un nom) : git tag v1.0. Annotated (avec message) : git tag -a v1.0 -m "Version 1.0". Annotated est recommandé pour releases officielles.</p>
+                <code>git tag v1.0.0
+git tag -a v2.0.0 -m "Version 2.0 - Refonte UI"
+git tag                     # Liste tous les tags
+git push origin v1.0.0      # Push tag sur GitHub</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git rebase &lt;branche&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Réapplique tes commits au-dessus d'une autre branche. Alternative à merge qui garde un historique linéaire. Au lieu de créer un commit de merge, rebase réécrit l'historique.</p>
+                <p><strong>Pourquoi ?</strong> Historique propre et linéaire ! Sur feature, git rebase main met à jour feature avec les derniers commits de main SANS créer de commit de merge. L'historique reste une ligne droite, plus facile à lire.</p>
+                <p><strong>DANGER :</strong> Réécrit l'historique = change les hash des commits. JAMAIS rebase des commits déjà pushés sur une branche partagée (main, develop) ! Seulement sur TES branches perso avant de merge.</p>
+                <code>git checkout feature
+git rebase main             # Met feature à jour avec main
+# Si conflit : résous, puis
+git add .
+git rebase --continue
+git rebase --abort          # Annule le rebase</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git cherry-pick &lt;commit&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Copie un commit spécifique d'une branche vers ta branche actuelle. "Pioche" juste UN commit sans merger toute la branche. Le commit est dupliqué avec un nouveau hash.</p>
+                <p><strong>Pourquoi ?</strong> Récupérer un bugfix d'une branche ! Branche feature a un commit qui corrige un bug, mais feature n'est pas prête à merge ? Cherry-pick juste ce commit dans main. Très utile pour hotfixes.</p>
+                <p><strong>Use case :</strong> Feature-branch a 10 commits dont 1 bugfix urgent. Au lieu de merger les 10, cherry-pick juste le bugfix dans main. Pratique mais peut créer de la confusion (commit dupliqué).</p>
+                <code>git checkout main
+git cherry-pick abc123      # Copie commit abc123 dans main
+git cherry-pick abc123 def456  # Plusieurs commits
+# Si conflit : résous, puis
+git cherry-pick --continue</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git bisect</h3>
+                <p><strong>C'est quoi ?</strong> Outil de recherche binaire pour trouver quel commit a introduit un bug. Git teste automatiquement les commits (bon/mauvais) par dichotomie jusqu'à trouver le commit coupable. Debugging puissant !</p>
+                <p><strong>Pourquoi ?</strong> Trouver l'origine d'un bug mystérieux ! "Le code marchait avant, maintenant cassé, mais quand ?" → bisect teste automatiquement. En quelques étapes, trouve le commit exact qui a introduit le bug.</p>
+                <p><strong>Workflow :</strong> git bisect start → git bisect bad (actuel est cassé) → git bisect good v1.0 (v1.0 marchait) → Git checkout un commit entre les deux → tu testes → git bisect good/bad → répète jusqu'à trouver.</p>
+                <code>git bisect start
+git bisect bad              # Actuel est buggé
+git bisect good v1.5.0      # v1.5.0 marchait
+# Git checkout un commit
+# Teste ton code
+git bisect good             # ou bad selon résultat
+# Répète jusqu'à trouver le commit coupable
+git bisect reset            # Termine</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git reflog</h3>
+                <p><strong>C'est quoi ?</strong> Log de TOUTES tes actions Git locales : commits, checkouts, resets, rebases, etc. C'est l'historique de tes mouvements dans Git. Même les commits "perdus" sont là !</p>
+                <p><strong>Pourquoi ?</strong> Sauvetage d'urgence ! Tu as fait un git reset --hard et perdu des commits ? reflog les liste encore. Tu peux les récupérer en checkoutant leur hash. C'est le filet de sécurité ultime.</p>
+                <p><strong>Récupération :</strong> git reflog → trouve hash du commit perdu → git checkout abc123 ou git cherry-pick abc123 → sauvé ! Reflog garde l'historique ~90 jours.</p>
+                <code>git reflog
+# abc123 HEAD@{0}: commit: Message
+# def456 HEAD@{1}: reset: moving to HEAD~1
+git checkout abc123         # Récupère commit perdu
+git cherry-pick def456      # Ou copy le commit</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git clean -fd</h3>
+                <p><strong>C'est quoi ?</strong> Supprime tous les fichiers non trackés (pas dans Git) du working directory. -f = force (obligatoire), -d = dossiers aussi. IRRÉVERSIBLE, fichiers supprimés définitivement !</p>
+                <p><strong>Pourquoi ?</strong> Nettoyer le projet des fichiers de build, logs, caches générés. Repartir propre après des tests. Attention : supprime VRAIMENT, pas de corbeille ! Vérifie d'abord avec git clean -n (dry-run).</p>
+                <p><strong>Sécurité :</strong> TOUJOURS git clean -n d'abord (montre ce qui SERAIT supprimé). Vérifie la liste. Si ok : git clean -fd. Les fichiers dans .gitignore sont ignorés par défaut (safe).</p>
+                <code>git clean -n              # Dry-run, montre ce qui serait supprimé
+git clean -fd             # Supprime fichiers + dossiers non trackés
+git clean -fdx            # Supprime même les fichiers .gitignore
+# ATTENTION : irréversible !</code>
+            </div>
+        </section>
+
+        <section id="undo">
+            <h2>↩️ Annuler & Corriger</h2>
+
+            <div class="tag-card">
+                <h3>git restore &lt;fichier&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Annule les modifications non commitées d'un fichier. Restaure le fichier à l'état du dernier commit. Commande moderne (Git 2.23+), remplace git checkout -- fichier. Les modifs sont PERDUES !</p>
+                <p><strong>Pourquoi ?</strong> "Oups j'ai cassé ce fichier, je veux revenir en arrière !" → git restore fichier.txt. Annule tes tests ratés, erreurs, expérimentations. Repart du dernier commit propre.</p>
+                <p><strong>Variantes :</strong> git restore . = restore TOUT. git restore --staged fichier = retire du staging (unstage) sans supprimer modifs. git restore --source=abc123 fichier = restore depuis un commit spécifique.</p>
+                <code>git restore fichier.txt
+git restore .                     # Restore tout
+git restore --staged fichier.txt  # Unstage (garde modifs)
+git restore --source=HEAD~1 file  # Depuis commit précédent</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git reset HEAD~1</h3>
+                <p><strong>C'est quoi ?</strong> Annule le(s) dernier(s) commit(s) en déplaçant HEAD. HEAD~1 = 1 commit avant. Les modifs du commit restent dans le working directory (pas perdues). Tu peux recommiter différemment.</p>
+                <p><strong>Pourquoi ?</strong> Corriger un commit raté ! Message de commit nul ? Oublié un fichier ? git reset HEAD~1, corrige, re-commit. Les fichiers restent modifiés, seul le commit est annulé.</p>
+                <p><strong>Modes :</strong> --soft (garde staging), --mixed (défaut, unstage), --hard (SUPPRIME modifs, danger !). 99% du temps : reset sans option (mixed) ou --soft. JAMAIS --hard sauf si SÛR.</p>
+                <code>git reset HEAD~1            # Annule dernier commit, garde modifs
+git reset HEAD~3            # Annule 3 derniers
+git reset --soft HEAD~1     # Annule mais garde staging
+git reset --hard HEAD~1     # DANGER : supprime modifs !</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git reset --hard</h3>
+                <p><strong>C'est quoi ?</strong> Reset BRUTAL qui supprime toutes les modifications ET déplace HEAD. Remet le projet exactement à l'état du commit cible. Working directory + staging = nettoyés. IRRÉVERSIBLE (enfin presque, reflog peut sauver).</p>
+                <p><strong>Pourquoi ?</strong> Recommencer à zéro depuis un commit propre. Tout est cassé ? git reset --hard HEAD → retour au dernier commit. Expérimentation ratée ? Reset hard et repars de zéro.</p>
+                <p><strong>DANGER EXTRÊME :</strong> Toutes les modifs non commitées sont PERDUES définitivement ! Utilise seulement si tu es ABSOLUMENT SÛR. Double-check avec git status avant. Récupération possible avec git reflog mais compliqué.</p>
+                <code>git reset --hard HEAD        # Annule toutes modifs non commitées
+git reset --hard HEAD~1      # Retour 1 commit + supprime modifs
+git reset --hard origin/main # Identique au remote
+# ATTENTION : perte de données !</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git revert &lt;commit&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Annule un commit en créant un NOUVEAU commit qui fait l'inverse. Contrairement à reset, n'efface PAS l'historique, l'inverse juste. Safe pour branches partagées !</p>
+                <p><strong>Pourquoi ?</strong> Annuler un commit déjà pushé ! Reset réécrit l'historique (dangereux sur branches partagées). Revert ajoute un commit "anti-commit" qui annule les changements. Historique intact, annulation visible.</p>
+                <p><strong>Quand l'utiliser :</strong> Commit déjà sur main/develop partagé ? Revert. Commit seulement local sur ta branche perso ? Reset est ok. Revert = safe, reset = dangereux sur remote.</p>
+                <code>git revert abc123           # Annule commit abc123
+git revert HEAD              # Annule dernier commit
+git revert HEAD~3            # Annule 3e commit avant
+# Crée un nouveau commit "Revert 'message original'"</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git commit --amend</h3>
+                <p><strong>C'est quoi ?</strong> Modifie le dernier commit : change le message et/ou ajoute des fichiers oubliés. Le commit est réécrit avec un nouveau hash. Pratique pour corriger des petites erreurs juste après un commit.</p>
+                <p><strong>Pourquoi ?</strong> Corriger un commit récent ! Typo dans le message ? --amend. Oublié un fichier ? git add + --amend. Évite d'avoir un commit "oups correction" dans l'historique.</p>
+                <p><strong>ATTENTION :</strong> Réécrit l'historique (nouveau hash) ! OK si pas encore pushé. Si déjà push, il faudra force push (dangereux). Ne jamais amend un commit sur branche partagée avec l'équipe !</p>
+                <code>git commit --amend -m "Nouveau message"
+# Oublié un fichier :
+git add fichier-oublie.txt
+git commit --amend --no-edit   # Ajoute au commit sans changer message
+git commit --amend             # Change message (ouvre éditeur)</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git restore --staged &lt;fichier&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Retire un fichier du staging (unstage) sans supprimer les modifications. Le fichier reste modifié mais n'est plus dans le prochain commit. Inverse de git add.</p>
+                <p><strong>Pourquoi ?</strong> "Oups j'ai add le mauvais fichier !" → git restore --staged fichier. Ou tu veux commit en 2 fois : unstage certains fichiers, commit le reste, puis re-add et commit séparément.</p>
+                <p><strong>Ancienne commande :</strong> Avant Git 2.23, c'était git reset HEAD fichier. restore --staged est plus clair. Les deux marchent, restore est recommandé maintenant.</p>
+                <code>git restore --staged fichier.txt
+git restore --staged .          # Unstage tout
+# Équivalent ancien :
+git reset HEAD fichier.txt</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git checkout &lt;commit&gt; -- &lt;fichier&gt;</h3>
+                <p><strong>C'est quoi ?</strong> Restaure un fichier à son état dans un commit spécifique. Récupère une ancienne version d'un fichier sans changer de branche ni toucher aux autres fichiers.</p>
+                <p><strong>Pourquoi ?</strong> "Ce fichier marchait avant, je veux l'ancienne version !" → checkout depuis un vieux commit. Récupère une fonction supprimée, une config qui marchait, un fichier accidentellement cassé.</p>
+                <p><strong>Alternative moderne :</strong> git restore --source=commit fichier fait pareil (plus clair). checkout est l'ancienne façon. Les deux marchent, restore est recommandé.</p>
+                <code>git checkout abc123 -- fichier.txt
+git checkout HEAD~3 -- config.json
+# Version moderne :
+git restore --source=abc123 fichier.txt</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>git reset HEAD</h3>
+                <p><strong>C'est quoi ?</strong> Unstage tous les fichiers (retire du staging). Équivalent à git restore --staged . mais ancienne syntaxe. Les modifs restent, juste pas en staging.</p>
+                <p><strong>Pourquoi ?</strong> "J'ai add trop de trucs, je veux recommencer la sélection" → git reset HEAD. Repart de zéro pour le staging, choisis mieux quoi commiter.</p>
+                <p><strong>Moderne vs ancien :</strong> git reset HEAD fichier = ancien. git restore --staged fichier = moderne. Les deux font pareil, restore est plus clair pour les débutants.</p>
+                <code>git reset HEAD              # Unstage tout
+git reset HEAD fichier.txt   # Unstage un fichier
+# Version moderne équivalente :
+git restore --staged .</code>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>🔀 Guide Git créé pour maîtriser le versioning comme un pro !</p>
+        <p>
+            <a href="html-guide.html">← Guide HTML</a> |
+            <a href="css-guide.html">Guide CSS</a> |
+            <a href="js-guide.html">Guide JavaScript</a> |
+            <a href="bootstrap-guide.html">Guide Bootstrap</a>
+        </p>
+    </footer>
+
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const allCards = document.querySelectorAll('.tag-card');
+
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase().trim();
+
+            // Réinitialiser tous les backgrounds
+            allCards.forEach(card => {
+                card.style.backgroundColor = '';
+            });
+
+            if (searchTerm === '') return;
+
+            // Chercher dans les h3
+            let firstMatch = null;
+            allCards.forEach(card => {
+                const h3 = card.querySelector('h3');
+                if (h3 && h3.textContent.toLowerCase().includes(searchTerm)) {
+                    card.style.backgroundColor = '#fff3cd';
+                    if (!firstMatch) {
+                        firstMatch = card;
+                    }
+                }
+            });
+
+            // Scroller vers le premier résultat
+            if (firstMatch) {
+                firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        });
+    </script>
+</body>
+</html>

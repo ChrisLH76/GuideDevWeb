@@ -1,0 +1,1992 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide des Propriétés CSS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <aside>
+        <h1>🎨 Le Guide Complet du CSS</h1>
+        <p class="subtitle">Toutes les propriétés CSS expliquées simplement !</p>
+        <p>
+            <a href="html-guide.html">Guide HTML</a>
+            <a href="js-guide.html">Guide JavaScript</a>
+            <a href="bootstrap-guide.html">Guide Bootstrap</a>
+            <a href="git-guide.html">Guide Git</a>
+        </p>
+    </aside>
+
+    <nav>
+        <div class="nav-logo">
+            <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#264de4" d="M71.357 460.819L30.272 0h451.456l-41.129 460.746L255.724 512z"/>
+                <path fill="#2965f1" d="M405.388 431.408l35.148-393.73H256v435.146z"/>
+                <path fill="#ebebeb" d="M124.46 208.59l5.065 56.517H256V208.59zM119.419 150.715H256V94.197H114.281zM256 355.372l-.248.066-62.944-16.996-4.023-45.076h-56.736l7.919 88.741 115.772 32.14.26-.073z"/>
+                <path fill="#fff" d="M255.805 208.59v56.517H325.4l-6.56 73.299-63.035 17.013v58.8l115.864-32.112.85-9.549 13.28-148.792 1.38-15.176 10.203-114.393H255.805v56.518h79.639L330.3 208.59z"/>
+            </svg>
+        </div>
+        <ul>
+            <li><a href="#texte">Texte</a></li>
+            <li><a href="#couleurs">Couleurs & Fond</a></li>
+            <li><a href="#box-model">Box Model</a></li>
+            <li><a href="#positionnement">Positionnement</a></li>
+            <li><a href="#flexbox">Flexbox</a></li>
+            <li><a href="#grid">Grid</a></li>
+            <li><a href="#animations">Animations</a></li>
+            <li><a href="#responsive">Responsive</a></li>
+        </ul>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Rechercher..." />
+        </div>
+    </nav>
+
+    <main>
+        <section id="texte">
+            <h2>✏️ Propriétés de Texte</h2>
+
+            <div class="tag-card">
+                <h3>color</h3>
+                <p><strong>C'est quoi ?</strong> La propriété qui change la couleur de ton texte. Tu peux utiliser des noms (red, blue), des codes hexadécimaux (#ff0000) ou rgb/rgba.</p>
+                <p><strong>Pourquoi ?</strong> Pour rendre ton texte visible et créer une identité visuelle. Un bon contraste texte/fond améliore la lisibilité.</p>
+                <p><strong>Astuce :</strong> Utilise rgba() pour ajouter de la transparence : rgba(255,0,0,0.5) donne un rouge à 50% d'opacité.</p>
+                <code>/* Différentes façons de définir les couleurs */
+color: red;           /* Nom de couleur */
+color: #ff0000;       /* Hexadécimal */
+color: rgb(255,0,0);  /* RGB */
+color: rgba(255,0,0,0.8); /* RGB avec transparence */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>font-size</h3>
+                <p><strong>C'est quoi ?</strong> Contrôle la taille de ton texte. Tu peux utiliser px (pixels), rem (relatif à la racine), em (relatif au parent) ou % (pourcentage).</p>
+                <p><strong>Pourquoi ?</strong> Pour créer une hiérarchie visuelle : titres grands, texte normal moyen, notes en petit. Essentiel pour la lisibilité.</p>
+                <p><strong>Conseil :</strong> Préfère rem au lieu de px pour le responsive. 1rem = taille de base du navigateur (souvent 16px). 2rem = 32px.</p>
+                <code>/* Différentes unités de taille */
+font-size: 16px;     /* Fixe en pixels */
+font-size: 1rem;     /* Relatif à la racine (recommandé) */
+font-size: 1.5em;    /* 1.5x la taille du parent */
+font-size: clamp(14px, 2vw, 20px); /* Responsive automatique */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>font-family</h3>
+                <p><strong>C'est quoi ?</strong> Définis quelle police d'écriture utiliser pour ton texte. Tu dois toujours mettre une police de secours (fallback) au cas où la première n'est pas disponible.</p>
+                <p><strong>Pourquoi ?</strong> Chaque police donne une ambiance différente : Arial est moderne, Times est classique, Courier ressemble à une machine à écrire.</p>
+                <p><strong>Astuce :</strong> Termine toujours par serif, sans-serif ou monospace comme dernier choix pour garantir un affichage correct.</p>
+                <code>/* Toujours prévoir des alternatives */
+font-family: 'Helvetica', Arial, sans-serif;
+font-family: 'Georgia', 'Times New Roman', serif;
+font-family: 'Courier New', monospace;
+font-family: 'Comic Sans MS', cursive; /* À éviter en pro ! */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>font-weight</h3>
+                <p><strong>C'est quoi ?</strong> Contrôle l'épaisseur (le "gras") de ton texte. Va de 100 (ultra fin) à 900 (ultra gras). Normal = 400, bold = 700.</p>
+                <p><strong>Pourquoi ?</strong> Pour mettre en évidence des mots importants ou créer des titres qui ressortent. Un texte trop fin est difficile à lire.</p>
+                <p><strong>Conseil :</strong> Tous les chiffres ne fonctionnent pas avec toutes les polices. Teste d'abord ou utilise simplement normal/bold.</p>
+                <code>/* Différentes épaisseurs */
+font-weight: 300;    /* Light */
+font-weight: 400;    /* Normal (défaut) */
+font-weight: 600;    /* Semi-bold */
+font-weight: 700;    /* Bold */
+font-weight: bold;   /* Équivalent à 700 */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>font-style</h3>
+                <p><strong>C'est quoi ?</strong> Penche ton texte en italique ou le garde normal. Il existe aussi oblique (similaire à italic).</p>
+                <p><strong>Pourquoi ?</strong> L'italique met en valeur des citations, des mots étrangers ou des termes importants sans être trop agressif comme le gras.</p>
+                <p><strong>Exemple :</strong> Parfait pour les sous-titres, les citations ou pour différencier une note du texte principal.</p>
+                <code>/* Styles de police */
+font-style: normal;   /* Texte droit (défaut) */
+font-style: italic;   /* Texte penché */
+em { font-style: italic; } /* Les balises &lt;em&gt; sont en italique */
+.citation { font-style: italic; color: #666; }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>text-align</h3>
+                <p><strong>C'est quoi ?</strong> Aligne ton texte horizontalement : à gauche, au centre, à droite ou justifié (aligné des deux côtés comme dans un livre).</p>
+                <p><strong>Pourquoi ?</strong> Left pour le texte normal, center pour les titres, justify pour un aspect "livre". Right rarement utilisé (sauf langues droite-à-gauche).</p>
+                <p><strong>Attention :</strong> Justify peut créer des espaces bizarres sur mobile. Évite-le pour les petits écrans.</p>
+                <code>/* Alignements courants */
+text-align: left;     /* Défaut pour les langues occidentales */
+text-align: center;   /* Titres, boutons */
+text-align: right;    /* Prix, dates */
+text-align: justify;  /* Aspect livre (attention aux espaces) */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>text-decoration</h3>
+                <p><strong>C'est quoi ?</strong> Ajoute ou enlève des lignes sur ton texte : underline (souligné), overline (ligne au-dessus), line-through (barré) ou none (enlever).</p>
+                <p><strong>Pourquoi ?</strong> Underline pour les liens (mais seulement les liens !), line-through pour les prix barrés, none pour enlever le soulignement des liens.</p>
+                <p><strong>Astuce :</strong> Tu peux combiner avec text-decoration-color pour changer la couleur de la ligne uniquement.</p>
+                <code>/* Décorations de texte */
+text-decoration: none;           /* Enlever le soulignement */
+text-decoration: underline;      /* Ligne en dessous */
+text-decoration: line-through;   /* Texte barré */
+text-decoration: underline dotted red; /* Souligné pointillé rouge */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>text-transform</h3>
+                <p><strong>C'est quoi ?</strong> Change automatiquement ton texte en MAJUSCULES, minuscules ou Met Une Majuscule À Chaque Mot, sans modifier le HTML.</p>
+                <p><strong>Pourquoi ?</strong> Pratique pour les boutons (uppercase), les titres (capitalize) ou normaliser du contenu utilisateur. Économise du temps !</p>
+                <p><strong>Conseil :</strong> Uppercase est parfait pour les boutons et badges. Capitalize pour les noms propres automatiques.</p>
+                <code>/* Transformations de texte */
+text-transform: uppercase;    /* TOUT EN MAJUSCULES */
+text-transform: lowercase;    /* tout en minuscules */
+text-transform: capitalize;   /* Première Lettre De Chaque Mot */
+text-transform: none;         /* Texte original */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>line-height</h3>
+                <p><strong>C'est quoi ?</strong> L'espace vertical entre chaque ligne de texte. C'est comme l'interligne dans Word. Sans unité, c'est un multiplicateur (1.5 = 1.5x la taille du texte).</p>
+                <p><strong>Pourquoi ?</strong> Un texte serré (1.0) est difficile à lire. Un bon line-height (1.5-1.8) améliore énormément la lisibilité et le confort de lecture.</p>
+                <p><strong>Conseil :</strong> Utilise des valeurs sans unité (1.5) plutôt qu'avec px. Ça s'adapte automatiquement si la taille de texte change.</p>
+                <code>/* Espacement des lignes */
+line-height: 1;       /* Serré (à éviter) */
+line-height: 1.5;     /* Standard, très lisible */
+line-height: 2;       /* Double interligne */
+line-height: 24px;    /* Fixe (moins flexible) */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>letter-spacing</h3>
+                <p><strong>C'est quoi ?</strong> L'espace entre chaque lettre. Valeur positive = lettres écartées, négative = lettres serrées.</p>
+                <p><strong>Pourquoi ?</strong> Espacer les lettres donne un aspect élégant aux titres. Parfait pour les logos ou les en-têtes de section.</p>
+                <p><strong>Astuce :</strong> 1-2px suffit souvent. Trop d'espace rend difficile la lecture. Teste avec des valeurs négatives pour un look compact.</p>
+                <code>/* Espacement entre lettres */
+letter-spacing: 0;      /* Normal (défaut) */
+letter-spacing: 2px;    /* Lettres espacées (titres) */
+letter-spacing: -1px;   /* Lettres serrées */
+.logo { letter-spacing: 3px; text-transform: uppercase; }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>word-spacing</h3>
+                <p><strong>C'est quoi ?</strong> L'espace entre les mots, comme letter-spacing mais pour les mots entiers.</p>
+                <p><strong>Pourquoi ?</strong> Rarement utilisé, mais pratique si le texte est trop serré ou pour créer un effet visuel particulier.</p>
+                <p><strong>Conseil :</strong> N'exagère pas ! 5-10px max. Un word-spacing trop grand rend la lecture pénible.</p>
+                <code>/* Espacement entre mots */
+word-spacing: 0;        /* Normal */
+word-spacing: 5px;      /* Mots un peu espacés */
+word-spacing: 10px;     /* Mots très espacés */
+word-spacing: -2px;     /* Mots plus serrés */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>text-shadow</h3>
+                <p><strong>C'est quoi ?</strong> Ajoute une ombre derrière ton texte. Format : décalage-X décalage-Y flou couleur.</p>
+                <p><strong>Pourquoi ?</strong> Pour faire ressortir du texte sur une image, créer de la profondeur ou un effet néon. Rend le texte plus lisible sur des fonds complexes.</p>
+                <p><strong>Astuce :</strong> Combine plusieurs ombres avec des virgules pour des effets stylés. Flou à 0 = ombre nette.</p>
+                <code>/* Ombres de texte */
+text-shadow: 2px 2px 4px rgba(0,0,0,0.5);  /* Ombre douce */
+text-shadow: 0 0 10px #fff;                /* Effet néon */
+text-shadow: 1px 1px 0 #000;               /* Ombre nette */
+text-shadow: 2px 2px 0 red, 4px 4px 0 blue; /* Multi-ombres */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>text-indent</h3>
+                <p><strong>C'est quoi ?</strong> Indente (décale) uniquement la première ligne d'un paragraphe, comme dans les livres.</p>
+                <p><strong>Pourquoi ?</strong> Pour donner un style "livre" à tes paragraphes ou pour créer des effets de mise en page spéciaux.</p>
+                <p><strong>Astuce :</strong> Valeur négative pour sortir la première ligne (effet titre suspendu). Combine avec padding-left.</p>
+                <code>/* Indentation de paragraphe */
+text-indent: 30px;      /* Première ligne décalée à droite */
+text-indent: -20px;     /* Première ligne sort à gauche */
+p { text-indent: 2em; } /* 2x la taille de la police */
+.hanging { text-indent: -20px; padding-left: 20px; }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>white-space</h3>
+                <p><strong>C'est quoi ?</strong> Contrôle comment les espaces et retours à ligne sont gérés. Nowrap empêche le texte de passer à la ligne.</p>
+                <p><strong>Pourquoi ?</strong> Nowrap pour garder le texte sur une ligne (badges, boutons). Pre pour préserver les espaces et sauts de ligne (code).</p>
+                <p><strong>Conseil :</strong> Combine nowrap avec text-overflow: ellipsis pour couper le texte long avec "...".</p>
+                <code>/* Gestion des espaces blancs */
+white-space: normal;    /* Comportement standard */
+white-space: nowrap;    /* Tout sur une seule ligne */
+white-space: pre;       /* Garde espaces et sauts (comme &lt;pre&gt;) */
+white-space: pre-wrap;  /* Garde espaces, autorise les retours */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>word-wrap / overflow-wrap</h3>
+                <p><strong>C'est quoi ?</strong> Force les mots très longs (URLs, emails) à se couper pour ne pas dépasser du conteneur.</p>
+                <p><strong>Pourquoi ?</strong> Sans ça, un long mot peut casser ta mise en page en dépassant de sa boîte, surtout sur mobile.</p>
+                <p><strong>Conseil :</strong> Mets toujours break-word sur les contenus utilisateurs (commentaires, emails) pour éviter les débordements.</p>
+                <code>/* Couper les mots trop longs */
+word-wrap: break-word;       /* Ancienne syntaxe */
+overflow-wrap: break-word;   /* Nouvelle syntaxe (identique) */
+/* Exemple pratique pour contenus utilisateurs */
+.user-content { overflow-wrap: break-word; }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>text-overflow</h3>
+                <p><strong>C'est quoi ?</strong> Ajoute "..." quand le texte dépasse. Nécessite white-space: nowrap et overflow: hidden pour fonctionner.</p>
+                <p><strong>Pourquoi ?</strong> Pour les titres trop longs, les cartes de profil, les listes de fichiers. Indique visuellement qu'il y a plus de texte.</p>
+                <p><strong>Astuce :</strong> Les 3 propriétés sont toujours ensemble ! Ellipsis ne marche pas sans les deux autres.</p>
+                <code>/* Texte coupé avec ... */
+.truncate {
+  white-space: nowrap;      /* Pas de retour à la ligne */
+  overflow: hidden;         /* Cache le dépassement */
+  text-overflow: ellipsis;  /* Ajoute les ... */
+}</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>vertical-align</h3>
+                <p><strong>C'est quoi ?</strong> Aligne verticalement les éléments inline (texte, images, icônes) entre eux. NE MARCHE PAS sur les éléments block !</p>
+                <p><strong>Pourquoi ?</strong> Pour aligner une icône avec du texte, ajuster la position d'une image dans une phrase ou centrer des éléments inline.</p>
+                <p><strong>Attention :</strong> Fonctionne uniquement sur inline/inline-block. Pour les blocs, utilise flexbox ou grid à la place.</p>
+                <code>/* Alignement vertical inline */
+vertical-align: baseline;  /* Défaut */
+vertical-align: middle;    /* Centre (parfait pour icônes) */
+vertical-align: top;       /* Haut de la ligne */
+img { vertical-align: middle; } /* Icône alignée au texte */</code>
+            </div>
+        </section>
+
+        <section id="couleurs">
+            <h2>🎨 Couleurs et Arrière-plans</h2>
+
+            <div class="tag-card">
+                <h3>background-color</h3>
+                <p><strong>C'est quoi ?</strong> Définit la couleur de fond d'un élément. Fonctionne avec toutes les notations : noms, hex, rgb, rgba, hsl.</p>
+                <p><strong>Pourquoi ?</strong> Pour créer du contraste, délimiter des sections, ou rendre ton site visuellement attrayant. Un bon fond améliore la lisibilité.</p>
+                <p><strong>Astuce :</strong> Utilise rgba() pour des fonds semi-transparents qui laissent transparaître ce qu'il y a derrière.</p>
+                <code>/* Couleurs de fond */
+background-color: #3498db;           /* Bleu en hexadécimal */
+background-color: rgb(52, 152, 219); /* Même bleu en RGB */
+background-color: rgba(52, 152, 219, 0.5); /* Bleu transparent */
+background-color: transparent;       /* Pas de fond */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>background-image</h3>
+                <p><strong>C'est quoi ?</strong> Met une image (ou plusieurs) en arrière-plan au lieu d'une couleur unie. Accepte url(), gradient, ou les deux.</p>
+                <p><strong>Pourquoi ?</strong> Pour créer des héros visuels, des textures, des patterns. Plus impactant qu'une simple couleur.</p>
+                <p><strong>Conseil :</strong> Toujours prévoir un background-color de secours si l'image ne charge pas. Combine avec background-size: cover.</p>
+                <code>/* Images de fond */
+background-image: url('hero.jpg');
+background-image: url('pattern.png'), url('texture.jpg'); /* Multiple */
+background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('photo.jpg'); /* Assombrir */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>background-size</h3>
+                <p><strong>C'est quoi ?</strong> Contrôle la taille de ton image de fond. Cover = remplit tout l'espace, contain = image entière visible.</p>
+                <p><strong>Pourquoi ?</strong> Cover pour les photos plein écran (héros), contain pour les logos, dimensions exactes pour les patterns.</p>
+                <p><strong>Astuce :</strong> Cover est le plus utilisé pour les photos. L'image peut être coupée mais ça remplit toujours l'espace.</p>
+                <code>/* Tailles d'image de fond */
+background-size: cover;      /* Remplit tout (peut couper) */
+background-size: contain;    /* Image entière visible (peut laisser vide) */
+background-size: 100% 100%;  /* Étire l'image (déformation) */
+background-size: 200px auto; /* Largeur fixe, hauteur auto */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>background-position</h3>
+                <p><strong>C'est quoi ?</strong> Positionne ton image de fond : center, top, bottom, left, right ou en pourcentages/pixels.</p>
+                <p><strong>Pourquoi ?</strong> Pour centrer un logo, garder le visage d'une personne visible, ou aligner un pattern précisément.</p>
+                <p><strong>Conseil :</strong> Center center (défaut) pour les photos de personnes. Top pour garder le ciel visible. Bottom pour les horizons.</p>
+                <code>/* Positionnement de l'image */
+background-position: center;       /* Centre (défaut) */
+background-position: top right;    /* Coin supérieur droit */
+background-position: 50% 75%;      /* Personnalisé */
+background-position: center top;   /* Centré horizontalement, en haut */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>background-repeat</h3>
+                <p><strong>C'est quoi ?</strong> Définit si ton image de fond se répète pour remplir l'espace. Repeat, no-repeat, repeat-x (horizontal), repeat-y (vertical).</p>
+                <p><strong>Pourquoi ?</strong> No-repeat pour les photos. Repeat pour les patterns/textures. Repeat-x pour les bandes horizontales.</p>
+                <p><strong>Astuce :</strong> Les patterns (motifs répétitifs) sont conçus pour repeat. Les photos uniques utilisent toujours no-repeat.</p>
+                <code>/* Répétition de l'image */
+background-repeat: no-repeat;  /* Une seule fois (photos) */
+background-repeat: repeat;     /* Se répète partout (pattern) */
+background-repeat: repeat-x;   /* Répétition horizontale seulement */
+background-repeat: repeat-y;   /* Répétition verticale seulement */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>background-attachment</h3>
+                <p><strong>C'est quoi ?</strong> Détermine si l'image de fond scroll avec la page (scroll) ou reste fixe à l'écran (fixed = effet parallaxe).</p>
+                <p><strong>Pourquoi ?</strong> Fixed crée un effet parallaxe stylé où le contenu scroll mais le fond reste immobile. Très tendance !</p>
+                <p><strong>Attention :</strong> Fixed peut causer des problèmes de performance sur mobile. Utilise-le avec parcimonie.</p>
+                <code>/* Comportement au scroll */
+background-attachment: scroll;  /* Bouge avec la page (défaut) */
+background-attachment: fixed;   /* Reste fixe (effet parallaxe) */
+/* Effet hero avec parallaxe */
+.hero { background-attachment: fixed; background-size: cover; }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>background (shorthand)</h3>
+                <p><strong>C'est quoi ?</strong> Raccourci qui combine color, image, repeat, position et size en une seule ligne. Économise du code.</p>
+                <p><strong>Pourquoi ?</strong> Plus rapide à écrire, moins de lignes de code. Mais attention à l'ordre : color, image, repeat, position / size.</p>
+                <p><strong>Astuce :</strong> Position et size sont séparés par un slash (/). Pense "position/size".</p>
+                <code>/* Raccourci background complet */
+background: #f0f0f0 url('bg.jpg') no-repeat center/cover;
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+background: url('pattern.png') repeat-x top/100px;
+/* Équivalent à écrire 5 propriétés séparées */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>opacity</h3>
+                <p><strong>C'est quoi ?</strong> Transparence d'un élément complet (contenu inclus). 0 = invisible, 1 = opaque, 0.5 = semi-transparent.</p>
+                <p><strong>Pourquoi ?</strong> Pour des effets de survol (hover), des overlays, des éléments discrets. Créer de la profondeur visuelle.</p>
+                <p><strong>Attention :</strong> Opacity affecte TOUT (texte, images, enfants). Pour juste le fond transparent, utilise rgba() à la place.</p>
+                <code>/* Transparence */
+opacity: 1;      /* Totalement visible (défaut) */
+opacity: 0.5;    /* 50% transparent */
+opacity: 0;      /* Invisible (mais présent) */
+.card:hover { opacity: 0.8; } /* Effet au survol */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>gradient (linear-gradient)</h3>
+                <p><strong>C'est quoi ?</strong> Crée un dégradé linéaire (droit) entre plusieurs couleurs. Direction : to right, to bottom, ou en degrés (45deg).</p>
+                <p><strong>Pourquoi ?</strong> Pour des fonds modernes et stylés, des boutons attractifs, des overlays sur images. Très tendance en 2024-2025.</p>
+                <p><strong>Astuce :</strong> Utilise des outils en ligne (cssgradient.io) pour créer des dégradés complexes facilement.</p>
+                <code>/* Dégradés linéaires */
+background: linear-gradient(to right, #ff0000, #0000ff);
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.8)); /* Overlay */
+background: linear-gradient(90deg, red 0%, yellow 50%, green 100%);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>gradient (radial-gradient)</h3>
+                <p><strong>C'est quoi ?</strong> Dégradé circulaire ou elliptique qui part du centre (ou d'un point) vers l'extérieur.</p>
+                <p><strong>Pourquoi ?</strong> Pour des effets spotlight, des boutons circulaires stylés, des fonds futuristes. Moins commun que linear mais très efficace.</p>
+                <p><strong>Conseil :</strong> Circle pour un cercle parfait, ellipse pour suivre la forme de la boîte. Positionne le centre avec "at".</p>
+                <code>/* Dégradés radiaux */
+background: radial-gradient(circle, #ff0000, #0000ff);
+background: radial-gradient(circle at top left, yellow, orange, red);
+background: radial-gradient(ellipse, rgba(255,255,255,0.8), transparent);
+background: radial-gradient(closest-side, #3f87a6, #ebf8e1, #f69d3c);</code>
+            </div>
+        </section>
+
+        <section id="box-model">
+            <h2>📦 Box Model (Boîtes)</h2>
+
+            <div class="tag-card">
+                <h3>width</h3>
+                <p><strong>C'est quoi ?</strong> La largeur de ton élément. Peut être en px (pixels), % (pourcentage du parent), vw (% de l'écran), ou auto (taille automatique).</p>
+                <p><strong>Pourquoi ?</strong> Pour contrôler la taille de tes éléments : cartes, images, conteneurs. Width: 100% = prend toute la largeur du parent.</p>
+                <p><strong>Conseil :</strong> Évite les px pour les conteneurs principaux, utilise % ou max-width pour le responsive. Auto laisse l'élément prendre sa taille naturelle.</p>
+                <code>/* Différentes largeurs */
+width: 300px;      /* Fixe en pixels */
+width: 50%;        /* Moitié du parent */
+width: 100vw;      /* Toute la largeur de l'écran */
+width: auto;       /* Taille naturelle du contenu */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>height</h3>
+                <p><strong>C'est quoi ?</strong> La hauteur de ton élément. Mêmes unités que width : px, %, vh (% de la hauteur d'écran), auto.</p>
+                <p><strong>Pourquoi ?</strong> Pour créer des sections plein écran (100vh), des cartes uniformes, ou des conteneurs de taille fixe.</p>
+                <p><strong>Astuce :</strong> Évite de fixer height si possible, laisse le contenu définir la hauteur (auto). Fixe height seulement si vraiment nécessaire.</p>
+                <code>/* Différentes hauteurs */
+height: 200px;     /* Fixe en pixels */
+height: 100vh;     /* Plein écran (hero sections) */
+height: 50%;       /* Moitié du parent (parent doit avoir une hauteur) */
+height: auto;      /* S'adapte au contenu (recommandé) */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>max-width</h3>
+                <p><strong>C'est quoi ?</strong> La largeur maximale qu'un élément ne peut pas dépasser, même si tu mets width: 100%. Super pour le responsive !</p>
+                <p><strong>Pourquoi ?</strong> Pour que le texte ne s'étale pas trop sur grands écrans. 1200px est standard pour les conteneurs principaux.</p>
+                <p><strong>Conseil :</strong> Combine avec width: 100% et margin: 0 auto pour un conteneur responsive centré qui s'adapte.</p>
+                <code>/* Largeur maximale responsive */
+max-width: 1200px;  /* Conteneur standard */
+max-width: 800px;   /* Article de blog (lisibilité) */
+.container { width: 100%; max-width: 1200px; margin: 0 auto; } /* Pattern classique */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>min-width</h3>
+                <p><strong>C'est quoi ?</strong> La largeur minimale qu'un élément doit toujours garder, même si le contenu ou le parent est plus petit.</p>
+                <p><strong>Pourquoi ?</strong> Pour éviter que des boutons deviennent trop petits, ou que des cartes soient illisibles sur petits écrans.</p>
+                <p><strong>Exemple :</strong> Un bouton avec min-width: 120px reste toujours cliquable même avec peu de texte ("OK" vs "Enregistrer").</p>
+                <code>/* Largeur minimale */
+min-width: 200px;   /* Élément jamais plus petit */
+min-width: 300px;   /* Pour des cartes uniformes */
+button { min-width: 120px; } /* Boutons toujours cliquables */
+.card { min-width: 250px; }  /* Cartes jamais trop étroites */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>max-height</h3>
+                <p><strong>C'est quoi ?</strong> La hauteur maximale. Si le contenu dépasse, il sera coupé (overflow: hidden) ou scrollable (overflow: auto).</p>
+                <p><strong>Pourquoi ?</strong> Pour créer des zones scrollables (liste de commentaires), limiter la taille de modales, ou contrôler des galeries.</p>
+                <p><strong>Astuce :</strong> Toujours combiner avec overflow: auto pour permettre le scroll si le contenu dépasse.</p>
+                <code>/* Hauteur maximale avec scroll */
+max-height: 400px;
+.comments { max-height: 500px; overflow-y: auto; } /* Scroll vertical */
+.modal { max-height: 90vh; overflow: auto; }       /* Modal responsive */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>min-height</h3>
+                <p><strong>C'est quoi ?</strong> Hauteur minimale garantie. L'élément grandit si le contenu est plus grand, mais ne rétrécit jamais en dessous.</p>
+                <p><strong>Pourquoi ?</strong> Pour des sections qui doivent avoir une présence même vides (hero, footer), ou des cartes de hauteur uniforme.</p>
+                <p><strong>Conseil :</strong> Min-height: 100vh pour une section plein écran qui grandit si nécessaire. Parfait pour les pages d'accueil.</p>
+                <code>/* Hauteur minimale */
+min-height: 100vh;  /* Plein écran minimum */
+min-height: 300px;  /* Section toujours visible */
+.hero { min-height: 100vh; } /* Hero plein écran */
+.card { min-height: 200px; } /* Cartes uniformes */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>padding</h3>
+                <p><strong>C'est quoi ?</strong> L'espace intérieur entre ton contenu et la bordure de la boîte. Comme une marge intérieure. Agrandit la boîte.</p>
+                <p><strong>Pourquoi ?</strong> Pour que le texte ne colle pas aux bords, rendre les boutons cliquables, créer de l'air autour du contenu. Essentiel pour le confort visuel.</p>
+                <p><strong>Astuce :</strong> 1 valeur = partout, 2 = vertical/horizontal, 4 = haut/droite/bas/gauche (sens horaire depuis le haut).</p>
+                <code>/* Différentes syntaxes de padding */
+padding: 20px;                /* Partout pareil */
+padding: 10px 20px;           /* 10px haut/bas, 20px gauche/droite */
+padding: 10px 20px 30px 40px; /* Haut, Droite, Bas, Gauche */
+.btn { padding: 12px 24px; }  /* Bouton confortable */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>padding-top / right / bottom / left</h3>
+                <p><strong>C'est quoi ?</strong> Contrôle le padding d'un seul côté spécifique au lieu de tous en même temps.</p>
+                <p><strong>Pourquoi ?</strong> Quand tu veux modifier juste un côté sans toucher aux autres. Plus précis que le raccourci padding.</p>
+                <p><strong>Exemple :</strong> Padding-bottom pour espacer des sections, padding-left pour indenter du contenu.</p>
+                <code>/* Padding par côté */
+padding-top: 50px;     /* Espace en haut seulement */
+padding-right: 20px;   /* À droite seulement */
+padding-bottom: 30px;  /* En bas (sections) */
+padding-left: 15px;    /* À gauche (indentation) */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>margin</h3>
+                <p><strong>C'est quoi ?</strong> L'espace extérieur entre ton élément et les autres. Repousse les éléments voisins. N'agrandit pas la boîte.</p>
+                <p><strong>Pourquoi ?</strong> Pour espacer des cartes, séparer des paragraphes, centrer un élément (margin: 0 auto). Crée de la respiration dans la mise en page.</p>
+                <p><strong>Astuce :</strong> Valeurs négatives possibles ! Margin: 0 auto centre horizontalement un élément avec une width définie.</p>
+                <code>/* Espacements extérieurs */
+margin: 20px;           /* Partout */
+margin: 0 auto;         /* Centre horizontalement (avec width) */
+margin: 20px 0;         /* Vertical seulement */
+.card { margin-bottom: 30px; } /* Espacer des cartes */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>margin-top / right / bottom / left</h3>
+                <p><strong>C'est quoi ?</strong> Margin d'un seul côté. Margin-top et margin-bottom peuvent "fusionner" (collapse) entre éléments adjacents.</p>
+                <p><strong>Pourquoi ?</strong> Pour contrôler précisément l'espacement. Margin-bottom pour espacer des éléments en liste, margin-top pour décaler depuis le haut.</p>
+                <p><strong>Attention :</strong> Auto fonctionne uniquement sur left/right pour le centrage. Top/bottom auto = 0.</p>
+                <code>/* Margin par côté */
+margin-top: 30px;      /* Décale vers le bas */
+margin-bottom: 50px;   /* Espace après l'élément */
+margin-left: auto;     /* Pousse à droite (avec width) */
+margin-right: auto;    /* Pousse à gauche (avec width) */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>border</h3>
+                <p><strong>C'est quoi ?</strong> Ajoute une bordure autour de ton élément. Raccourci pour width, style et color. Format : largeur style couleur.</p>
+                <p><strong>Pourquoi ?</strong> Pour délimiter des cartes, créer des boutons, séparer des sections. Une bordure structure visuellement ton contenu.</p>
+                <p><strong>Astuce :</strong> Tu peux cibler un seul côté avec border-top, border-right, border-bottom, border-left.</p>
+                <code>/* Bordures */
+border: 2px solid black;        /* Noire et solide */
+border: 1px dashed #ccc;        /* Pointillés gris */
+border-bottom: 3px solid blue;  /* Seulement en bas */
+.card { border: 1px solid rgba(0,0,0,0.1); } /* Bordure légère */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>border-width</h3>
+                <p><strong>C'est quoi ?</strong> L'épaisseur de ta bordure seulement, sans toucher au style ou à la couleur.</p>
+                <p><strong>Pourquoi ?</strong> Pour modifier juste l'épaisseur, ou avoir des épaisseurs différentes par côté.</p>
+                <p><strong>Conseil :</strong> 1-2px pour des bordures subtiles, 3-5px pour des bordures importantes. Plus que 5px = souvent trop épais.</p>
+                <code>/* Épaisseurs de bordure */
+border-width: 3px;              /* Partout */
+border-width: 2px 4px;          /* Vertical / Horizontal */
+border-width: 1px 2px 3px 4px;  /* Haut Droite Bas Gauche */
+border-style: solid; border-width: 2px; /* Avec style */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>border-style</h3>
+                <p><strong>C'est quoi ?</strong> Le type de bordure : solid (ligne continue), dashed (tirets), dotted (points), double, groove, ridge, etc.</p>
+                <p><strong>Pourquoi ?</strong> Solid pour la plupart des cas. Dashed pour les éléments temporaires/brouillon. Dotted pour les séparateurs légers.</p>
+                <p><strong>Astuce :</strong> Sans border-style, la bordure n'apparaît pas ! C'est la propriété obligatoire pour voir une bordure.</p>
+                <code>/* Styles de bordure */
+border-style: solid;   /* Ligne pleine (standard) */
+border-style: dashed;  /* Tirets */
+border-style: dotted;  /* Points */
+border-style: double;  /* Ligne double */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>border-color</h3>
+                <p><strong>C'est quoi ?</strong> La couleur de la bordure uniquement. Accepte toutes les notations de couleur (hex, rgb, rgba, noms).</p>
+                <p><strong>Pourquoi ?</strong> Pour changer la couleur sans modifier l'épaisseur ou le style. Pratique pour les effets hover.</p>
+                <p><strong>Exemple :</strong> Bordure qui change de couleur au survol : .btn:hover { border-color: blue; }</p>
+                <code>/* Couleurs de bordure */
+border-color: red;              /* Une couleur */
+border-color: red blue;         /* Haut/bas, gauche/droite */
+border-color: red blue green yellow; /* Chaque côté différent */
+.btn:hover { border-color: #007bff; } /* Changement au survol */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>border-radius</h3>
+                <p><strong>C'est quoi ?</strong> Arrondit les coins de ton élément. 0 = coins carrés, plus la valeur est haute, plus c'est rond. 50% = cercle parfait.</p>
+                <p><strong>Pourquoi ?</strong> Les coins arrondis sont plus doux et modernes. Buttons à 5-8px, cartes à 10-15px. 50% pour des avatars circulaires.</p>
+                <p><strong>Astuce :</strong> Tu peux arrondir chaque coin différemment : border-radius: 10px 20px 30px 40px (sens horaire depuis haut-gauche).</p>
+                <code>/* Coins arrondis */
+border-radius: 8px;     /* Tous les coins (standard) */
+border-radius: 50%;     /* Cercle parfait (pour images carrées) */
+border-radius: 20px 20px 0 0; /* Seulement haut */
+.avatar { border-radius: 50%; } /* Photo ronde */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>box-shadow</h3>
+                <p><strong>C'est quoi ?</strong> Ajoute une ou plusieurs ombres autour de ta boîte. Format : décalage-X décalage-Y flou étendue couleur.</p>
+                <p><strong>Pourquoi ?</strong> Crée de la profondeur et du relief. Les cartes avec ombres semblent "flotter" au-dessus de la page. Très utilisé en design moderne.</p>
+                <p><strong>Astuce :</strong> Combine plusieurs ombres avec des virgules pour des effets réalistes. Ombres douces avec rgba(0,0,0,0.1-0.3).</p>
+                <code>/* Ombres portées */
+box-shadow: 0 2px 4px rgba(0,0,0,0.1);  /* Ombre douce */
+box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* Ombre moyenne */
+box-shadow: 0 10px 30px rgba(0,0,0,0.3); /* Ombre forte */
+box-shadow: 0 0 0 3px blue;              /* Contour (pas de flou) */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>box-sizing</h3>
+                <p><strong>C'est quoi ?</strong> Détermine si padding et border sont inclus dans width/height (border-box) ou ajoutés en plus (content-box).</p>
+                <p><strong>Pourquoi ?</strong> Border-box rend les calculs BEAUCOUP plus simples. Width: 300px = vraiment 300px, padding inclus. Mets-le partout (*) !</p>
+                <p><strong>Conseil :</strong> Ajoute "* { box-sizing: border-box; }" au début de ton CSS. C'est devenu le standard moderne.</p>
+                <code>/* Calcul de la taille */
+box-sizing: content-box; /* Défaut : width + padding + border */
+box-sizing: border-box;  /* Modern : width inclut padding + border */
+/* À mettre dans ton CSS global */
+* { box-sizing: border-box; }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>outline</h3>
+                <p><strong>C'est quoi ?</strong> Comme border mais ne prend pas de place et ne modifie pas la taille. Dessiné par-dessus l'élément.</p>
+                <p><strong>Pourquoi ?</strong> Pour l'accessibilité (focus sur boutons/liens), les états de debug, ou les effets sans décaler la mise en page.</p>
+                <p><strong>Attention :</strong> Outline suit la forme de l'élément mais ne peut pas avoir de border-radius. Ne l'enlève jamais sur :focus (accessibilité) !</p>
+                <code>/* Contours */
+outline: 2px solid blue;         /* Contour bleu */
+outline: 3px dashed red;         /* Pointillés rouges */
+button:focus { outline: 2px solid #007bff; } /* État focus */
+/* Ne JAMAIS faire : outline: none; (mauvais pour accessibilité) */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>outline-offset</h3>
+                <p><strong>C'est quoi ?</strong> L'espace entre ton élément et l'outline. Positif = éloigne l'outline, négatif = rapproche vers l'intérieur.</p>
+                <p><strong>Pourquoi ?</strong> Pour créer un effet de double bordure, donner de l'air à l'outline, ou créer des effets de focus stylés.</p>
+                <p><strong>Exemple :</strong> Un bouton avec outline-offset: 3px donne un effet de bordure flottante très moderne.</p>
+                <code>/* Espacement de l'outline */
+outline-offset: 5px;     /* Outline éloignée */
+outline-offset: -5px;    /* Outline à l'intérieur */
+button:focus { outline: 2px solid blue; outline-offset: 3px; } /* Focus moderne */</code>
+            </div>
+        </section>
+
+        <section id="positionnement">
+            <h2>📍 Positionnement et Affichage</h2>
+
+            <div class="tag-card">
+                <h3>display</h3>
+                <p><strong>C'est quoi ?</strong> Détermine comment l'élément se comporte : block (toute la largeur), inline (dans le texte), flex/grid (layouts modernes), none (caché).</p>
+                <p><strong>Pourquoi ?</strong> Block pour les conteneurs, inline pour les spans/liens, flex pour aligner, grid pour les grilles, none pour cacher sans supprimer.</p>
+                <p><strong>Conseil :</strong> Inline-block = mix des deux (inline mais avec width/height). Flex et grid sont les plus puissants pour les layouts.</p>
+                <code>/* Types d'affichage */
+display: block;        /* Prend toute la largeur (div, p, h1) */
+display: inline;       /* Dans le flux de texte (span, a) */
+display: inline-block; /* Inline avec dimensions */
+display: flex;         /* Layout flexible (moderne) */
+display: grid;         /* Layout en grille */
+display: none;         /* Caché complètement */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>position</h3>
+                <p><strong>C'est quoi ?</strong> Définit comment l'élément est positionné : static (normal), relative (décalé), absolute (sorti du flux), fixed (fixe à l'écran), sticky (mix).</p>
+                <p><strong>Pourquoi ?</strong> Fixed pour headers collants, absolute pour overlays/badges, relative comme référence pour absolute, sticky pour navbars modernes.</p>
+                <p><strong>Astuce :</strong> Absolute se positionne par rapport au premier parent position: relative. Pense "parent relative, enfant absolute".</p>
+                <code>/* Types de positionnement */
+position: static;    /* Normal (défaut) */
+position: relative;  /* Décalé de sa position normale */
+position: absolute;  /* Sorti du flux, positionné par rapport au parent */
+position: fixed;     /* Fixé à l'écran (scroll pas affecté) */
+position: sticky;    /* Relative puis fixed au scroll */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>top / right / bottom / left</h3>
+                <p><strong>C'est quoi ?</strong> Décale l'élément depuis ses bords quand position est relative, absolute, fixed ou sticky. Top: 10px = 10px depuis le haut.</p>
+                <p><strong>Pourquoi ?</strong> Pour positionner précisément : coins, centrage, overlays. Combine avec position pour placer exactement où tu veux.</p>
+                <p><strong>Astuce :</strong> Top/left: 50% + transform: translate(-50%, -50%) = centrage parfait en absolute.</p>
+                <code>/* Positionnement précis */
+top: 20px; left: 30px;     /* Décalage depuis haut et gauche */
+bottom: 0; right: 0;       /* Collé en bas à droite */
+/* Centrage absolu */
+position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>z-index</h3>
+                <p><strong>C'est quoi ?</strong> Contrôle l'ordre de superposition des éléments. Plus le nombre est grand, plus l'élément est devant. Fonctionne avec position non-static.</p>
+                <p><strong>Pourquoi ?</strong> Pour mettre une modale devant tout (z-index: 1000), un header au-dessus du contenu (z-index: 100), ou gérer les overlays.</p>
+                <p><strong>Conseil :</strong> Utilise des incréments de 10 ou 100 (10, 20, 30... ou 100, 200, 300...) pour pouvoir insérer des valeurs entre plus tard.</p>
+                <code>/* Ordre de superposition */
+z-index: 1;     /* Juste au-dessus */
+z-index: 10;    /* Plus haut */
+z-index: 100;   /* Headers/navbars */
+z-index: 1000;  /* Modals/overlays */
+z-index: -1;    /* En dessous (arrière-plan) */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>float</h3>
+                <p><strong>C'est quoi ?</strong> Fait flotter l'élément à gauche ou droite, le texte s'enroule autour. Technique ancienne, remplacée par flexbox aujourd'hui.</p>
+                <p><strong>Pourquoi ?</strong> Historiquement pour les images dans le texte. Maintenant, utilise flexbox/grid pour les layouts à la place.</p>
+                <p><strong>Attention :</strong> Float sort l'élément du flux normal et peut casser la mise en page. Clear après les floats ou utilise flexbox.</p>
+                <code>/* Float (ancien, évite pour les layouts) */
+float: left;   /* Flotte à gauche, texte s'enroule */
+float: right;  /* Flotte à droite */
+float: none;   /* Pas de float (défaut) */
+img { float: left; margin-right: 15px; } /* Image dans texte */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>clear</h3>
+                <p><strong>C'est quoi ?</strong> Empêche un élément de se positionner à côté d'éléments flottants. Force à passer en dessous.</p>
+                <p><strong>Pourquoi ?</strong> Pour "nettoyer" après des floats et éviter que le contenu suivant ne remonte. Moins utile avec flexbox/grid.</p>
+                <p><strong>Exemple :</strong> Après une galerie d'images flottantes, clear: both force le footer à passer en dessous.</p>
+                <code>/* Nettoyage des floats */
+clear: left;   /* Pas de float à gauche */
+clear: right;  /* Pas de float à droite */
+clear: both;   /* Aucun float des deux côtés */
+.clearfix::after { content: ""; display: table; clear: both; }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>overflow</h3>
+                <p><strong>C'est quoi ?</strong> Que faire quand le contenu dépasse : visible (dépasse), hidden (coupé), scroll (scrollbars), auto (scrollbars si nécessaire).</p>
+                <p><strong>Pourquoi ?</strong> Hidden pour couper le dépassement, auto pour scrollbars automatiques, scroll pour toujours avoir les barres.</p>
+                <p><strong>Conseil :</strong> Auto est presque toujours mieux que scroll (scrollbars uniquement si besoin). Hidden + text-overflow: ellipsis pour couper avec "...".</p>
+                <code>/* Gestion du dépassement */
+overflow: visible;  /* Dépasse (défaut) */
+overflow: hidden;   /* Coupé net */
+overflow: scroll;   /* Scrollbars toujours visibles */
+overflow: auto;     /* Scrollbars si nécessaire (recommandé) */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>overflow-x / overflow-y</h3>
+                <p><strong>C'est quoi ?</strong> Contrôle overflow uniquement horizontal (x) ou vertical (y). Même valeurs que overflow.</p>
+                <p><strong>Pourquoi ?</strong> Pour permettre scroll vertical mais pas horizontal, ou vice-versa. Plus précis que overflow.</p>
+                <p><strong>Exemple :</strong> Une table large : overflow-x: auto permet scroll horizontal, overflow-y: visible évite scroll vertical inutile.</p>
+                <code>/* Overflow par direction */
+overflow-x: auto;    /* Scroll horizontal si besoin */
+overflow-y: hidden;  /* Pas de scroll vertical */
+overflow-x: scroll;  /* Toujours scroll horizontal */
+.table-wrapper { overflow-x: auto; overflow-y: visible; }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>visibility</h3>
+                <p><strong>C'est quoi ?</strong> Cache l'élément (hidden) mais garde sa place dans la mise en page. Différent de display: none qui supprime l'espace.</p>
+                <p><strong>Pourquoi ?</strong> Pour cacher temporairement sans décaler le layout. Display: none enlève l'élément, visibility: hidden le rend juste invisible.</p>
+                <p><strong>Conseil :</strong> Utilise visibility pour des animations ou garder l'espacement. Display: none pour vraiment cacher et libérer l'espace.</p>
+                <code>/* Visibilité */
+visibility: visible; /* Visible (défaut) */
+visibility: hidden;  /* Invisible mais garde sa place */
+/* Différence avec display */
+display: none;       /* Invisible ET supprime l'espace */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>clip-path</h3>
+                <p><strong>C'est quoi ?</strong> Découpe ton élément selon une forme géométrique : cercle, polygone, ellipse. Le reste est caché.</p>
+                <p><strong>Pourquoi ?</strong> Pour créer des formes originales sans images : cercles, triangles, hexagones. Parfait pour des designs créatifs et modernes.</p>
+                <p><strong>Astuce :</strong> Utilise clippy (outil en ligne) pour générer facilement des clip-path complexes. Circle(50%) = cercle parfait.</p>
+                <code>/* Découpes créatives */
+clip-path: circle(50%);           /* Cercle */
+clip-path: polygon(50% 0%, 100% 100%, 0% 100%); /* Triangle */
+clip-path: inset(10px 20px 30px 40px); /* Rectangle coupé */
+.avatar { clip-path: circle(50%); } /* Avatar rond */</code>
+            </div>
+        </section>
+
+        <section id="flexbox">
+            <h2>💪 Flexbox (Disposition Flexible)</h2>
+            <p class="section-intro">Flexbox sert à aligner et distribuer des éléments facilement !</p>
+
+            <div class="tag-card">
+                <h3>display: flex</h3>
+                <p><strong>C'est quoi ?</strong> Active Flexbox sur le conteneur parent. Ses enfants directs deviennent des "flex items" qu'on peut facilement aligner et distribuer.</p>
+                <p><strong>Pourquoi ?</strong> C'est LA solution moderne pour aligner des éléments. Parfait pour navbars, cartes côte à côte, centrage vertical. Remplace les vieux floats.</p>
+                <p><strong>Conseil :</strong> Combine avec justify-content et align-items pour centrer facilement. Display: flex s'applique sur le parent, pas les enfants.</p>
+                <code>/* Activer flexbox */
+display: flex;
+/* Exemple : centrer horizontalement et verticalement */
+.container { display: flex; justify-content: center; align-items: center; }
+/* Navbar avec flexbox */
+nav { display: flex; gap: 20px; }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>flex-direction</h3>
+                <p><strong>C'est quoi ?</strong> Définit la direction principale : row (horizontal, défaut), column (vertical), row-reverse ou column-reverse.</p>
+                <p><strong>Pourquoi ?</strong> Row pour les navbars/menus horizontaux, column pour empiler verticalement (sidebar, mobile). Reverse pour inverser l'ordre visuel.</p>
+                <p><strong>Astuce :</strong> Flex-direction: column change tout : justify-content devient vertical et align-items horizontal. Pense "axe principal".</p>
+                <code>/* Directions flex */
+flex-direction: row;     /* Horizontal (défaut) */
+flex-direction: column;  /* Vertical (mobile, sidebars) */
+flex-direction: row-reverse;    /* Horizontal inversé */
+flex-direction: column-reverse; /* Vertical inversé */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>justify-content</h3>
+                <p><strong>C'est quoi ?</strong> Aligne les éléments sur l'axe principal (horizontal si row). Center = centré, space-between = espacés, flex-start = début.</p>
+                <p><strong>Pourquoi ?</strong> Pour centrer un bouton, espacer des cartes uniformément, ou aligner une navbar. C'est magique pour la distribution d'espace.</p>
+                <p><strong>Conseil :</strong> Space-between pour espacer (premier collé à gauche, dernier à droite). Center pour centrer. Flex-end pour aligner à droite.</p>
+                <code>/* Alignement horizontal (si flex-direction: row) */
+justify-content: flex-start;    /* Début (défaut) */
+justify-content: center;        /* Centré */
+justify-content: flex-end;      /* Fin */
+justify-content: space-between; /* Espacés uniformément */
+justify-content: space-around;  /* Espace autour de chacun */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>align-items</h3>
+                <p><strong>C'est quoi ?</strong> Aligne les éléments sur l'axe secondaire (vertical si row). Center pour centrer verticalement, stretch pour étirer.</p>
+                <p><strong>Pourquoi ?</strong> Pour centrer verticalement du contenu (le Saint Graal du CSS !), aligner des icônes avec du texte, ou créer des cartes de même hauteur.</p>
+                <p><strong>Astuce :</strong> Combine justify-content: center + align-items: center pour un centrage parfait horizontal ET vertical.</p>
+                <code>/* Alignement vertical (si flex-direction: row) */
+align-items: stretch;    /* Étire à la hauteur du parent (défaut) */
+align-items: center;     /* Centre verticalement (très utilisé) */
+align-items: flex-start; /* Haut */
+align-items: flex-end;   /* Bas */
+align-items: baseline;   /* Aligne les lignes de base du texte */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>align-content</h3>
+                <p><strong>C'est quoi ?</strong> Aligne les LIGNES multiples quand il y a du wrap. Fonctionne uniquement si flex-wrap: wrap et plusieurs lignes.</p>
+                <p><strong>Pourquoi ?</strong> Pour gérer l'espacement vertical entre les lignes de cartes qui wrappent. Moins utilisé qu'align-items mais puissant.</p>
+                <p><strong>Attention :</strong> Ne fonctionne QUE si flex-wrap: wrap est activé ET qu'il y a plusieurs lignes. Sinon, aucun effet.</p>
+                <code>/* Alignement des lignes multiples (nécessite wrap) */
+align-content: flex-start;    /* Lignes en haut */
+align-content: center;        /* Lignes centrées */
+align-content: space-between; /* Lignes espacées */
+/* Nécessite : flex-wrap: wrap; */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>flex-wrap</h3>
+                <p><strong>C'est quoi ?</strong> Permet aux éléments de passer à la ligne suivante (wrap) au lieu de rétrécir. Nowrap = tout sur une ligne (défaut).</p>
+                <p><strong>Pourquoi ?</strong> Wrap pour des galeries de cartes qui s'adaptent, des grilles responsive. Nowrap pour les navbars qui doivent rester sur une ligne.</p>
+                <p><strong>Conseil :</strong> Combine flex-wrap: wrap avec gap pour créer des grilles flexibles sans media queries.</p>
+                <code>/* Passage à la ligne */
+flex-wrap: nowrap;      /* Tout sur une ligne (défaut) */
+flex-wrap: wrap;        /* Passe à la ligne si nécessaire */
+flex-wrap: wrap-reverse; /* Wrap en sens inverse */
+/* Exemple : galerie responsive */
+.gallery { display: flex; flex-wrap: wrap; gap: 20px; }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>flex-grow</h3>
+                <p><strong>C'est quoi ?</strong> Facteur de croissance. 0 = taille fixe, 1 = prend l'espace disponible, 2 = grandit 2x plus que les autres avec flex-grow: 1.</p>
+                <p><strong>Pourquoi ?</strong> Pour faire grandir un élément pour remplir l'espace restant. Parfait pour une sidebar fixe + contenu flexible.</p>
+                <p><strong>Exemple :</strong> Sidebar 200px fixe (flex-grow: 0), main flexible (flex-grow: 1) = main prend tout l'espace restant.</p>
+                <code>/* Capacité à grandir (sur les enfants) */
+flex-grow: 0;  /* Ne grandit pas (défaut) */
+flex-grow: 1;  /* Grandit pour remplir l'espace */
+/* Layout 2 colonnes : sidebar fixe + main flexible */
+.sidebar { flex-grow: 0; width: 250px; }
+.main { flex-grow: 1; } /* Prend le reste */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>flex-shrink</h3>
+                <p><strong>C'est quoi ?</strong> Facteur de rétrécissement. 1 = peut rétrécir (défaut), 0 = garde sa taille même si manque de place.</p>
+                <p><strong>Pourquoi ?</strong> Pour empêcher certains éléments de rétrécir (boutons, icônes) tandis que d'autres s'adaptent (texte).</p>
+                <p><strong>Conseil :</strong> Mets flex-shrink: 0 sur les éléments qui doivent garder leur taille (logos, boutons) pour éviter qu'ils deviennent minuscules.</p>
+                <code>/* Capacité à rétrécir (sur les enfants) */
+flex-shrink: 1;  /* Peut rétrécir (défaut) */
+flex-shrink: 0;  /* Garde sa taille fixe */
+/* Exemple : logo fixe + texte flexible */
+.logo { flex-shrink: 0; width: 50px; } /* Garde 50px */
+.text { flex-shrink: 1; } /* Rétrécit si besoin */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>flex-basis</h3>
+                <p><strong>C'est quoi ?</strong> La taille de base AVANT que flex-grow/shrink n'agissent. Auto = taille du contenu, 200px = commence à 200px.</p>
+                <p><strong>Pourquoi ?</strong> Pour définir une taille de départ. Ensuite flex-grow peut l'agrandir ou flex-shrink la réduire.</p>
+                <p><strong>Astuce :</strong> Flex-basis: 0 + flex-grow: 1 = distribution égale parfaite, peu importe le contenu.</p>
+                <code>/* Taille de base (sur les enfants) */
+flex-basis: auto;  /* Taille du contenu (défaut) */
+flex-basis: 200px; /* Commence à 200px */
+flex-basis: 0;     /* Ignore le contenu, distribution égale */
+/* 3 colonnes égales */
+.col { flex-basis: 0; flex-grow: 1; }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>flex (shorthand)</h3>
+                <p><strong>C'est quoi ?</strong> Raccourci pour flex-grow, flex-shrink et flex-basis en une ligne. Format : grow shrink basis.</p>
+                <p><strong>Pourquoi ?</strong> Plus rapide et plus lisible. Flex: 1 est super commun (= flex: 1 1 0, prend tout l'espace disponible équitablement).</p>
+                <p><strong>Conseil :</strong> Flex: 1 pour remplir l'espace, flex: 0 0 auto pour taille fixe au contenu, flex: 0 0 200px pour taille fixe absolue.</p>
+                <code>/* Raccourci flex (sur les enfants) */
+flex: 1;          /* = flex: 1 1 0 (grandit, rétrécit, base 0) */
+flex: 0 0 auto;   /* Taille du contenu, pas flexible */
+flex: 0 0 200px;  /* 200px fixe, ne change pas */
+flex: 2;          /* Grandit 2x plus que flex: 1 */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>align-self</h3>
+                <p><strong>C'est quoi ?</strong> Surcharge align-items pour UN seul élément enfant. Permet d'aligner différemment un élément spécifique.</p>
+                <p><strong>Pourquoi ?</strong> Pour qu'un élément se comporte différemment des autres. Ex: tout centré sauf un élément aligné en haut.</p>
+                <p><strong>Exemple :</strong> 3 cartes centrées mais une avec align-self: flex-start pour être en haut.</p>
+                <code>/* Alignement individuel (sur UN enfant) */
+align-self: auto;       /* Hérite de align-items (défaut) */
+align-self: center;     /* Ce seul élément centré */
+align-self: flex-start; /* Cet élément en haut */
+align-self: flex-end;   /* Cet élément en bas */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>order</h3>
+                <p><strong>C'est quoi ?</strong> Change l'ordre visuel d'affichage sans toucher au HTML. Par défaut tous à 0. Plus petit = affiché en premier.</p>
+                <p><strong>Pourquoi ?</strong> Pour réorganiser visuellement sur mobile (menu à la fin), ou mettre en avant un élément sans modifier le HTML.</p>
+                <p><strong>Astuce :</strong> Les valeurs négatives fonctionnent ! Order: -1 place l'élément en tout premier.</p>
+                <code>/* Ordre d'affichage (sur les enfants) */
+order: 0;   /* Position normale (défaut) */
+order: 1;   /* Affiché après les order: 0 */
+order: -1;  /* Affiché en premier */
+/* Exemple : mettre le menu à la fin sur mobile */
+.menu { order: 2; }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>gap (flex)</h3>
+                <p><strong>C'est quoi ?</strong> L'espace entre les éléments flex. Remplace les marges ! Gap: 20px = 20px entre chaque élément.</p>
+                <p><strong>Pourquoi ?</strong> Beaucoup plus simple que margin pour espacer. Pas de marge sur les bords, juste entre les éléments. Moderne et pratique.</p>
+                <p><strong>Conseil :</strong> Row-gap et column-gap pour contrôler séparément. Gap: 20px 10px = 20px vertical, 10px horizontal.</p>
+                <code>/* Espace entre éléments (sur le parent) */
+gap: 20px;           /* Espace uniforme */
+gap: 20px 10px;      /* Vertical / Horizontal */
+row-gap: 20px;       /* Espace vertical seulement */
+column-gap: 10px;    /* Espace horizontal seulement */
+.cards { display: flex; gap: 30px; } /* Simple et clean */</code>
+            </div>
+        </section>
+
+        <section id="grid">
+            <h2>🔲 Grid (Grille)</h2>
+            <p class="section-intro">Grid permet de créer des mises en page en grille super facilement !</p>
+
+            <div class="tag-card">
+                <h3>display: grid</h3>
+                <p><strong>C'est quoi ?</strong> Active CSS Grid sur le conteneur parent. Crée une grille 2D puissante pour disposer les enfants en lignes ET colonnes.</p>
+                <p><strong>Pourquoi ?</strong> Grid est parfait pour les layouts complexes : pages entières, dashboards, galeries. Plus puissant que flexbox pour les mises en page 2D.</p>
+                <p><strong>Conseil :</strong> Flexbox = 1D (ligne OU colonne), Grid = 2D (lignes ET colonnes simultanément). Utilise Grid pour les gros layouts.</p>
+                <code>/* Activer grid */
+display: grid;
+/* Exemple : grille 3 colonnes */
+.container { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>grid-template-columns</h3>
+                <p><strong>C'est quoi ?</strong> Définit le nombre et la largeur de tes colonnes. 1fr = 1 fraction de l'espace. Repeat(3, 1fr) = 3 colonnes égales.</p>
+                <p><strong>Pourquoi ?</strong> Pour créer des galeries (3 colonnes), des layouts sidebar+main (250px 1fr), ou des grilles responsive automatiques.</p>
+                <p><strong>Astuce :</strong> Repeat(auto-fit, minmax(250px, 1fr)) = grille responsive magique qui s'adapte automatiquement !</p>
+                <code>/* Définir les colonnes */
+grid-template-columns: 1fr 1fr 1fr;  /* 3 colonnes égales */
+grid-template-columns: 200px 1fr;     /* Sidebar fixe + main flex */
+grid-template-columns: repeat(3, 1fr); /* 3 colonnes (raccourci) */
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive auto */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>grid-template-rows</h3>
+                <p><strong>C'est quoi ?</strong> Comme grid-template-columns mais pour les lignes (hauteurs). Définit combien de lignes et leurs tailles.</p>
+                <p><strong>Pourquoi ?</strong> Pour des layouts type header/main/footer (100px 1fr 50px), ou contrôler précisément la hauteur de chaque ligne.</p>
+                <p><strong>Conseil :</strong> Moins utilisé que columns car les hauteurs s'adaptent souvent au contenu (auto). Utile pour les layouts plein écran.</p>
+                <code>/* Définir les lignes */
+grid-template-rows: 100px auto 50px; /* Header/Main/Footer */
+grid-template-rows: repeat(3, 200px); /* 3 lignes de 200px */
+grid-template-rows: 1fr 2fr 1fr;      /* Proportions */
+/* Layout full-screen */
+.page { height: 100vh; grid-template-rows: 80px 1fr 60px; }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>grid-template-areas</h3>
+                <p><strong>C'est quoi ?</strong> Nomme visuellement les zones de ta grille avec des mots. Super lisible ! Chaque ligne = une ligne de grille.</p>
+                <p><strong>Pourquoi ?</strong> Pour créer des layouts complexes de façon ultra-claire et compréhensible. Tu "dessines" littéralement ta page en CSS.</p>
+                <p><strong>Astuce :</strong> Utilise un point (.) pour une cellule vide. Les noms doivent être contigus pour former des zones rectangulaires.</p>
+                <code>/* Layout nommé super clair */
+grid-template-areas:
+  "header header header"
+  "sidebar main main"
+  "footer footer footer";
+/* Puis sur les enfants : grid-area: header; */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>grid-area</h3>
+                <p><strong>C'est quoi ?</strong> Place un élément dans une zone nommée par grid-template-areas. Ou raccourci pour grid-row + grid-column.</p>
+                <p><strong>Pourquoi ?</strong> Pour assigner facilement "header", "sidebar", "main" aux bons éléments. Beaucoup plus lisible que des chiffres.</p>
+                <p><strong>Exemple :</strong> header { grid-area: header; } place l'élément dans la zone "header" définie par grid-template-areas.</p>
+                <code>/* Placer dans une zone nommée */
+.header { grid-area: header; }
+.sidebar { grid-area: sidebar; }
+/* Ou raccourci : row-start / col-start / row-end / col-end */
+.item { grid-area: 1 / 1 / 3 / 3; }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>grid-column</h3>
+                <p><strong>C'est quoi ?</strong> Définit quelle(s) colonne(s) occupe un élément. 1 / 3 = commence colonne 1, finit avant colonne 3. Span 2 = occupe 2 colonnes.</p>
+                <p><strong>Pourquoi ?</strong> Pour faire des éléments qui s'étalent sur plusieurs colonnes : header pleine largeur, image double largeur.</p>
+                <p><strong>Astuce :</strong> Span 2 est plus simple que 1 / 3. Grid-column: 1 / -1 = toute la largeur (du début à la fin).</p>
+                <code>/* Étalement sur colonnes */
+grid-column: 1 / 3;     /* Colonnes 1 et 2 */
+grid-column: span 2;    /* Occupe 2 colonnes */
+grid-column: 1 / -1;    /* Toute la largeur */
+.header { grid-column: 1 / -1; } /* Header pleine largeur */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>grid-row</h3>
+                <p><strong>C'est quoi ?</strong> Comme grid-column mais pour les lignes verticales. Définit sur quelle(s) ligne(s) s'étend un élément.</p>
+                <p><strong>Pourquoi ?</strong> Pour des éléments qui occupent plusieurs lignes verticalement : sidebar haute, image qui descend sur 2 rangées.</p>
+                <p><strong>Exemple :</strong> Une sidebar qui descend sur 3 lignes : grid-row: span 3 ou grid-row: 1 / 4.</p>
+                <code>/* Étalement sur lignes */
+grid-row: 1 / 3;        /* Lignes 1 et 2 */
+grid-row: span 2;       /* Occupe 2 lignes */
+grid-row: 1 / -1;       /* Toute la hauteur */
+.sidebar { grid-row: 1 / 4; } /* Sidebar sur 3 lignes */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>gap (grid)</h3>
+                <p><strong>C'est quoi ?</strong> L'espace entre les cellules de la grille. Gap: 20px = 20px entre chaque cellule (comme des gouttières).</p>
+                <p><strong>Pourquoi ?</strong> Bien plus simple que margin ! Crée automatiquement des espaces uniformes entre tous les éléments de la grille.</p>
+                <p><strong>Conseil :</strong> Gap remplace les anciennes propriétés grid-gap. Fonctionne aussi avec flexbox. 20-30px est standard.</p>
+                <code>/* Espaces dans la grille */
+gap: 20px;              /* Espace uniforme */
+gap: 20px 10px;         /* Lignes 20px, colonnes 10px */
+row-gap: 20px;          /* Entre lignes seulement */
+column-gap: 15px;       /* Entre colonnes seulement */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>justify-items</h3>
+                <p><strong>C'est quoi ?</strong> Aligne les éléments horizontalement DANS leur cellule. Start = gauche, end = droite, center = centré, stretch = toute la largeur.</p>
+                <p><strong>Pourquoi ?</strong> Pour centrer horizontalement le contenu de chaque cellule, ou l'aligner à gauche/droite.</p>
+                <p><strong>Conseil :</strong> Stretch (défaut) fait que les éléments remplissent leur cellule. Center pour centrer des boutons/images.</p>
+                <code>/* Alignement horizontal dans cellules */
+justify-items: stretch;  /* Remplit la cellule (défaut) */
+justify-items: center;   /* Centre dans la cellule */
+justify-items: start;    /* Gauche de la cellule */
+justify-items: end;      /* Droite de la cellule */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>align-items (grid)</h3>
+                <p><strong>C'est quoi ?</strong> Aligne les éléments verticalement DANS leur cellule. Center = centré verticalement, start = haut, end = bas.</p>
+                <p><strong>Pourquoi ?</strong> Pour centrer verticalement le contenu de chaque cellule. Parfait avec justify-items: center pour un centrage total.</p>
+                <p><strong>Exemple :</strong> Des cartes de hauteurs différentes toutes centrées dans leurs cellules.</p>
+                <code>/* Alignement vertical dans cellules */
+align-items: stretch;    /* Remplit la cellule (défaut) */
+align-items: center;     /* Centre verticalement */
+align-items: start;      /* Haut de la cellule */
+align-items: end;        /* Bas de la cellule */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>justify-content (grid)</h3>
+                <p><strong>C'est quoi ?</strong> Aligne TOUTE la grille horizontalement dans son conteneur (si la grille est plus petite que le conteneur).</p>
+                <p><strong>Pourquoi ?</strong> Pour centrer toute une grille dans un grand espace, ou l'aligner à droite/gauche.</p>
+                <p><strong>Attention :</strong> Fonctionne uniquement si la grille est plus petite que son conteneur. Space-between/around pour distribuer l'espace.</p>
+                <code>/* Alignement horizontal de la grille entière */
+justify-content: start;         /* Grille à gauche */
+justify-content: center;        /* Grille centrée */
+justify-content: space-between; /* Colonnes espacées */
+justify-content: space-around;  /* Espace autour */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>align-content (grid)</h3>
+                <p><strong>C'est quoi ?</strong> Aligne TOUTE la grille verticalement dans son conteneur (si la grille est plus petite que le conteneur en hauteur).</p>
+                <p><strong>Pourquoi ?</strong> Pour centrer verticalement toute une grille, utile dans des conteneurs à hauteur fixe.</p>
+                <p><strong>Exemple :</strong> Une grille dans un conteneur min-height: 100vh, tu peux la centrer verticalement avec align-content: center.</p>
+                <code>/* Alignement vertical de la grille entière */
+align-content: start;    /* Grille en haut */
+align-content: center;   /* Grille centrée verticalement */
+align-content: end;      /* Grille en bas */
+align-content: space-between; /* Lignes espacées */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>grid-auto-columns</h3>
+                <p><strong>C'est quoi ?</strong> Définit la largeur des colonnes créées automatiquement (celles pas définies dans grid-template-columns).</p>
+                <p><strong>Pourquoi ?</strong> Si un élément se place hors des colonnes définies, Grid en crée automatiquement. Cette propriété contrôle leur taille.</p>
+                <p><strong>Conseil :</strong> Rarement utilisé car grid-template-columns suffit souvent. Utile pour du contenu dynamique imprévisible.</p>
+                <code>/* Taille des colonnes auto-créées */
+grid-auto-columns: 100px;    /* Colonnes auto = 100px */
+grid-auto-columns: minmax(100px, 1fr); /* Min 100px, max flexible */
+grid-auto-columns: auto;     /* Taille du contenu */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>grid-auto-rows</h3>
+                <p><strong>C'est quoi ?</strong> Définit la hauteur des lignes créées automatiquement (celles pas définies dans grid-template-rows).</p>
+                <p><strong>Pourquoi ?</strong> Pour que les nouvelles lignes ajoutées automatiquement aient une hauteur cohérente. Très utile pour du contenu dynamique.</p>
+                <p><strong>Exemple :</strong> Une galerie où tu ajoutes des éléments : grid-auto-rows: 200px garantit que toutes les lignes font 200px.</p>
+                <code>/* Taille des lignes auto-créées */
+grid-auto-rows: 150px;       /* Lignes auto = 150px */
+grid-auto-rows: minmax(100px, auto); /* Min 100px, s'adapte */
+grid-auto-rows: auto;        /* Hauteur du contenu (défaut) */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>grid-auto-flow</h3>
+                <p><strong>C'est quoi ?</strong> Définit comment les éléments auto-placés se positionnent : row = ligne par ligne (défaut), column = colonne par colonne, dense = remplit les trous.</p>
+                <p><strong>Pourquoi ?</strong> Row pour remplir horizontalement (standard). Dense pour maximiser l'espace et éviter les trous (galeries Masonry-like).</p>
+                <p><strong>Astuce :</strong> Dense réorganise pour remplir les espaces vides mais peut changer l'ordre visuel vs HTML (accessibilité à considérer).</p>
+                <code>/* Direction de placement auto */
+grid-auto-flow: row;     /* Ligne par ligne (défaut) */
+grid-auto-flow: column;  /* Colonne par colonne */
+grid-auto-flow: dense;   /* Remplit les trous */
+grid-auto-flow: row dense; /* Ligne par ligne + dense */</code>
+            </div>
+        </section>
+
+        <section id="animations">
+            <h2>✨ Transitions et Animations</h2>
+
+            <div class="tag-card">
+                <h3>transition</h3>
+                <p><strong>C'est quoi ?</strong> Crée une animation fluide quand une propriété CSS change (hover, focus, etc.). C'est le raccourci qui combine property, duration, timing et delay.</p>
+                <p><strong>Pourquoi ?</strong> Rend ton site vivant et professionnel. Un bouton qui change de couleur instantanément est moins agréable qu'un changement progressif sur 0.3s.</p>
+                <p><strong>Conseil :</strong> 0.2-0.3s est la durée idéale pour les hovers. Plus long = lent, plus court = brutal. Utilise "all" pour tout animer ou spécifie une propriété.</p>
+                <code>/* Différentes façons d'utiliser transition */
+transition: all 0.3s ease;  /* Tout en 0.3s */
+transition: background-color 0.5s ease-in-out 0.1s; /* Propriété durée courbe délai */
+button:hover { transform: scale(1.05); transition: transform 0.2s; }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>transition-property</h3>
+                <p><strong>C'est quoi ?</strong> Spécifie quelle(s) propriété(s) CSS doivent être animées. Tu peux mettre "all" pour tout ou lister des propriétés précises.</p>
+                <p><strong>Pourquoi ?</strong> Parfois tu veux animer seulement la couleur et pas la taille. Ou animer plusieurs propriétés avec des timings différents.</p>
+                <p><strong>Astuce :</strong> "All" est pratique mais moins performant. Spécifie les propriétés pour de meilleures performances (transform, opacity sont rapides).</p>
+                <code>/* Animer des propriétés spécifiques */
+transition-property: background-color;  /* Une seule */
+transition-property: color, transform;  /* Plusieurs */
+transition-property: all;  /* Toutes (moins performant) */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>transition-duration</h3>
+                <p><strong>C'est quoi ?</strong> La durée de la transition en secondes (s) ou millisecondes (ms). Détermine si l'animation est rapide ou lente.</p>
+                <p><strong>Pourquoi ?</strong> Contrôle la vitesse de l'animation. 0.2s = snappy pour les boutons, 0.5s = smooth pour les grandes transformations, 1s+ = dramatique pour les effets spéciaux.</p>
+                <p><strong>Conseil :</strong> Ne dépasse pas 0.5s pour les interactions utilisateur (hover, click) sinon ça paraît lent et frustrant.</p>
+                <code>/* Différentes durées */
+transition-duration: 0.2s;  /* Rapide (boutons) */
+transition-duration: 500ms; /* 0.5s en millisecondes */
+transition-duration: 1s;    /* Lent (effets dramatiques) */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>transition-timing-function</h3>
+                <p><strong>C'est quoi ?</strong> La courbe d'accélération : ease (ralentit aux bouts), linear (vitesse constante), ease-in (accélère), ease-out (ralentit), ease-in-out (les deux).</p>
+                <p><strong>Pourquoi ?</strong> Donne du naturel ! Dans la vraie vie, rien ne bouge de façon linéaire. Ease-out est parfait pour les entrées d'éléments, ease-in pour les sorties.</p>
+                <p><strong>Astuce :</strong> cubic-bezier() te permet de créer tes propres courbes personnalisées. Essaie sur cubic-bezier.com !</p>
+                <code>/* Différentes courbes */
+transition-timing-function: ease;         /* Par défaut (recommandé) */
+transition-timing-function: linear;       /* Vitesse constante */
+transition-timing-function: ease-in-out;  /* Naturel */
+transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Bounce */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>transition-delay</h3>
+                <p><strong>C'est quoi ?</strong> Le temps d'attente avant que la transition ne démarre. Utile pour créer des effets en cascade ou attendre qu'une autre animation finisse.</p>
+                <p><strong>Pourquoi ?</strong> Pour créer des séquences : le titre apparaît, PUIS le texte, PUIS le bouton. Chaque élément a un delay différent (0s, 0.1s, 0.2s).</p>
+                <p><strong>Exemple concret :</strong> Menu qui s'ouvre : chaque item apparaît l'un après l'autre avec des delays croissants (effet cascade chic).</p>
+                <code>/* Effets en cascade */
+.item:nth-child(1) { transition-delay: 0s; }
+.item:nth-child(2) { transition-delay: 0.1s; }
+.item:nth-child(3) { transition-delay: 0.2s; }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>animation</h3>
+                <p><strong>C'est quoi ?</strong> C'est le couteau suisse des animations CSS ! Au lieu d'écrire 8 propriétés séparées, tu peux tout mettre en une seule ligne : le nom de l'animation, sa durée, son style de mouvement, son délai, combien de fois elle se répète, et plein d'autres réglages.</p>
+                <p><strong>Pourquoi ?</strong> Imagine que tu veux faire bouger un élément : animation te permet de créer des mouvements complexes (rotation, déplacement, changement de couleur) qui se répètent automatiquement. C'est plus puissant que transition car ça peut avoir plusieurs étapes et se jouer tout seul sans survol.</p>
+                <p><strong>Astuce :</strong> Utilise toujours @keyframes pour définir ton animation d'abord, puis applique-la avec animation. Pour du motion design pro, combine plusieurs animations sur le même élément avec des virgules !</p>
+                <code>/* Animation complète en une ligne */
+animation: bounce 1s ease-in-out 0.5s infinite alternate;
+
+/* Plusieurs animations en même temps */
+animation: rotate 3s linear infinite, changeColor 2s ease;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>@keyframes</h3>
+                <p><strong>C'est quoi ?</strong> C'est la recette de ton animation ! @keyframes te permet de définir exactement ce qui doit se passer à chaque étape : au début (0% ou from), au milieu (50%), à la fin (100% ou to), et tous les points intermédiaires que tu veux. C'est comme un story-board pour tes animations.</p>
+                <p><strong>Pourquoi ?</strong> Sans @keyframes, tu ne peux pas créer d'animations complexes. Tu lui donnes un nom (comme "bounce" ou "fadeIn") puis tu décris chaque étape de l'animation. Ensuite, tu utilises ce nom avec la propriété animation pour l'appliquer à n'importe quel élément.</p>
+                <p><strong>Conseil :</strong> Pour des animations simples, utilise from/to. Pour des effets complexes, découpe en pourcentages (0%, 25%, 50%, 100%). Donne des noms clairs à tes animations pour t'y retrouver facilement !</p>
+                <code>/* Animation simple */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Animation complexe avec étapes */
+@keyframes bounce {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-30px); }
+  100% { transform: translateY(0); }
+}</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>animation-name</h3>
+                <p><strong>C'est quoi ?</strong> C'est le nom de l'animation @keyframes que tu veux appliquer à ton élément. En gros, tu dis "Hey, utilise l'animation que j'ai appelée 'fadeIn' ou 'bounce'". Si tu ne mets pas cette propriété, rien ne s'animera !</p>
+                <p><strong>Pourquoi ?</strong> Ça te permet de créer une bibliothèque d'animations réutilisables. Tu définis une fois ton animation @keyframes "slideIn", puis tu peux l'appliquer à 50 éléments différents juste en changeant animation-name. Super pratique pour garder ton code DRY (Don't Repeat Yourself).</p>
+                <p><strong>Astuce :</strong> Tu peux animer plusieurs animations en même temps sur un élément en séparant les noms par des virgules. Exemple : animation-name: rotate, changeColor;</p>
+                <code>/* Appliquer une animation définie */
+animation-name: fadeIn;
+
+/* Plusieurs animations */
+animation-name: bounce, rotate;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>animation-duration</h3>
+                <p><strong>C'est quoi ?</strong> C'est le temps que va durer ton animation du début à la fin, exprimé en secondes (s) ou millisecondes (ms). Par exemple, 2s signifie que ton animation mettra 2 secondes pour aller de 0% à 100% de tes @keyframes.</p>
+                <p><strong>Pourquoi ?</strong> Ça contrôle la vitesse de ton animation. Une duration courte (0.3s) donne un effet rapide et énergique, une longue (3s) donne un mouvement lent et fluide. C'est comme choisir si tu veux que ton personnage marche ou sprinte !</p>
+                <p><strong>Conseil :</strong> Pour des animations d'interface (boutons, menus) : 0.2-0.5s. Pour des animations décoratives : 1-3s. Pour des loaders : 1-2s en boucle. Teste différentes durées jusqu'à trouver le bon "feeling" !</p>
+                <code>/* Différentes durées */
+animation-duration: 0.5s;    /* Rapide */
+animation-duration: 2s;      /* Modéré */
+animation-duration: 500ms;   /* En millisecondes */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>animation-timing-function</h3>
+                <p><strong>C'est quoi ?</strong> C'est la courbe d'accélération de ton animation - comment elle accélère et ralentit pendant sa durée. ease commence lentement, accélère, puis ralentit. linear garde la même vitesse. ease-in accélère au début. ease-out ralentit à la fin. ease-in-out fait les deux !</p>
+                <p><strong>Pourquoi ?</strong> Dans la vraie vie, rien ne bouge à vitesse constante - un ballon rebondit, une voiture accélère puis freine. Les timing-functions rendent tes animations naturelles et réalistes. cubic-bezier() te donne un contrôle total pour créer des courbes personnalisées.</p>
+                <p><strong>Astuce :</strong> ease-in-out est parfait pour 80% des cas. Pour des effets rebondissants, utilise cubic-bezier(). Pour des mouvements mécaniques/robotiques, utilise linear. Teste sur cubic-bezier.com pour visualiser tes courbes !</p>
+                <code>/* Différentes courbes */
+animation-timing-function: ease;         /* Par défaut */
+animation-timing-function: linear;       /* Vitesse constante */
+animation-timing-function: ease-in-out;  /* Smooth */
+animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>animation-delay</h3>
+                <p><strong>C'est quoi ?</strong> C'est le temps d'attente avant que ton animation commence à jouer, en secondes (s) ou millisecondes (ms). Par exemple, avec animation-delay: 1s, ton élément attendra 1 seconde après le chargement de la page avant de s'animer.</p>
+                <p><strong>Pourquoi ?</strong> Super utile pour créer des effets en cascade : plusieurs éléments qui s'animent les uns après les autres comme une vague. Aussi pratique pour ne pas tout animer en même temps au chargement (ça ferait trop chargé). Tu peux même utiliser des valeurs négatives pour commencer l'animation en cours de route !</p>
+                <p><strong>Exemple concret :</strong> Menu avec 5 items qui apparaissent en cascade : item1 (0s), item2 (0.1s), item3 (0.2s), item4 (0.3s), item5 (0.4s). Effet professionnel garanti !</p>
+                <code>/* Délais différents */
+animation-delay: 0.5s;     /* Attend 0.5s */
+animation-delay: -1s;      /* Commence à mi-chemin */
+
+/* Effet cascade */
+.item:nth-child(1) { animation-delay: 0s; }
+.item:nth-child(2) { animation-delay: 0.15s; }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>animation-iteration-count</h3>
+                <p><strong>C'est quoi ?</strong> C'est le nombre de fois que ton animation va se répéter. Tu peux mettre un chiffre (1, 2, 3...) ou infinite pour qu'elle tourne en boucle infinie. Par défaut, une animation ne joue qu'une seule fois (count: 1).</p>
+                <p><strong>Pourquoi ?</strong> Parfait pour les loaders (infinite), les notifications (3 fois pour attirer l'attention puis stop), ou les animations d'entrée (1 fois suffit). Tu peux même utiliser des nombres décimaux : 2.5 fera 2 cycles complets + la moitié d'un troisième !</p>
+                <p><strong>Conseil :</strong> Pour un loader : infinite. Pour attirer l'attention : 2-3 fois. Pour une animation d'apparition : 1 fois. Attention à ne pas abuser de infinite sur trop d'éléments, ça peut ralentir le navigateur !</p>
+                <code>/* Différents nombres de répétitions */
+animation-iteration-count: 1;        /* Une fois (défaut) */
+animation-iteration-count: 3;        /* 3 fois */
+animation-iteration-count: infinite; /* En boucle */
+animation-iteration-count: 2.5;      /* 2 fois et demie */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>animation-direction</h3>
+                <p><strong>C'est quoi ?</strong> Ça contrôle le sens de lecture de ton animation. normal va de 0% à 100%. reverse fait l'inverse (100% à 0%). alternate alterne : aller (0→100%), retour (100→0%), aller, retour... alternate-reverse commence par le retour d'abord !</p>
+                <p><strong>Pourquoi ?</strong> Super pour créer des effets de va-et-vient fluides. Avec alternate et iteration-count: infinite, ton élément fera un mouvement de balancier parfait sans à-coup. Plus besoin de définir deux @keyframes séparés pour l'aller et le retour !</p>
+                <p><strong>Exemple pratique :</strong> Un ballon qui rebondit : alternate avec bounce @keyframes donnera un rebond parfait qui monte et descend en boucle. Un pendule : pareil ! Une balle de pong : alternate-reverse !</p>
+                <code>/* Différentes directions */
+animation-direction: normal;           /* 0% → 100% */
+animation-direction: reverse;          /* 100% → 0% */
+animation-direction: alternate;        /* Aller-retour */
+animation-direction: alternate-reverse;/* Retour-aller */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>animation-fill-mode</h3>
+                <p><strong>C'est quoi ?</strong> Ça définit l'état de ton élément AVANT et APRÈS l'animation. none : retour à l'état initial. forwards : garde l'état final (100%). backwards : applique l'état initial (0%) pendant le delay. both : fait les deux (backwards + forwards).</p>
+                <p><strong>Pourquoi ?</strong> Problème classique : ton élément s'anime puis... revient brutalement à son état d'origine ! Avec forwards, il garde sa position finale. Exemple : une boîte qui apparaît en fadeIn (opacity 0→1) restera visible après avec forwards, sinon elle redeviendra invisible.</p>
+                <p><strong>Conseil pratique :</strong> Pour 90% des animations d'apparition, utilise forwards. Pour des animations en boucle (loaders), garde none. Pour des animations avec delay, utilise both pour éviter le flash initial.</p>
+                <code>/* Différents modes */
+animation-fill-mode: none;      /* Retour à l'état initial */
+animation-fill-mode: forwards;  /* Garde l'état final (pratique !) */
+animation-fill-mode: backwards; /* Applique 0% pendant delay */
+animation-fill-mode: both;      /* backwards + forwards */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>animation-play-state</h3>
+                <p><strong>C'est quoi ?</strong> Contrôle si ton animation est en train de jouer (running) ou en pause (paused). Par défaut, elle est running. Quand tu mets paused, l'animation se fige instantanément à sa position actuelle, comme si tu mettais le jeu sur pause.</p>
+                <p><strong>Pourquoi ?</strong> Super pour créer des contrôles interactifs ! Exemple : un carrousel qui tourne automatiquement mais se met en pause au survol (:hover). Ou un loader qui se pause quand le chargement est terminé. Tu gardes le contrôle total sur tes animations.</p>
+                <p><strong>Astuce interactive :</strong> Combine avec :hover pour mettre en pause au survol : .element:hover { animation-play-state: paused; }. Parfait pour les carrousels, sliders, ou animations de fond que l'utilisateur veut pouvoir "geler" temporairement.</p>
+                <code>/* Contrôler l'animation */
+animation-play-state: running; /* Par défaut, joue */
+animation-play-state: paused;  /* Pause */
+
+/* Pause au survol */
+.carousel { animation: rotate 10s linear infinite; }
+.carousel:hover { animation-play-state: paused; }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>transform</h3>
+                <p><strong>C'est quoi ?</strong> C'est la propriété magique qui te permet de transformer visuellement un élément sans modifier sa position dans le flux HTML : le déplacer (translate), le faire tourner (rotate), le redimensionner (scale), l'incliner (skew). Tu peux combiner plusieurs transformations en une seule ligne !</p>
+                <p><strong>Pourquoi ?</strong> Contrairement à changer top/left qui affecte le layout, transform utilise l'accélération GPU : c'est ultra-rapide et fluide ! Parfait pour les animations, effets au survol, ou effets 3D. Tu peux empiler plusieurs transformations pour des effets complexes.</p>
+                <p><strong>Astuce de pro :</strong> L'ordre des transformations compte ! rotate() puis translate() donnera un résultat différent de translate() puis rotate(). Combine avec transition pour des effets smooth. translate(-50%, -50%) est le truc classique pour centrer parfaitement un élément !</p>
+                <code>/* Transformations simples */
+transform: rotate(45deg);
+transform: scale(1.5);
+transform: translate(100px, 50px);
+
+/* Combinées (ordre important !) */
+transform: rotate(45deg) scale(1.2) translateX(50px);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>transform: translate()</h3>
+                <p><strong>C'est quoi ?</strong> Déplace un élément sur l'axe X (horizontal) et/ou Y (vertical) sans affecter les autres éléments autour. translate(50px, 100px) déplace de 50px vers la droite et 100px vers le bas. Tu peux aussi utiliser translateX() ou translateY() séparément.</p>
+                <p><strong>Pourquoi ?</strong> C'est beaucoup plus performant que changer left/top car ça utilise le GPU ! Parfait pour les animations fluides, les sliders, ou déplacer des éléments au survol. Tu peux utiliser des % : translate(-50%, -50%) est LE truc pour centrer parfaitement un élément (position absolute + top/left 50%).</p>
+                <p><strong>Astuce magique :</strong> Pour centrer un popup/modal : position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); → centrée parfaitement peu importe sa taille ! Aussi : translateZ() pour la 3D.</p>
+                <code>/* Déplacements 2D */
+transform: translate(50px, 100px);  /* X et Y */
+transform: translateX(30px);        /* Seulement X */
+transform: translateY(-20px);       /* Seulement Y */
+
+/* Centrage parfait */
+transform: translate(-50%, -50%);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>transform: rotate()</h3>
+                <p><strong>C'est quoi ?</strong> Fait tourner un élément autour de son point d'origine (par défaut le centre). L'angle se mesure en degrés (deg) : rotate(45deg) tourne de 45° dans le sens horaire, rotate(-45deg) dans le sens anti-horaire. Tu peux aller jusqu'à 360deg (tour complet) ou même au-delà (720deg = 2 tours) !</p>
+                <p><strong>Pourquoi ?</strong> Super pour créer des effets de cartes qui se retournent, des icônes animées (menu burger → X), des loaders qui tournent en boucle, ou des effets artistiques. Combine avec transition pour une rotation smooth au survol !</p>
+                <p><strong>Astuce créative :</strong> Pour un loader qui tourne : animation: spin 1s linear infinite avec @keyframes spin { to { transform: rotate(360deg); }}. Pour changer le point de rotation, utilise transform-origin (top, bottom left, etc.).</p>
+                <code>/* Rotations basiques */
+transform: rotate(45deg);      /* Sens horaire */
+transform: rotate(-90deg);     /* Sens anti-horaire */
+transform: rotate(180deg);     /* Demi-tour */
+
+/* Loader qui tourne */
+@keyframes spin { to { transform: rotate(360deg); }}</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>transform: scale()</h3>
+                <p><strong>C'est quoi ?</strong> Agrandit ou réduit un élément par rapport à sa taille d'origine. scale(1) = taille normale (100%), scale(2) = double (200%), scale(0.5) = moitié (50%). Tu peux aussi utiliser scaleX() pour l'axe horizontal uniquement, ou scaleY() pour le vertical.</p>
+                <p><strong>Pourquoi ?</strong> L'effet classique au survol ! Un bouton ou une image qui grossit légèrement (scale(1.05)) donne un feedback visuel top. Avec transition, c'est super smooth. Contrairement à changer width/height, scale garde les proportions parfaites et utilise le GPU (plus rapide).</p>
+                <p><strong>Conseil UX :</strong> Pour les hovers : 1.05-1.1 (subtil et pro). Pour des zooms : 1.2-1.5. Pour des effets "pop" : scale(0) → scale(1) avec animation. scale(0.95) au :active pour un effet de "clic enfoncé" réaliste !</p>
+                <code>/* Différents scales */
+transform: scale(1.2);      /* 120% (tous axes) */
+transform: scaleX(1.5);     /* Étire horizontalement */
+transform: scaleY(0.8);     /* Compresse verticalement */
+
+/* Effet hover classique */
+.card:hover { transform: scale(1.05); }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>transform: skew()</h3>
+                <p><strong>C'est quoi ?</strong> Déforme un élément en l'inclinant sur l'axe X et/ou Y, comme si tu tirais sur un coin. skew(20deg) incline horizontalement, skew(20deg, 10deg) incline sur les deux axes. Tu peux aussi utiliser skewX() ou skewY() séparément.</p>
+                <p><strong>Pourquoi ?</strong> Crée des effets graphiques stylés et modernes ! Souvent utilisé pour des designs artistiques, des titres dynamiques, des backgrounds en diagonale, ou des effets de perspective. C'est moins courant que rotate/scale mais super pour se démarquer visuellement.</p>
+                <p><strong>Attention :</strong> skew déforme le texte aussi, ce qui peut nuire à la lisibilité. Utilise-le avec parcimonie (10-20deg max pour rester lisible). Parfait sur des backgrounds décoratifs, moins sur du texte important. Combine avec clip-path pour des formes géométriques folles !</p>
+                <code>/* Inclinaisons */
+transform: skew(20deg);         /* Incline X */
+transform: skewY(15deg);        /* Incline Y */
+transform: skew(10deg, 5deg);   /* Les deux */
+
+/* Effet diagonal moderne */
+.shape { transform: skew(-10deg); }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>transform-origin</h3>
+                <p><strong>C'est quoi ?</strong> Définit le point de pivot pour tes transformations (rotate, scale, skew). Par défaut c'est center (50% 50%), mais tu peux choisir top left, bottom right, ou même des valeurs précises en px/%. L'élément pivote/grandit autour de ce point.</p>
+                <p><strong>Pourquoi ?</strong> Change complètement le comportement de tes transformations ! Une rotation avec origin: top left tourne autour du coin supérieur gauche au lieu du centre. Scale avec origin: bottom grandit vers le haut. Essentiel pour des effets réalistes (porte qui s'ouvre, menu déroulant).</p>
+                <p><strong>Exemple concret :</strong> Menu dropdown qui s'ouvre de haut en bas : transform-origin: top; scale(1, 0) → scale(1, 1). Carte qui se retourne : origin: center. Porte qui pivote : origin: left. Change TOUT !</p>
+                <code>/* Différents points d'origine */
+transform-origin: center;      /* Par défaut */
+transform-origin: top left;    /* Coin supérieur gauche */
+transform-origin: bottom;      /* Centre du bas */
+transform-origin: 100% 0%;     /* Coin supérieur droit */
+
+/* Menu qui s'ouvre depuis le haut */
+.menu { transform-origin: top; transform: scaleY(0); }</code>
+            </div>
+        </section>
+
+        <section id="responsive">
+            <h2>📱 Design Responsive</h2>
+
+            <div class="tag-card">
+                <h3>@media</h3>
+                <p><strong>C'est quoi ?</strong> Les media queries permettent d'appliquer des styles CSS différents selon les caractéristiques de l'appareil : taille d'écran (width/height), orientation (portrait/landscape), type (screen/print), etc. C'est LA base du responsive design !</p>
+                <p><strong>Pourquoi ?</strong> Ton site doit être beau sur tous les appareils : PC (1920px), tablette (768px), mobile (375px). @media te permet d'adapter layout, tailles, espacements selon l'écran. max-width: 768px cible mobiles/tablettes, min-width: 1024px cible grands écrans.</p>
+                <p><strong>Breakpoints courants :</strong> Mobile : 480px, Tablette : 768px, Desktop : 1024px, Large : 1440px. Approche mobile-first (défaut = mobile, @media min-width pour agrandir) ou desktop-first (défaut = desktop, @media max-width pour rétrécir).</p>
+                <code>/* Mobile (max 768px) */
+@media (max-width: 768px) {
+  .container { flex-direction: column; }
+}
+
+/* Tablette et + (min 768px) */
+@media (min-width: 768px) {
+  .grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* Orientation paysage */
+@media (orientation: landscape) { /* ... */ }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>viewport units (vw, vh)</h3>
+                <p><strong>C'est quoi ?</strong> Unités relatives à la taille de la fenêtre du navigateur (viewport). 1vw = 1% de la largeur, 1vh = 1% de la hauteur. Donc 100vw = toute la largeur de l'écran, 50vh = la moitié de la hauteur. Il existe aussi vmin (plus petit des deux) et vmax (plus grand).</p>
+                <p><strong>Pourquoi ?</strong> Parfait pour créer des sections plein écran (hero sections), des typographies qui s'adaptent à l'écran, ou des layouts fluides. Contrairement aux %, vw/vh sont TOUJOURS relatifs au viewport, pas au parent. Super pour les designs immersifs !</p>
+                <p><strong>Astuce pratique :</strong> Hero section plein écran : height: 100vh. Titre responsive : font-size: 5vw (s'adapte automatiquement). Attention mobile : 100vh peut inclure la barre d'URL, utilise min-height ou 100svh (small viewport height) si disponible.</p>
+                <code>/* Unités viewport */
+width: 100vw;              /* Pleine largeur */
+height: 100vh;             /* Pleine hauteur */
+font-size: 4vw;            /* Texte adaptatif */
+
+/* Hero section plein écran */
+.hero { min-height: 100vh; }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>rem / em</h3>
+                <p><strong>C'est quoi ?</strong> Unités relatives à la taille de police. rem (root em) = relatif à la taille de police de &lt;html&gt; (16px par défaut, donc 1rem = 16px). em = relatif à la taille de police de l'élément parent. Les deux s'adaptent si l'utilisateur change la taille de texte du navigateur !</p>
+                <p><strong>Pourquoi ?</strong> Plus accessible que px ! Si un utilisateur malvoyant zoome, rem/em s'adaptent, contrairement aux px fixes. rem est plus prévisible (toujours relatif à la racine), em est pratique pour des composants qui doivent s'adapter à leur contexte (padding: 1em s'adapte à la taille du texte).</p>
+                <p><strong>Conseil d'accessibilité :</strong> Utilise rem pour font-size, spacing, layouts. Utilise em pour padding/margin qui doivent être proportionnels au texte. Astuce : html { font-size: 62.5%; } → 1rem = 10px (calculs plus faciles : 1.6rem = 16px).</p>
+                <code>/* rem vs em */
+html { font-size: 16px; }  /* Base */
+p { font-size: 1.5rem; }   /* 24px (16 × 1.5) */
+.btn { padding: 1em; }      /* S'adapte au texte */
+
+/* Truc pour calculs faciles */
+html { font-size: 62.5%; } /* 1rem = 10px */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>calc()</h3>
+                <p><strong>C'est quoi ?</strong> Fonction CSS qui te permet de faire des calculs mathématiques directement dans tes valeurs : addition (+), soustraction (-), multiplication (*), division (/). Tu peux mélanger différentes unités ! calc(100% - 50px) = largeur complète moins 50 pixels.</p>
+                <p><strong>Pourquoi ?</strong> Résout des problèmes impossibles autrement ! Exemple classique : une sidebar de 250px + un contenu qui prend le reste → width: calc(100% - 250px). Ou centrer avec un offset : left: calc(50% - 20px). Mélange vw, rem, px comme tu veux !</p>
+                <p><strong>Astuce importante :</strong> TOUJOURS mettre des espaces autour de + et - : calc(100% - 50px) ✓, calc(100%-50px) ✗. Pour * et / les espaces sont optionnels. Tu peux imbriquer : calc(100% - calc(2rem + 10px)).</p>
+                <code>/* Calculs mixtes */
+width: calc(100% - 250px);           /* % et px */
+font-size: calc(1rem + 2vw);         /* Responsive fluide */
+height: calc(100vh - 80px);          /* Pleine hauteur - header */
+
+/* Imbriqué */
+margin: calc((100% - 960px) / 2);    /* Centrage */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>clamp()</h3>
+                <p><strong>C'est quoi ?</strong> Fonction CSS moderne qui définit une valeur fluide avec 3 paramètres : clamp(min, valeur_préférée, max). La valeur préférée s'applique, mais ne peut jamais être plus petite que min ni plus grande que max. C'est comme mettre des limites de sécurité !</p>
+                <p><strong>Pourquoi ?</strong> LE truc pour des designs fluides et responsives sans media queries ! Font-size: clamp(16px, 4vw, 32px) → texte qui s'adapte à l'écran mais reste lisible (jamais < 16px ni > 32px). Plus besoin de gérer 5 breakpoints, clamp() fait tout automatiquement !</p>
+                <p><strong>Exemple pratique :</strong> Titre responsive parfait : font-size: clamp(1.5rem, 5vw, 4rem). Sur mobile : 1.5rem (min), sur PC : 4rem (max), entre les deux : 5vw (fluide). Un seul line de CSS au lieu de 3-4 media queries !</p>
+                <code>/* Typographie fluide */
+font-size: clamp(16px, 4vw, 32px);     /* S'adapte automatiquement */
+h1 { font-size: clamp(2rem, 6vw, 5rem); }
+
+/* Largeur fluide avec limites */
+width: clamp(320px, 90%, 1200px);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>min() / max()</h3>
+                <p><strong>C'est quoi ?</strong> Fonctions qui choisissent automatiquement la plus petite (min) ou la plus grande (max) valeur parmi celles données. min(500px, 100%) prendra 500px sur grand écran et 100% sur mobile (la plus petite des deux). max() fait l'inverse.</p>
+                <p><strong>Pourquoi ?</strong> Remplace des media queries simples ! width: min(500px, 100%) = "maximum 500px mais jamais plus que 100% du parent". Parfait pour des conteneurs responsive. max(300px, 50%) = "au moins 300px mais peut être plus grand". Plus simple que calc() dans certains cas.</p>
+                <p><strong>Usage typique :</strong> Container avec largeur max : width: min(1200px, 100%) → ne dépasse jamais 1200px ET reste dans son parent. Padding responsive : padding: max(1rem, 3vw) → grandit sur grands écrans mais minimum 1rem sur mobile.</p>
+                <code>/* min() - prend la plus petite */
+width: min(500px, 100%);        /* Max 500px, responsive */
+padding: min(5%, 40px);         /* S'adapte mais max 40px */
+
+/* max() - prend la plus grande */
+font-size: max(16px, 1rem);     /* Minimum 16px */
+gap: max(1rem, 3vw);            /* Grandit avec l'écran */</code>
+            </div>
+        </section>
+
+        <section id="autres">
+            <h2>🔧 Autres Propriétés Utiles</h2>
+
+            <div class="tag-card">
+                <h3>cursor</h3>
+                <p><strong>C'est quoi ?</strong> Change l'apparence du curseur quand il survole un élément. pointer (main pointant) pour les liens/boutons cliquables, text (I) pour le texte éditable, grab (main ouverte) pour éléments draggables, not-allowed (interdit) pour éléments désactivés, default (flèche), etc.</p>
+                <p><strong>Pourquoi ?</strong> Feedback visuel crucial pour l'UX ! Un bouton avec cursor: pointer indique clairement qu'il est cliquable. grab/grabbing pour un slider qu'on peut faire glisser. not-allowed quand un bouton est disabled. Ça guide l'utilisateur intuitivement.</p>
+                <p><strong>Astuce UX :</strong> Tous les éléments cliquables (buttons, links, cartes interactives) doivent avoir cursor: pointer. Pour un curseur custom : cursor: url('custom.cur'), pointer; (le fallback pointer est important !). wait pendant un chargement.</p>
+                <code>/* Curseurs courants */
+cursor: pointer;         /* Main pointant (cliquable) */
+cursor: grab;            /* Main ouverte (draggable) */
+cursor: not-allowed;     /* Interdit (disabled) */
+cursor: text;            /* I-beam (texte) */
+cursor: url('custom.png'), auto; /* Personnalisé */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>pointer-events</h3>
+                <p><strong>C'est quoi ?</strong> Contrôle si un élément réagit aux événements de souris (clics, hovers, etc.). none = l'élément devient "invisible" pour la souris (les clics passent au travers comme si l'élément n'existait pas). auto = comportement normal.</p>
+                <p><strong>Pourquoi ?</strong> Super pour désactiver temporairement des boutons pendant un chargement, créer des overlays transparents pour empêcher les clics, ou rendre un élément décoratif non-interactif. Aussi utile pour empêcher le hover sur un élément spécifique tout en gardant ceux en dessous cliquables.</p>
+                <p><strong>Cas d'usage :</strong> Bouton disabled : pointer-events: none + opacity: 0.5. Overlay pendant chargement. Watermark non-sélectionnable. Icône décorative dans un bouton (les clics doivent passer au bouton parent). Attention : n'affecte PAS l'accessibilité clavier !</p>
+                <code>/* Désactiver les interactions */
+.disabled { pointer-events: none; opacity: 0.5; }
+
+/* Overlay transparent mais bloque clics */
+.loading-overlay {
+  pointer-events: auto; /* Bloque */
+}
+
+/* Icône décorative, clics passent au parent */
+.btn-icon { pointer-events: none; }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>user-select</h3>
+                <p><strong>C'est quoi ?</strong> Contrôle si l'utilisateur peut sélectionner du texte avec sa souris. none = impossible de sélectionner, text = sélection normale, all = tout le texte se sélectionne d'un clic, auto = comportement par défaut.</p>
+                <p><strong>Pourquoi ?</strong> Évite que les utilisateurs sélectionnent accidentellement du texte UI (boutons, menus, labels). Quand tu cliques plusieurs fois sur un bouton vite, sans user-select: none le texte se sélectionne en bleu → pas pro ! Aussi utile pour les interfaces draggables.</p>
+                <p><strong>Conseil UX :</strong> Utilise none sur : boutons, navigation, badges, compteurs, icônes avec texte. NE PAS utiliser sur : contenu principal, paragraphes, articles (frustrant pour l'utilisateur). all est parfait pour des codes promo/tokens à copier d'un clic.</p>
+                <code>/* Empêcher sélection UI */
+button, .nav, .badge {
+  user-select: none;
+}
+
+/* Sélectionner tout d'un clic */
+.promo-code { user-select: all; } /* Un clic = tout sélectionné */
+
+/* Normal (défaut) */
+p { user-select: text; }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>list-style</h3>
+                <p><strong>C'est quoi ?</strong> Raccourci pour personnaliser les listes (&lt;ul&gt; et &lt;ol&gt;) : type de puce, position, et image en une seule ligne. Tu peux changer disc/circle/square pour &lt;ul&gt;, decimal/roman pour &lt;ol&gt;, ou carrément enlever les puces avec none.</p>
+                <p><strong>Pourquoi ?</strong> Les puces par défaut sont souvent moches ! list-style te permet de les customiser ou les enlever pour créer tes propres styles. Très utilisé avec list-style: none pour créer des menus de navigation stylés à partir de listes.</p>
+                <p><strong>Usage courant :</strong> Navigation : list-style: none (pas de puces). Liste stylée : square/circle. Liste numérotée custom : upper-roman (I, II, III). Pour des puces vraiment custom, combine none avec ::before !</p>
+                <code>/* Différents styles */
+list-style: square;          /* Puces carrées */
+list-style: none;            /* Pas de puces (navigation) */
+list-style: decimal inside;  /* Numéros à l'intérieur */
+
+/* Menu sans puces */
+nav ul { list-style: none; }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>list-style-type</h3>
+                <p><strong>C'est quoi ?</strong> Le type de marqueur pour les listes. disc/circle/square pour &lt;ul&gt;. decimal (1,2,3), upper-alpha (A,B,C), lower-alpha (a,b,c), upper-roman (I,II,III), lower-roman (i,ii,iii) pour &lt;ol&gt;. none pour enlever.</p>
+                <p><strong>Pourquoi ?</strong> Change le style des puces/numéros sans toucher au HTML. Parfait pour des listes imbriquées avec des styles différents à chaque niveau, ou des numérotations spéciales (chiffres romains pour un sommaire, lettres pour sous-sections).</p>
+                <p><strong>Astuce :</strong> Tu peux combiner avec CSS counters pour des numérotations complexes. Pour des emojis comme puces, utilise list-style: none puis ::before { content: "✓ "; } c'est plus flexible !</p>
+                <code>/* Types de marqueurs */
+list-style-type: disc;        /* • (défaut ul) */
+list-style-type: decimal;     /* 1, 2, 3 */
+list-style-type: upper-roman; /* I, II, III */
+list-style-type: lower-alpha; /* a, b, c */
+list-style-type: "→ ";        /* Custom ! */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>list-style-position</h3>
+                <p><strong>C'est quoi ?</strong> Détermine si la puce/numéro est à l'extérieur (outside, défaut) ou à l'intérieur (inside) du bloc de texte. outside : la puce dépasse à gauche. inside : la puce est dans le flux du texte.</p>
+                <p><strong>Pourquoi ?</strong> Affecte l'alignement du texte multiligne. Avec outside, les lignes suivantes s'alignent après la puce. Avec inside, les lignes suivantes commencent au même niveau que la puce. C'est une question de design et de lisibilité.</p>
+                <p><strong>Différence visuelle :</strong> outside (défaut) : meilleure lisibilité, texte bien aligné. inside : plus compact, puce fait partie du flux. Utilise inside si tu as des contraintes d'espace ou un background sur les &lt;li&gt;.</p>
+                <code>/* Position des puces */
+list-style-position: outside; /* Défaut, hors flux */
+list-style-position: inside;  /* Dans le flux */
+
+/* Avec background, inside est mieux */
+li { background: #f0f0f0; list-style-position: inside; }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>list-style-image</h3>
+                <p><strong>C'est quoi ?</strong> Remplace les puces par une image personnalisée. Tu fournis l'URL d'une image (PNG, SVG, etc.) et elle devient ta puce. Attention, elle ne se redimensionne pas automatiquement !</p>
+                <p><strong>Pourquoi ?</strong> Pour des puces ultra-custom (icônes, logos, emojis en image). Mais attention : difficile à redimensionner, problème d'alignement. Aujourd'hui, ::before avec un SVG inline ou une font-icon est souvent mieux.</p>
+                <p><strong>Alternative moderne :</strong> Préfère list-style: none + ::before { content: url('icon.svg'); } pour plus de contrôle (width, height, vertical-align). Ou encore mieux : ::before { content: ""; background: url(); } pour contrôle total !</p>
+                <code>/* Image comme puce (old school) */
+list-style-image: url('check.png');
+
+/* Meilleure approche moderne */
+li { list-style: none; }
+li::before {
+  content: url('icon.svg');
+  width: 20px; /* Contrôle taille */
+}</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>filter</h3>
+                <p><strong>C'est quoi ?</strong> Applique des effets visuels type Photoshop directement en CSS sur un élément : blur (flou), brightness (luminosité), contrast, grayscale (noir & blanc), saturate (saturation couleurs), hue-rotate (rotation couleurs), invert, sepia, drop-shadow (ombre portée). Tu peux les combiner !</p>
+                <p><strong>Pourquoi ?</strong> Crée des effets stylés sans Photoshop ! Survol d'image : brightness(1.2). Photo vintage : sepia(100%) grayscale(20%). Hover effet : blur() pour le background. Icône disabled : grayscale(100%) opacity(0.5). Très utilisé pour les glassmorphism designs modernes.</p>
+                <p><strong>Exemples tendance :</strong> Hover image : filter: brightness(1.1) saturate(1.3). Mode sombre : filter: invert(1) hue-rotate(180deg). Flou arrière-plan : blur(10px). Attention : les filtres consomment des ressources, utilise avec modération sur mobile !</p>
+                <code>/* Effets visuels */
+filter: blur(5px);                   /* Flou */
+filter: brightness(1.3);             /* +30% luminosité */
+filter: grayscale(100%);             /* Noir et blanc */
+filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3)); /* Ombre */
+
+/* Combinés pour effet vintage */
+filter: sepia(40%) contrast(1.2) saturate(0.8);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>backdrop-filter</h3>
+                <p><strong>C'est quoi ?</strong> Comme filter, mais applique l'effet sur ce qui est DERRIÈRE l'élément, pas l'élément lui-même. Parfait pour les effets de verre dépoli (glassmorphism) : un élément semi-transparent avec backdrop-filter: blur() floute ce qu'il y a en dessous.</p>
+                <p><strong>Pourquoi ?</strong> L'effet glassmorphism ultra-moderne ! Modals, cartes, barres de navigation avec fond flouté comme iOS/Windows 11. L'élément a un background semi-transparent rgba(255,255,255,0.2) + backdrop-filter: blur(10px) → effet verre givré magnifique !</p>
+                <p><strong>Recette glassmorphism :</strong> background: rgba(255,255,255,0.1); backdrop-filter: blur(10px) saturate(180%); border: 1px solid rgba(255,255,255,0.3). Attention : pas supporté sur Firefox Android. Toujours prévoir un fallback élégant !</p>
+                <code>/* Effet verre dépoli (glassmorphism) */
+.card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Navigation floue iOS-style */
+nav { backdrop-filter: blur(20px); }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>object-fit</h3>
+                <p><strong>C'est quoi ?</strong> Contrôle comment une image/vidéo remplit son conteneur (comme background-size mais pour &lt;img&gt;). cover = remplit en gardant ratio (rogne si besoin), contain = rentre entièrement (peut laisser des espaces), fill = étire (déforme), none = taille native.</p>
+                <p><strong>Pourquoi ?</strong> LE truc pour des images responsive sans déformation ! Tu fixes width + height sur l'&lt;img&gt;, puis object-fit: cover → l'image remplit parfaitement sans se déformer. Parfait pour des galeries, cards, avatars où toutes les images doivent avoir la même taille.</p>
+                <p><strong>Cas d'usage :</strong> Cards avec images : object-fit: cover (remplit sans déformer). Logo qui doit rentrer : contain. Avatar carré : cover + border-radius: 50%. Combine avec object-position pour contrôler quelle partie de l'image est visible.</p>
+                <code>/* Images responsive sans déformation */
+img {
+  width: 300px;
+  height: 200px;
+  object-fit: cover; /* Remplit sans déformer */
+}
+
+/* Avatar parfait */
+.avatar { object-fit: cover; border-radius: 50%; }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>object-position</h3>
+                <p><strong>C'est quoi ?</strong> Définit quelle partie de l'image/vidéo est visible quand tu utilises object-fit: cover/contain. center (défaut), top, bottom, left, right, ou des valeurs précises (30% 70%, 100px 50px). Fonctionne comme background-position.</p>
+                <p><strong>Pourquoi ?</strong> Avec object-fit: cover, parfois le crop automatique coupe la partie importante (visage coupé en deux !). object-position te laisse choisir : top pour voir le haut, center center pour centrer, 70% 30% pour un point précis.</p>
+                <p><strong>Exemple pratique :</strong> Portraits en mode paysage : object-position: center top (garde la tête visible). Banner : object-position: center 30% (montre le haut). Photos de produits : center. Essentiel pour un crop intelligent !</p>
+                <code>/* Contrôler le crop */
+img {
+  object-fit: cover;
+  object-position: center top; /* Montre le haut */
+}
+
+/* Portrait : garde le visage */
+.portrait { object-position: 50% 20%; }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>resize</h3>
+                <p><strong>C'est quoi ?</strong> Permet à l'utilisateur de redimensionner un élément manuellement en tirant sur un coin (comme les &lt;textarea&gt;). both = horizontal + vertical, horizontal = largeur seulement, vertical = hauteur seulement, none = bloqué (défaut pour la plupart des éléments).</p>
+                <p><strong>Pourquoi ?</strong> Par défaut, seuls les &lt;textarea&gt; sont resizables (both). Tu peux rendre n'importe quel élément redimensionnable (un div, une image, etc.) avec resize + overflow (overflow doit être auto/scroll/hidden, pas visible). Pratique pour des panels/sidebars ajustables.</p>
+                <p><strong>Usage pratique :</strong> Code editor : resize: both pour ajuster. Désactiver sur textarea : resize: none (souvent souhaité en design). Panel resizable : resize: horizontal + overflow: auto. Attention : nécessite overflow différent de visible !</p>
+                <code>/* Désactiver resize sur textarea */
+textarea { resize: none; }
+
+/* Div redimensionnable */
+.panel {
+  resize: both;
+  overflow: auto; /* Obligatoire ! */
+}
+
+/* Seulement horizontal */
+.sidebar { resize: horizontal; }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>scroll-behavior</h3>
+                <p><strong>C'est quoi ?</strong> Contrôle le comportement du scroll quand tu cliques sur une ancre (#section) ou utilises scrollTo() en JS. smooth = défilement fluide et animé, auto = saut instantané (défaut). S'applique généralement sur html ou un conteneur scrollable.</p>
+                <p><strong>Pourquoi ?</strong> Améliore l'UX en rendant la navigation par ancres smooth et professionnelle ! Quand tu cliques sur un lien #about, au lieu de sauter brutalement, la page scrolle doucement. UNE ligne de CSS pour un effet WOW sans JavaScript !</p>
+                <p><strong>Utilisation standard :</strong> Ajoute html { scroll-behavior: smooth; } au début de ton CSS → tous les scrolls vers ancres deviennent fluides. Parfait pour les one-page websites, tables des matières, "retour en haut". Pas besoin de JS !</p>
+                <code>/* Scroll fluide global */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Sur un conteneur scrollable */
+.scrollbox {
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>aspect-ratio</h3>
+                <p><strong>C'est quoi ?</strong> Force un ratio largeur/hauteur sur un élément. 16 / 9 pour du widescreen, 1 / 1 pour un carré, 4 / 3 pour du 4:3, etc. L'élément maintient ce ratio même si sa largeur change. Propriété CSS moderne super pratique !</p>
+                <p><strong>Pourquoi ?</strong> Avant, pour garder un ratio, il fallait le hack du padding-bottom en %. Maintenant, aspect-ratio: 16/9 suffit ! Parfait pour des vidéos responsive, des placeholders d'images, des cards, des avatars carrés. L'élément s'adapte automatiquement.</p>
+                <p><strong>Exemples concrets :</strong> Container vidéo 16:9 : aspect-ratio: 16/9. Avatar carré : aspect-ratio: 1. Card responsive : width: 100%; aspect-ratio: 3/4. Plus besoin du vieux truc padding-top: 56.25% → beaucoup plus simple et lisible !</p>
+                <code>/* Vidéo 16:9 responsive */
+.video-container {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+}
+
+/* Avatar parfaitement carré */
+.avatar { aspect-ratio: 1 / 1; }
+
+/* Card verticale */
+.card { aspect-ratio: 3 / 4; }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>mix-blend-mode</h3>
+                <p><strong>C'est quoi ?</strong> Définit comment un élément fusionne visuellement avec les éléments en dessous, comme les modes de fusion Photoshop ! multiply (assombrit), screen (éclaircit), overlay (contraste), difference (inverse), exclusion, color-dodge, etc. 16 modes au total.</p>
+                <p><strong>Pourquoi ?</strong> Crée des effets artistiques et graphiques stylés ! Texte qui se découpe sur une image (difference), overlay pour des effets de lumière, multiply pour des ombres réalistes. Très utilisé dans les designs créatifs et les portfolios de designers.</p>
+                <p><strong>Effets populaires :</strong> Texte "cut-out" : mix-blend-mode: difference sur texte blanc. Overlay coloré : screen/multiply. Duotone : overlay + couleur. Attention : peut être gourmand en ressources, teste les performances. Super pour se démarquer visuellement !</p>
+                <code>/* Texte qui se découpe */
+h1 {
+  color: white;
+  mix-blend-mode: difference; /* Effet cut-out */
+}
+
+/* Overlay coloré */
+.overlay {
+  background: rgba(255,0,0,0.5);
+  mix-blend-mode: multiply;
+}</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>columns</h3>
+                <p><strong>C'est quoi ?</strong> Crée un layout multi-colonnes automatique, comme dans un journal/magazine. columns: 3 crée 3 colonnes égales. columns: 200px crée autant de colonnes de 200px que possible. Le contenu coule automatiquement d'une colonne à l'autre.</p>
+                <p><strong>Pourquoi ?</strong> Parfait pour des articles longs, des listes, des galeries de texte. Le navigateur distribue automatiquement le contenu. Plus simple que CSS Grid pour ce cas précis. Le layout s'adapte : si l'écran rétrécit, le nombre de colonnes diminue automatiquement.</p>
+                <p><strong>Usage typique :</strong> Article magazine : columns: 2. Liste longue : columns: 3. Responsive : columns: 250px (nombre auto selon largeur). Combine avec column-gap pour espacement, column-rule pour des séparateurs. Attention : peut casser la lecture si mal utilisé !</p>
+                <code>/* Layout multi-colonnes */
+.article {
+  columns: 2;        /* 2 colonnes fixes */
+  column-gap: 40px;  /* Espace entre colonnes */
+}
+
+/* Responsive automatique */
+.list { columns: 200px; } /* Auto selon largeur */</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>column-gap</h3>
+                <p><strong>C'est quoi ?</strong> Définit l'espace entre les colonnes (pour columns) ou entre les items (pour Flexbox/Grid avec gap). C'est la propriété universelle pour créer de l'espacement entre éléments adjacents sans margin compliqués.</p>
+                <p><strong>Pourquoi ?</strong> Beaucoup plus simple que les margins pour espacer des éléments ! En Flexbox : column-gap: 20px espace tous les items horizontalement. En Grid : column-gap espace les colonnes. En columns : espace les colonnes de texte. UNE propriété au lieu de gérer margins partout !</p>
+                <p><strong>Note importante :</strong> Il existe aussi row-gap (espace vertical) et gap (raccourci pour les deux : gap: 20px 40px = row column). Très utilisé en Grid/Flexbox moderne. Remplace les anciens trucs grid-gap (déprécié).</p>
+                <code>/* Espacement colonnes */
+.multi-col { columns: 3; column-gap: 30px; }
+
+/* Flexbox avec gap */
+.flex { display: flex; column-gap: 20px; }
+
+/* Grid : gap pour row ET column */
+.grid { display: grid; gap: 20px 40px; }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>writing-mode</h3>
+                <p><strong>C'est quoi ?</strong> Change la direction d'écriture du texte. horizontal-tb = normal (horizontal, top to bottom). vertical-rl = vertical de droite à gauche (japonais). vertical-lr = vertical de gauche à droite. Transforme littéralement comment le texte s'affiche !</p>
+                <p><strong>Pourquoi ?</strong> Essentiel pour les langues asiatiques (japonais, chinois, mongol) qui s'écrivent verticalement. Aussi utilisé pour des effets créatifs : titres verticaux dans une sidebar, labels verticaux sur des graphiques, designs artistiques. Change complètement le layout !</p>
+                <p><strong>Effet de bord :</strong> Avec writing-mode vertical, les propriétés logiques s'inversent : width devient height ! block-size/inline-size deviennent utiles. Parfait pour des designs asymétriques ou des portfolios créatifs. Test le résultat, ça peut surprendre !</p>
+                <code>/* Texte vertical japonais-style */
+.vertical {
+  writing-mode: vertical-rl; /* Droite à gauche */
+}
+
+/* Label vertical */
+.sidebar-label {
+  writing-mode: vertical-lr; /* Gauche à droite */
+}
+
+/* Normal (défaut) */
+p { writing-mode: horizontal-tb; }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>content</h3>
+                <p><strong>C'est quoi ?</strong> Propriété utilisée UNIQUEMENT avec ::before et ::after pour insérer du contenu généré en CSS. Tu peux insérer du texte ("★"), des guillemets, des compteurs, des images url(), des attributs attr(), ou rien (""). Obligatoire pour que ::before/::after apparaissent !</p>
+                <p><strong>Pourquoi ?</strong> Ajoute des éléments décoratifs sans polluer ton HTML ! Puces custom, icônes, guillemets stylés, séparateurs, badges "NEW", tooltips. content: ""; avec background-image est super pratique pour des icônes CSS pures. Garde ton HTML sémantique, le style dans le CSS.</p>
+                <p><strong>Usages créatifs :</strong> Guillemets : content: open-quote / close-quote. Compteurs : content: counter(item). Attribut : content: attr(data-label). Icône : content: "" + background. Texte décoratif : content: "→ ". Tooltips custom avec ::after !</p>
+                <code>/* Texte simple */
+.label::before { content: "★ "; }
+
+/* Guillemets automatiques */
+q::before { content: open-quote; }
+
+/* Icône vide pour background */
+.icon::after {
+  content: "";
+  background: url('icon.svg');
+}
+
+/* Afficher un attribut */
+a::after { content: " (" attr(href) ")"; }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>::before / ::after</h3>
+                <p><strong>C'est quoi ?</strong> Pseudo-éléments qui créent un élément virtuel avant (::before) ou après (::after) le contenu d'un élément. Ils n'existent pas dans le HTML mais se comportent comme de vrais éléments. DOIVENT avoir une propriété content (même vide : content: "";).</p>
+                <p><strong>Pourquoi ?</strong> Ajoute des éléments décoratifs sans toucher au HTML ! Icônes, formes géométriques, bordures stylées, effets de hover, badges, tooltips. Plus besoin d'ajouter des &lt;span&gt; ou &lt;div&gt; partout. Garde ton HTML propre et sémantique !</p>
+                <p><strong>Cas d'usage populaires :</strong> Flèches : .btn::after { content: " →"; }. Clearfix : ::after pour clear floats. Formes CSS : triangles, cercles avec borders. Overlay : ::before avec position absolute. Badge "NEW" : ::after. Icônes sans font-icon. Super puissant !</p>
+                <code>/* Ajouter une icône */
+.btn::before {
+  content: "→ ";
+  font-weight: bold;
+}
+
+/* Forme géométrique (triangle) */
+.arrow::after {
+  content: "";
+  border: 10px solid transparent;
+  border-left-color: red;
+}
+
+/* Overlay sur hover */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  opacity: 0;
+}
+.card:hover::before { opacity: 1; }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>:hover / :active / :focus</h3>
+                <p><strong>C'est quoi ?</strong> Pseudo-classes d'interaction. :hover = quand la souris survole. :active = quand cliqué (bouton enfoncé). :focus = quand l'élément a le focus clavier (tab, clic sur input). Essentielles pour le feedback utilisateur et l'accessibilité !</p>
+                <p><strong>Pourquoi ?</strong> Crée des interfaces réactives et vivantes ! Bouton qui change de couleur au survol (:hover), qui "s'enfonce" au clic (:active), input qui s'entoure au focus (:focus). L'UX moderne EXIGE ces feedbacks. :focus est crucial pour l'accessibilité clavier.</p>
+                <p><strong>Bonnes pratiques :</strong> Toujours styler :hover ET :focus (accessibilité). Ordre CSS important : :hover → :focus → :active. Transitions pour smooth : transition: 0.2s. Ne JAMAIS enlever outline sur :focus sans alternative visible ! :focus-visible pour ne cibler que le focus clavier.</p>
+                <code>/* Interactions bouton */
+button:hover {
+  background: #2980b9;
+  transform: translateY(-2px);
+}
+button:active { transform: translateY(0); }
+
+/* Accessibilité input */
+input:focus {
+  outline: 2px solid blue;
+  outline-offset: 2px;
+}
+
+/* Focus visible seulement au clavier */
+button:focus-visible { outline: 2px solid orange; }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>:nth-child()</h3>
+                <p><strong>C'est quoi ?</strong> Sélectionne le n-ième enfant d'un parent. :nth-child(2) = 2e enfant. :nth-child(odd) = impairs (1,3,5...). :nth-child(even) = pairs (2,4,6...). :nth-child(3n) = tous les 3 (3,6,9...). :nth-child(3n+1) = 1,4,7,10... Super puissant !</p>
+                <p><strong>Pourquoi ?</strong> Style des patterns sans classes ! Lignes de tableau alternées : tr:nth-child(even) { background: #f0f0f0; }. Grilles : tous les 3e élément différent. Premiers éléments : :nth-child(-n+3) sélectionne les 3 premiers. Évite d'ajouter des classes partout !</p>
+                <p><strong>Formules magiques :</strong> :nth-child(odd) → lignes 1,3,5 (zebrure). :nth-child(3n) → tous les 3. :nth-child(-n+5) → les 5 premiers. :nth-child(n+3) → à partir du 3e. :nth-child(3n+2) → 2,5,8,11... Combine avec :not() pour encore plus de puissance !</p>
+                <code>/* Zebrure de tableau */
+tr:nth-child(even) { background: #f5f5f5; }
+
+/* Tous les 3e items */
+.item:nth-child(3n) { margin-right: 0; }
+
+/* Les 3 premiers */
+li:nth-child(-n+3) { font-weight: bold; }
+
+/* Sauf le premier */
+p:nth-child(n+2) { margin-top: 1em; }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>:first-child / :last-child</h3>
+                <p><strong>C'est quoi ?</strong> :first-child sélectionne le premier enfant de son parent. :last-child sélectionne le dernier. Super simple et très utilisé ! Existe aussi :first-of-type / :last-of-type qui sélectionnent le premier/dernier d'un TYPE spécifique (premier &lt;p&gt;, dernier &lt;div&gt;, etc.).</p>
+                <p><strong>Pourquoi ?</strong> Enlever margins inutiles : p:first-child { margin-top: 0; } p:last-child { margin-bottom: 0; }. Style spécial premier/dernier item. Bordures : retirer la bordure du dernier élément d'une liste. Évite les classes .first et .last en HTML !</p>
+                <p><strong>Astuce courante :</strong> Réinitialiser margins : .container > *:first-child { margin-top: 0; } .container > *:last-child { margin-bottom: 0; }. Séparateurs : li:not(:last-child)::after { content: " | "; }. Premier item différent dans un menu.</p>
+                <code>/* Reset margins premier/dernier */
+.content > *:first-child { margin-top: 0; }
+.content > *:last-child { margin-bottom: 0; }
+
+/* Dernier item sans bordure */
+.list-item:last-child { border-bottom: none; }
+
+/* Premier paragraphe en gras */
+article p:first-of-type { font-weight: bold; }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>:not()</h3>
+                <p><strong>C'est quoi ?</strong> La pseudo-classe de négation ! Sélectionne tous les éléments SAUF ceux qui correspondent au sélecteur. div:not(.special) = tous les div sauf ceux avec la classe special. button:not([disabled]) = boutons non-désactivés. Super pratique pour inverser une sélection !</p>
+                <p><strong>Pourquoi ?</strong> Évite de dupliquer du CSS ! Au lieu de styler 50 éléments individuellement, tu styles tout sauf 1 : .item:not(.active). Aussi pour des règles complexes : a:not([href]) (liens sans href), input:not([type="submit"]) (tous les inputs sauf submit).</p>
+                <p><strong>Combos puissants :</strong> li:not(:last-child) → tous sauf le dernier (pour séparateurs). div:not(.no-margin) → tous sauf .no-margin. :not(:hover) → quand PAS survolé. Tu peux même chaîner : :not(.a):not(.b). Depuis CSS4 : :not(.a, .b) pour exclure plusieurs !</p>
+                <code>/* Tous sauf .special */
+div:not(.special) { opacity: 0.6; }
+
+/* Séparateur sauf dernier */
+li:not(:last-child)::after {
+  content: " | ";
+}
+
+/* Inputs sauf submit */
+input:not([type="submit"]) {
+  border: 1px solid #ccc;
+}
+
+/* Exclure plusieurs (CSS4) */
+.item:not(.active, .disabled) { /* ... */ }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>var() - Variables CSS</h3>
+                <p><strong>C'est quoi ?</strong> Les custom properties (variables CSS) ! Tu définis une variable avec --nom: valeur (généralement dans :root), puis tu l'utilises avec var(--nom). Comme des variables en programmation mais pour CSS. --primary-color: #3498db puis color: var(--primary-color).</p>
+                <p><strong>Pourquoi ?</strong> Centralise tes valeurs réutilisables ! Change UNE FOIS ta couleur principale dans :root, ça se propage partout. Parfait pour thèmes (dark mode : changer quelques variables suffit !), design systems, maintenir la cohérence. Peut être modifié en JavaScript pour interactivité !</p>
+                <p><strong>Conventions et tips :</strong> Déclare dans :root { } pour scope global. Nom descriptif : --primary-color, --spacing-lg. Valeur par défaut : var(--color, blue) (si --color n'existe pas → blue). Peut contenir n'importe quoi : couleurs, tailles, strings, calc(). Modifiable en JS avec setProperty() !</p>
+                <code>/* Définir des variables */
+:root {
+  --primary: #3498db;
+  --spacing: 1rem;
+  --font-lg: 1.5rem;
+}
+
+/* Utiliser */
+.btn {
+  background: var(--primary);
+  padding: var(--spacing);
+  font-size: var(--font-lg);
+}
+
+/* Avec fallback */
+color: var(--custom-color, #000); /* Si pas défini → noir */
+
+/* Dark mode simple */
+[data-theme="dark"] {
+  --primary: #fff;
+  --bg: #000;
+}</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>will-change</h3>
+                <p><strong>C'est quoi ?</strong> Indique au navigateur qu'une propriété va bientôt changer, pour qu'il optimise en avance. will-change: transform prépare le GPU. C'est comme dire "Hey navigateur, prépare-toi, je vais animer cette propriété !". Optimisation de performance avancée.</p>
+                <p><strong>Pourquoi ?</strong> Rend les animations plus fluides sur des propriétés lourdes ! Quand tu animes transform, opacity, scroll-position, le navigateur peut pré-optimiser. MAIS attention : à utiliser avec parcimonie ! Trop de will-change consomme de la mémoire et ralentit. Seulement pour animations fréquentes.</p>
+                <p><strong>Règles d'utilisation :</strong> NE PAS mettre sur tous les éléments ! Seulement sur ceux qui s'animent vraiment. Ajoute juste avant l'animation, retire après. Propriétés courantes : transform, opacity, filter. Ne jamais will-change: all. Pour hover : ajoute au hover, pas par défaut. Mesure les perfs avant/après !</p>
+                <code>/* Sur élément qui s'anime souvent */
+.slider-item {
+  will-change: transform;
+}
+
+/* Ajouter au hover (mieux) */
+.card:hover {
+  will-change: transform;
+  transform: scale(1.05);
+}
+
+/* Retirer après animation (JS) */
+element.addEventListener('animationend', () => {
+  element.style.willChange = 'auto';
+});</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>contain</h3>
+                <p><strong>C'est quoi ?</strong> Indique au navigateur que cet élément est isolé du reste de la page pour le rendu. layout = son layout n'affecte pas l'extérieur. paint = son rendu est limité à sa boîte. size = sa taille est fixe. strict = tout. Optimisation de performance avancée !</p>
+                <p><strong>Pourquoi ?</strong> Accélère le rendu en limitant les recalculs ! Quand un élément change, normalement le navigateur recalcule toute la page. Avec contain, il ne recalcule que cet élément. Parfait pour widgets, cards indépendants, listes longues. Peut diviser les temps de render par 2-10x !</p>
+                <p><strong>Quand utiliser :</strong> contain: layout sur composants isolés (cards, widgets). contain: paint pour éviter les débordements. contain: size si taille connue à l'avance. contain: content (layout+paint) pour composants autonomes. Teste avec DevTools Performance ! Peu utilisé mais très puissant pour apps complexes.</p>
+                <code>/* Isoler une card */
+.card {
+  contain: layout; /* Layout isolé */
+}
+
+/* Widget complètement isolé */
+.widget {
+  contain: strict; /* layout + paint + size */
+}
+
+/* Pour listes longues */
+.list-item {
+  contain: content; /* layout + paint */
+}
+
+/* Éviter débordements visuels */
+.component { contain: paint; }</code>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>🎨 Guide CSS créé pour maîtriser le style de tes pages web !</p>
+        <p>
+            <a href="html-guide.html">← Guide HTML</a> |
+            <a href="js-guide.html">Guide JavaScript</a> |
+            <a href="bootstrap-guide.html">Guide Bootstrap</a> |
+            <a href="git-guide.html">Guide Git</a>
+        </p>
+    </footer>
+    
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const allCards = document.querySelectorAll('.tag-card');
+
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase().trim();
+
+            // Réinitialiser tous les backgrounds
+            allCards.forEach(card => {
+                card.style.backgroundColor = '';
+            });
+
+            if (searchTerm === '') return;
+
+            // Chercher dans tous les h3
+            allCards.forEach(card => {
+                const h3 = card.querySelector('h3');
+                const propertyName = h3.textContent.toLowerCase().trim();
+
+                if (propertyName.includes(searchTerm)) {
+                    // Surligner la carte
+                    card.style.backgroundColor = '#fff3cd';
+
+                    // Scroller vers le premier résultat
+                    if (document.querySelector('.tag-card[style*="background-color"]') === card) {
+                        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Maîtrise le développement web de A à Z ! Découvre nos guides complets sur HTML, CSS, JavaScript, Bootstrap 5 et Git. Tout ce dont tu as besoin pour devenir un pro du code, expliqué simplement et efficacement.">
+    <title>Guides Dev Web - Apprends HTML, CSS, JS, Bootstrap & Git</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .landing-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .landing-title {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .landing-description {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 60px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .guides-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .guide-card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .guide-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .guide-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .guide-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2d3748;
+        }
+
+        .guide-subtitle {
+            font-size: 1rem;
+            color: #718096;
+            line-height: 1.6;
+        }
+
+        .html-card { border-top: 4px solid #E34F26; }
+        .css-card { border-top: 4px solid #264de4; }
+        .js-card { border-top: 4px solid #f7df1e; }
+        .bootstrap-card { border-top: 4px solid #7952B3; }
+        .git-card { border-top: 4px solid #F05032; }
+
+        @media (max-width: 768px) {
+            .landing-title {
+                font-size: 2.5rem;
+            }
+            .landing-description {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="landing-container">
+        <h1 class="landing-title">Deviens un Pro du Développement Web 🚀</h1>
+
+        <p class="landing-description">
+            Maîtrise le développement web de A à Z ! Découvre nos guides complets sur HTML, CSS, JavaScript, Bootstrap 5 et Git. Tout ce dont tu as besoin pour devenir un pro du code, expliqué simplement et efficacement.
+        </p>
+
+        <div class="guides-grid">
+            <a href="html-guide.html" class="guide-card html-card">
+                <div class="guide-icon">📚</div>
+                <h2 class="guide-title">Guide HTML</h2>
+                <p class="guide-subtitle">Toutes les balises HTML expliquées simplement pour structurer tes pages web</p>
+            </a>
+
+            <a href="css-guide.html" class="guide-card css-card">
+                <div class="guide-icon">🎨</div>
+                <h2 class="guide-title">Guide CSS</h2>
+                <p class="guide-subtitle">Toutes les propriétés CSS pour styliser et animer tes créations</p>
+            </a>
+
+            <a href="js-guide.html" class="guide-card js-card">
+                <div class="guide-icon">⚡</div>
+                <h2 class="guide-title">Guide JavaScript</h2>
+                <p class="guide-subtitle">Maîtrise le DOM et rends tes pages interactives avec JavaScript</p>
+            </a>
+
+            <a href="bootstrap-guide.html" class="guide-card bootstrap-card">
+                <div class="guide-icon">🚀</div>
+                <h2 class="guide-title">Guide Bootstrap 5</h2>
+                <p class="guide-subtitle">Toutes les classes Bootstrap pour développer rapidement et efficacement</p>
+            </a>
+
+            <a href="git-guide.html" class="guide-card git-card">
+                <div class="guide-icon">🔀</div>
+                <h2 class="guide-title">Guide Git</h2>
+                <p class="guide-subtitle">Toutes les commandes Git pour versionner ton code comme un pro</p>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
