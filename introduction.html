@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction - Devenir Développeur Web</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#3498db">
+    <style>
+        .intro-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 80px 20px 40px 20px;
+        }
+
+        .intro-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .intro-header h1 {
+            font-size: 3rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+        }
+
+        .intro-header p {
+            font-size: 1.3rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .section-box {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 6px var(--shadow);
+        }
+
+        .section-box h2 {
+            color: var(--accent);
+            font-size: 2rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-box h3 {
+            color: var(--text);
+            font-size: 1.3rem;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            padding-left: 15px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .module-card {
+            background: var(--bg);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid;
+            transition: all 0.3s ease;
+        }
+
+        .module-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        .module-card.html { border-left-color: #E34F26; }
+        .module-card.css { border-left-color: #264de4; }
+        .module-card.js { border-left-color: #f7df1e; }
+        .module-card.php { border-left-color: #777BB3; }
+        .module-card.mysql { border-left-color: #00758F; }
+        .module-card.bootstrap { border-left-color: #7952B3; }
+        .module-card.git { border-left-color: #F05032; }
+
+        .module-card h4 {
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .module-card .emoji {
+            font-size: 2rem;
+            margin-right: 10px;
+        }
+
+        .module-card p {
+            color: var(--text);
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .module-card .example {
+            background: var(--code-bg);
+            color: #ecf0f1;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        .roadmap {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 40px 0;
+        }
+
+        .roadmap-step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .roadmap-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 50px;
+            width: 2px;
+            height: calc(100% - 20px);
+            background: var(--accent);
+            opacity: 0.3;
+        }
+
+        .roadmap-number {
+            background: var(--accent);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .roadmap-content h4 {
+            color: var(--text);
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .roadmap-content p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .roadmap-content .duration {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-top: 10px;
+        }
+
+        .connection-box {
+            background: var(--bg);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px dashed var(--accent);
+        }
+
+        .connection-box h4 {
+            color: var(--accent);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .connection-item {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            color: var(--text);
+        }
+
+        .connection-item .arrow {
+            color: var(--accent);
+            font-size: 1.5rem;
+            margin: 0 10px;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .cta-box h2 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-box p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            background: white;
+            color: #667eea;
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .tip-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px 20px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+
+        [data-theme="dark"] .tip-box {
+            background: #664d03;
+            color: #ffe69c;
+        }
+
+        .tip-box strong {
+            color: #856404;
+        }
+
+        [data-theme="dark"] .tip-box strong {
+            color: #ffc107;
+        }
+
+        /* Footer pleine largeur */
+        footer {
+            width: 100% !important;
+            margin-left: 0 !important;
+        }
+
+        @media (max-width: 768px) {
+            .intro-header h1 {
+                font-size: 2rem;
+            }
+
+            .intro-header p {
+                font-size: 1.1rem;
+            }
+
+            .roadmap-step {
+                flex-direction: column;
+            }
+
+            .roadmap-step::after {
+                display: none;
+            }
+
+            .roadmap-number {
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="progress-bar"></div>
+
+    <button id="theme-toggle" onclick="toggleTheme()">
+        <span id="theme-toggle-icon">🌙</span>
+    </button>
+
+    <div class="intro-container">
+        <div class="intro-header">
+            <h1>🚀 Devenir Développeur Web</h1>
+            <p>Comprends comment fonctionne le web et apprends dans le bon ordre !</p>
+        </div>
+
+        <!-- C'EST QUOI LE DÉVELOPPEMENT WEB ? -->
+        <div class="section-box">
+            <h2>🌍 C'est quoi le développement web ?</h2>
+            <p>Imagine que tu veux construire une maison. Le développement web, c'est pareil, mais pour créer des sites internet et des applications web comme YouTube, Instagram, ou ton site préféré !</p>
+
+            <p><strong>En gros, il y a 2 grandes parties :</strong></p>
+
+            <div class="module-card">
+                <h4>🎨 Le Frontend (ce qu'on voit)</h4>
+                <p>C'est tout ce que tu <strong>vois et avec quoi tu interagis</strong> sur un site : les boutons, les couleurs, les animations, le menu... Bref, la "façade" de la maison !</p>
+                <p><strong>Technologies :</strong> HTML, CSS, JavaScript, Bootstrap</p>
+            </div>
+
+            <div class="module-card">
+                <h4>⚙️ Le Backend (ce qui se passe en coulisses)</h4>
+                <p>C'est tout ce qui se passe <strong>derrière</strong>, que tu ne vois pas : enregistrer tes données, se connecter, gérer ta liste de favoris... C'est comme la plomberie et l'électricité de la maison !</p>
+                <p><strong>Technologies :</strong> PHP, MySQL</p>
+            </div>
+
+            <div class="module-card">
+                <h4>🔧 Les outils indispensables</h4>
+                <p>Pour travailler efficacement, il faut des outils, comme un marteau pour construire une maison !</p>
+                <p><strong>Technologies :</strong> Git (pour sauvegarder ton code), Bootstrap (pour aller plus vite)</p>
+            </div>
+        </div>
+
+        <!-- LES MODULES EXPLIQUÉS -->
+        <div class="section-box">
+            <h2>📚 Les modules expliqués simplement</h2>
+
+            <div class="module-card html">
+                <h4><span class="emoji">🧱</span> HTML - Les Briques de Base</h4>
+                <p><strong>C'est quoi ?</strong> HTML, c'est le squelette de ton site. C'est avec ça que tu mets du texte, des images, des boutons, des titres...</p>
+                <p><strong>Exemple concret :</strong> Si ton site était une maison, HTML ce serait les murs, les fenêtres, les portes.</p>
+                <div class="example">&lt;h1&gt;Bienvenue sur mon site !&lt;/h1&gt;<br>&lt;p&gt;Ceci est un paragraphe&lt;/p&gt;</div>
+                <p><strong>💡 En résumé :</strong> HTML = La structure, le contenu brut</p>
+            </div>
+
+            <div class="module-card css">
+                <h4><span class="emoji">🎨</span> CSS - La Décoration</h4>
+                <p><strong>C'est quoi ?</strong> CSS rend ton site beau ! Tu changes les couleurs, les tailles, tu fais des animations, tu positionnes les éléments...</p>
+                <p><strong>Exemple concret :</strong> Si HTML c'est les murs, CSS c'est la peinture, les meubles, la déco !</p>
+                <div class="example">h1 { color: blue; font-size: 50px; }</div>
+                <p><strong>💡 En résumé :</strong> CSS = Le style, l'apparence</p>
+            </div>
+
+            <div class="module-card js">
+                <h4><span class="emoji">⚡</span> JavaScript - L'Interactivité</h4>
+                <p><strong>C'est quoi ?</strong> JavaScript rend ton site vivant ! Les animations quand tu cliques, les menus qui s'ouvrent, les jeux, tout ce qui bouge !</p>
+                <p><strong>Exemple concret :</strong> C'est comme ajouter l'électricité, l'eau chaude, la télé... Tout ce qui rend la maison interactive !</p>
+                <div class="example">button.addEventListener('click', function() {<br>  alert('Tu as cliqué !');<br>});</div>
+                <p><strong>💡 En résumé :</strong> JavaScript = L'action, le mouvement</p>
+            </div>
+
+            <div class="module-card bootstrap">
+                <h4><span class="emoji">🚀</span> Bootstrap - Les Meubles Ikea</h4>
+                <p><strong>C'est quoi ?</strong> Bootstrap te donne des composants tout faits (boutons beaux, menus, cartes...) pour aller plus vite !</p>
+                <p><strong>Exemple concret :</strong> Au lieu de fabriquer tes meubles toi-même (CSS), tu prends des meubles Ikea déjà faits (Bootstrap) !</p>
+                <div class="example">&lt;button class="btn btn-primary"&gt;Clique ici&lt;/button&gt;</div>
+                <p><strong>💡 En résumé :</strong> Bootstrap = Gagner du temps avec du prêt-à-l'emploi</p>
+            </div>
+
+            <div class="module-card php">
+                <h4><span class="emoji">🔧</span> PHP - Le Cerveau du Site</h4>
+                <p><strong>C'est quoi ?</strong> PHP gère ce qui se passe côté serveur : connexion, envoi de mails, calculs, décisions...</p>
+                <p><strong>Exemple concret :</strong> Quand tu te connectes à Instagram, PHP vérifie ton mot de passe, récupère tes posts... C'est le chef d'orchestre !</p>
+                <div class="example">&lt;?php<br>  if ($password == "secret") {<br>    echo "Bienvenue !";<br>  }<br>?&gt;</div>
+                <p><strong>💡 En résumé :</strong> PHP = La logique, les décisions</p>
+            </div>
+
+            <div class="module-card mysql">
+                <h4><span class="emoji">💾</span> MySQL - La Mémoire</h4>
+                <p><strong>C'est quoi ?</strong> MySQL stocke toutes les données : tes utilisateurs, tes posts, tes commentaires... C'est la base de données !</p>
+                <p><strong>Exemple concret :</strong> C'est comme un énorme classeur où tu ranges tout : qui s'est inscrit, qui a commenté quoi, qui aime quoi...</p>
+                <div class="example">SELECT * FROM users WHERE age > 18;</div>
+                <p><strong>💡 En résumé :</strong> MySQL = Le stockage, la mémoire</p>
+            </div>
+
+            <div class="module-card git">
+                <h4><span class="emoji">💾</span> Git - La Sauvegarde</h4>
+                <p><strong>C'est quoi ?</strong> Git sauvegarde ton code et te permet de revenir en arrière si tu casses quelque chose !</p>
+                <p><strong>Exemple concret :</strong> C'est comme un "Ctrl+Z" géant pour ton projet. Tu peux aussi travailler en équipe sans te marcher dessus !</p>
+                <div class="example">git commit -m "J'ai ajouté un bouton"</div>
+                <p><strong>💡 En résumé :</strong> Git = Sauvegarde et travail d'équipe</p>
+            </div>
+        </div>
+
+        <!-- COMMENT ILS TRAVAILLENT ENSEMBLE -->
+        <div class="section-box">
+            <h2>🔗 Comment ils travaillent ensemble ?</h2>
+            <p>Imagine que tu crées un site de recettes de cuisine. Voici comment chaque technologie intervient :</p>
+
+            <div class="connection-box">
+                <h4>🍕 Exemple : Site de recettes</h4>
+
+                <div class="connection-item">
+                    <strong>HTML</strong>
+                    <span class="arrow">→</span>
+                    Crée la structure (titre, liste d'ingrédients, photo)
+                </div>
+
+                <div class="connection-item">
+                    <strong>CSS</strong>
+                    <span class="arrow">→</span>
+                    Rend ça joli (couleurs, mise en page, police sympa)
+                </div>
+
+                <div class="connection-item">
+                    <strong>JavaScript</strong>
+                    <span class="arrow">→</span>
+                    Ajoute un bouton "❤️ J'aime" qui change de couleur quand tu cliques
+                </div>
+
+                <div class="connection-item">
+                    <strong>PHP</strong>
+                    <span class="arrow">→</span>
+                    Enregistre qui a aimé cette recette
+                </div>
+
+                <div class="connection-item">
+                    <strong>MySQL</strong>
+                    <span class="arrow">→</span>
+                    Stocke les recettes, les utilisateurs, les likes
+                </div>
+
+                <div class="connection-item">
+                    <strong>Bootstrap</strong>
+                    <span class="arrow">→</span>
+                    Donne un design pro rapidement (boutons, cartes)
+                </div>
+
+                <div class="connection-item">
+                    <strong>Git</strong>
+                    <span class="arrow">→</span>
+                    Sauvegarde ton travail à chaque étape
+                </div>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 Astuce :</strong> Chaque technologie a son rôle, comme les joueurs d'une équipe de foot. Ensemble, elles créent un site complet et fonctionnel !
+            </div>
+        </div>
+
+        <!-- PARCOURS D'APPRENTISSAGE -->
+        <div class="section-box">
+            <h2>🎯 Dans quel ordre apprendre ?</h2>
+            <p>Voici le chemin à suivre, étape par étape, pour devenir développeur web :</p>
+
+            <div class="roadmap">
+                <div class="roadmap-step">
+                    <div class="roadmap-number">1</div>
+                    <div class="roadmap-content">
+                        <h4>🧱 HTML - Commence par les bases</h4>
+                        <p>Apprends d'abord HTML. C'est la base de TOUT. Tu ne peux rien faire sans ça. C'est comme apprendre l'alphabet avant d'écrire.</p>
+                        <p><strong>Objectif :</strong> Créer ta première page web avec du texte, des images, des liens</p>
+                        <span class="duration">⏱️ 1-2 semaines</span>
+                    </div>
+                </div>
+
+                <div class="roadmap-step">
+                    <div class="roadmap-number">2</div>
+                    <div class="roadmap-content">
+                        <h4>🎨 CSS - Rends ça beau</h4>
+                        <p>Maintenant que tu as du contenu (HTML), fais-le joli ! Apprends les couleurs, les tailles, les positions, les animations.</p>
+                        <p><strong>Objectif :</strong> Transformer ta page moche en quelque chose de cool</p>
+                        <span class="duration">⏱️ 2-3 semaines</span>
+                    </div>
+                </div>
+
+                <div class="roadmap-step">
+                    <div class="roadmap-number">3</div>
+                    <div class="roadmap-content">
+                        <h4>⚡ JavaScript - Donne vie à ton site</h4>
+                        <p>Apprends JavaScript pour rendre ton site interactif. Commence par les bases (variables, conditions, boucles) puis le DOM (manipuler la page).</p>
+                        <p><strong>Objectif :</strong> Créer des boutons qui font des actions, des menus qui s'ouvrent, des animations</p>
+                        <span class="duration">⏱️ 4-6 semaines</span>
+                    </div>
+                </div>
+
+                <div class="roadmap-step">
+                    <div class="roadmap-number">4</div>
+                    <div class="roadmap-content">
+                        <h4>🚀 Bootstrap - Accélère ton design</h4>
+                        <p>Maintenant que tu connais HTML/CSS, utilise Bootstrap pour aller 10x plus vite. Crée des sites pros en quelques minutes !</p>
+                        <p><strong>Objectif :</strong> Créer un site responsive (mobile + desktop) rapidement</p>
+                        <span class="duration">⏱️ 1-2 semaines</span>
+                    </div>
+                </div>
+
+                <div class="roadmap-step">
+                    <div class="roadmap-number">5</div>
+                    <div class="roadmap-content">
+                        <h4>💾 Git - Sauvegarde ton travail</h4>
+                        <p>Apprends Git pour ne jamais perdre ton code. C'est ESSENTIEL pour travailler en pro et collaborer.</p>
+                        <p><strong>Objectif :</strong> Sauvegarder ton code, revenir en arrière, collaborer</p>
+                        <span class="duration">⏱️ 1 semaine</span>
+                    </div>
+                </div>
+
+                <div class="roadmap-step">
+                    <div class="roadmap-number">6</div>
+                    <div class="roadmap-content">
+                        <h4>🔧 PHP - Passe au backend</h4>
+                        <p>Maintenant, apprends à créer la logique côté serveur. Gère les connexions, les formulaires, les sessions...</p>
+                        <p><strong>Objectif :</strong> Créer un système de connexion, envoyer des emails, gérer des fichiers</p>
+                        <span class="duration">⏱️ 4-6 semaines</span>
+                    </div>
+                </div>
+
+                <div class="roadmap-step">
+                    <div class="roadmap-number">7</div>
+                    <div class="roadmap-content">
+                        <h4>💾 MySQL - Stocke les données</h4>
+                        <p>Apprends à créer et gérer des bases de données. Stocke tes utilisateurs, tes posts, tes produits...</p>
+                        <p><strong>Objectif :</strong> Créer une base de données complète pour ton site</p>
+                        <span class="duration">⏱️ 3-4 semaines</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tip-box">
+                <strong>⚡ Conseil de pro :</strong> Ne saute pas les étapes ! Chaque technologie s'appuie sur la précédente. Si tu essaies de faire du JavaScript sans connaître HTML, tu vas galérer.
+            </div>
+        </div>
+
+        <!-- PROJET FINAL -->
+        <div class="section-box">
+            <h2>🏆 Ton premier projet complet</h2>
+            <p>Une fois que tu as appris tout ça, crée ton premier vrai projet qui utilise TOUT :</p>
+
+            <div class="module-card">
+                <h4>💡 Idée de projet : Un blog personnel</h4>
+                <p><strong>HTML :</strong> Structure des pages (accueil, article, contact)</p>
+                <p><strong>CSS :</strong> Design joli et responsive</p>
+                <p><strong>JavaScript :</strong> Menu burger, commentaires interactifs</p>
+                <p><strong>Bootstrap :</strong> Composants pro (navbar, cards, footer)</p>
+                <p><strong>PHP :</strong> Système de connexion, publication d'articles</p>
+                <p><strong>MySQL :</strong> Stockage des articles, utilisateurs, commentaires</p>
+                <p><strong>Git :</strong> Sauvegarde de tout le projet</p>
+            </div>
+
+            <div class="tip-box">
+                <strong>🎯 L'objectif final :</strong> Être capable de créer n'importe quel site web de A à Z, tout seul, comme un vrai développeur professionnel !
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-box">
+            <h2>🚀 Prêt à commencer ?</h2>
+            <p>Suis le parcours étape par étape et dans 3-6 mois, tu seras capable de créer tes propres sites web !</p>
+            <div class="cta-buttons">
+                <a href="html-guide.html" class="cta-button">Commencer par HTML</a>
+                <a href="index.html" class="cta-button">Voir tous les guides</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 - Guides Dev Web</p>
+        <p>Fait avec ❤️ pour tous les futurs développeurs</p>
+        <p><a href="index.html">Retour à l'accueil</a></p>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+        // Enregistrer le Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then((reg) => console.log('Service Worker enregistré', reg))
+                .catch((err) => console.log('Erreur Service Worker', err));
+        }
+    </script>
+</body>
+</html>
