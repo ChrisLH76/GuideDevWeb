@@ -207,10 +207,12 @@
             console.log('Nombre de favoris:', favorites.length);
 
             if (favorites.length === 0) {
+                favoritesList.innerHTML = '';
                 emptyState.style.display = 'block';
                 return;
             }
 
+            emptyState.style.display = 'none';
             favoritesList.innerHTML = favorites.map((fav, index) => `
                 <div class="fav-item">
                     <div class="fav-info">
