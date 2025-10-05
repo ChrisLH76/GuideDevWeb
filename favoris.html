@@ -227,7 +227,7 @@
                         <button class="visit-btn" onclick="window.location.href='${escapeHtml(fav.url)}'">
                             Voir
                         </button>
-                        <button class="remove-btn" onclick="removeFavorite(${index})">
+                        <button class="remove-btn" onclick="removeFavorite(event, ${index})">
                             Supprimer
                         </button>
                     </div>
@@ -235,8 +235,9 @@
             `).join('');
         }
 
-        function removeFavorite(index) {
+        function removeFavorite(event, index) {
             event.preventDefault();
+            event.stopPropagation();
             let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
             favorites.splice(index, 1);
             localStorage.setItem('favorites', JSON.stringify(favorites));
