@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Maîtrise le développement web de A à Z ! Découvre nos guides complets sur HTML, CSS, JavaScript, Bootstrap 5 et Git. Tout ce dont tu as besoin pour devenir un pro du code, expliqué simplement et efficacement.">
-    <title>Guides Dev Web - Apprends HTML, CSS, JS, Bootstrap & Git</title>
+    <meta name="description" content="Maîtrise le développement web de A à Z ! Découvre nos guides complets sur HTML, CSS, JavaScript, Bootstrap 5, Git, PHP 8 et MySQL 9. Tout ce dont tu as besoin pour devenir un pro du code, expliqué simplement et efficacement.">
+    <title>Guides Dev Web - Apprends HTML, CSS, JS, Bootstrap, Git, PHP & MySQL</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#3498db">
     <style>
         .landing-container {
             max-width: 1200px;
@@ -81,6 +83,8 @@
         .js-card { border-top: 4px solid #f7df1e; }
         .bootstrap-card { border-top: 4px solid #7952B3; }
         .git-card { border-top: 4px solid #F05032; }
+        .php-card { border-top: 4px solid #777BB3; }
+        .mysql-card { border-top: 4px solid #00758F; }
 
         @media (max-width: 768px) {
             .landing-title {
@@ -93,11 +97,17 @@
     </style>
 </head>
 <body>
+    <div id="progress-bar"></div>
+
+    <button id="theme-toggle" onclick="toggleTheme()">
+        <span id="theme-toggle-icon">🌙</span>
+    </button>
+
     <div class="landing-container">
         <h1 class="landing-title">Deviens un Pro du Développement Web</h1>
 
         <p class="landing-description">
-            Maîtrise le développement web de A à Z ! Découvre nos guides complets sur HTML, CSS, JavaScript, Bootstrap 5 et Git. Tout ce dont tu as besoin pour devenir un pro du code, expliqué simplement et efficacement.
+            Maîtrise le développement web de A à Z ! Découvre nos guides complets sur HTML, CSS, JavaScript, Bootstrap 5, Git, PHP 8 et MySQL 9. Tout ce dont tu as besoin pour devenir un pro du code, expliqué simplement et efficacement.
         </p>
 
         <div class="guides-grid">
@@ -147,7 +157,43 @@
                 <h2 class="guide-title">Guide Git</h2>
                 <p class="guide-subtitle">Toutes les commandes Git pour versionner ton code comme un pro</p>
             </a>
+
+            <a href="php-guide.html" class="guide-card php-card">
+                <div class="guide-icon"><svg viewBox="0 0 100 52" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#777BB3" d="M0 0h100v52H0z"/>
+                <path fill="#FFF" d="M10 10h8c4 0 6 2 6 5s-2 5-6 5h-4v6h-4V10zm4 7h3c2 0 3-1 3-2s-1-2-3-2h-3v4zm13-7h4v6h6v-6h4v16h-4v-6h-6v6h-4V10zm18 0h8c4 0 6 2 6 5s-2 5-6 5h-4v6h-4V10zm4 7h3c2 0 3-1 3-2s-1-2-3-2h-3v4z"/>
+            </svg></div>
+                <h2 class="guide-title">Guide PHP 8</h2>
+                <p class="guide-subtitle">Toutes les fonctions PHP 8 pour développer des applications puissantes</p>
+            </a>
+
+            <a href="mysql-guide.html" class="guide-card mysql-card">
+                <div class="guide-icon"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#00758F" d="M0 0h100v100H0z"/>
+                <path fill="#F29111" d="M20 30h15v40H20z"/>
+                <path fill="#E48E00" d="M40 25h15v45H40z"/>
+                <path fill="#FFF" d="M65 35c0-5 3-8 7-8s7 3 7 8v30c0 5-3 8-7 8s-7-3-7-8V35z"/>
+            </svg></div>
+                <h2 class="guide-title">Guide MySQL 9</h2>
+                <p class="guide-subtitle">Toutes les commandes MySQL 9 pour gérer tes bases de données</p>
+            </a>
+
+            <a href="favoris.html" class="guide-card" style="border-top: 4px solid #f39c12;">
+                <div class="guide-icon" style="font-size: 4rem;">⭐</div>
+                <h2 class="guide-title">Mes Favoris</h2>
+                <p class="guide-subtitle">Retrouvez toutes vos fonctions sauvegardées en un clin d'œil</p>
+            </a>
         </div>
     </div>
+
+    <script src="app.js"></script>
+    <script>
+        // Enregistrer le Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then((reg) => console.log('Service Worker enregistré', reg))
+                .catch((err) => console.log('Erreur Service Worker', err));
+        }
+    </script>
 </body>
 </html>

@@ -1,0 +1,24 @@
+{
+  "name": "Guides Dev Web - HTML, CSS, JS, PHP, MySQL",
+  "short_name": "Guides Dev",
+  "description": "Tous les guides de développement web en un seul endroit",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#fafafa",
+  "theme_color": "#3498db",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["education", "productivity", "reference"],
+  "lang": "fr"
+}

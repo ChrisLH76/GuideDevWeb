@@ -16,6 +16,19 @@
     --shadow: rgba(0, 0, 0, 0.08);
 }
 
+/* Mode sombre */
+[data-theme="dark"] {
+    --primary: #ecf0f1;
+    --accent: #3498db;
+    --bg: #1a1a1a;
+    --card-bg: #2c2c2c;
+    --text: #ecf0f1;
+    --text-light: #95a5a6;
+    --border: #404040;
+    --code-bg: #1e1e1e;
+    --shadow: rgba(0, 0, 0, 0.3);
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -367,4 +380,365 @@ section {
 nav a:active {
     background: var(--accent);
     color: white;
+}
+
+/* ========================================
+   NOUVELLES FONCTIONNALITÉS
+   ======================================== */
+
+/* Barre de progression */
+#progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), #9b59b6);
+    width: 0%;
+    z-index: 9999;
+    transition: width 0.1s ease;
+}
+
+/* Toggle mode sombre */
+#theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--card-bg);
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 24px;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px var(--shadow);
+}
+
+#theme-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px var(--shadow);
+}
+
+/* Wrapper de code avec bouton copier */
+.code-wrapper {
+    position: relative;
+    margin-top: 8px;
+}
+
+.copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 0.75em;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease, background 0.3s ease;
+    z-index: 10;
+}
+
+.code-wrapper:hover .copy-btn {
+    opacity: 1;
+}
+
+.copy-btn:hover {
+    background: #2980b9;
+}
+
+.copy-btn.copied {
+    background: #27ae60;
+}
+
+/* Ancres cliquables */
+.anchor-link {
+    margin-left: 8px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    text-decoration: none;
+    font-size: 0.8em;
+    position: relative;
+}
+
+.tag-card h3:hover .anchor-link {
+    opacity: 1;
+}
+
+.anchor-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--text);
+    color: var(--card-bg);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    white-space: nowrap;
+    margin-bottom: 4px;
+}
+
+/* Bouton favoris */
+.fav-btn {
+    background: none;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+    margin-left: 8px;
+    opacity: 0.5;
+    transition: all 0.3s ease;
+}
+
+.fav-btn:hover {
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+.fav-btn.active {
+    opacity: 1;
+}
+
+/* Badge compteur favoris */
+#fav-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #e74c3c;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+/* Suggestions de recherche */
+.search-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+    z-index: 1000;
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+.suggestion-item {
+    padding: 10px 12px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.85em;
+}
+
+.suggestion-item:hover {
+    background: var(--bg);
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.search-box {
+    position: relative;
+}
+
+/* Highlight card */
+@keyframes highlight {
+    0%, 100% { background: var(--bg); }
+    50% { background: rgba(52, 152, 219, 0.2); }
+}
+
+.tag-card.highlight {
+    animation: highlight 1s ease;
+}
+
+/* Badges de niveau */
+.level-badge {
+    display: inline-block;
+    font-size: 0.65em;
+    padding: 3px 8px;
+    border-radius: 12px;
+    margin-left: 8px;
+    font-weight: 600;
+    vertical-align: middle;
+}
+
+.level-badge.debutant {
+    background: #d4edda;
+    color: #155724;
+}
+
+[data-theme="dark"] .level-badge.debutant {
+    background: #1e4620;
+    color: #7dcc8c;
+}
+
+.level-badge.intermediaire {
+    background: #fff3cd;
+    color: #856404;
+}
+
+[data-theme="dark"] .level-badge.intermediaire {
+    background: #664d03;
+    color: #ffe69c;
+}
+
+.level-badge.avance {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+[data-theme="dark"] .level-badge.avance {
+    background: #5a1f1f;
+    color: #f5b7b1;
+}
+
+/* Filtres par niveau */
+.level-filters {
+    display: flex;
+    gap: 6px;
+    padding: 6px 0;
+}
+
+.filter-btn {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--text);
+}
+
+.filter-btn:hover {
+    background: var(--border);
+}
+
+.filter-btn.active {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    background: var(--bg);
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-size: 0.9em;
+    color: var(--text-light);
+}
+
+.breadcrumb a {
+    color: var(--accent);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.breadcrumb a:hover {
+    color: #2980b9;
+    text-decoration: underline;
+}
+
+.breadcrumb .separator {
+    margin: 0 8px;
+}
+
+.breadcrumb .current {
+    color: var(--text);
+    font-weight: 500;
+}
+
+/* Partage social */
+.social-share {
+    text-align: center;
+    padding: 20px 0;
+    border-top: 1px solid var(--border);
+    margin-top: 20px;
+}
+
+.share-btn {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    margin: 0 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: all 0.3s ease;
+}
+
+.share-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--shadow);
+}
+
+.share-btn.twitter {
+    background: #1DA1F2;
+}
+
+.share-btn.linkedin {
+    background: #0077B5;
+}
+
+.share-btn.link {
+    background: #7f8c8d;
+}
+
+/* Lien vers favoris dans nav */
+.fav-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Responsive amélioré */
+@media (max-width: 900px) {
+    #theme-toggle {
+        top: 10px;
+        right: 10px;
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+
+    .level-filters {
+        flex-wrap: wrap;
+    }
+
+    .filter-btn {
+        font-size: 0.75em;
+        padding: 3px 8px;
+    }
+
+    .social-share {
+        padding: 15px 0;
+    }
+
+    .share-btn {
+        font-size: 0.8em;
+        padding: 8px 16px;
+        margin: 3px;
+    }
 }

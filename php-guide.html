@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide PHP 8</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#3498db">
+</head>
+<body>
+    <div id="progress-bar"></div>
+
+    <button id="theme-toggle" onclick="toggleTheme()">
+        <span id="theme-toggle-icon">🌙</span>
+    </button>
+    <aside>
+        <h1>Le Guide Complet de PHP 8</h1>
+        <p class="subtitle">Toutes les fonctions PHP 8 expliquées simplement !</p>
+        <p>
+            <a href="html-guide.html">Guide HTML</a>
+            <a href="css-guide.html">Guide CSS</a>
+            <a href="js-guide.html">Guide JavaScript</a>
+            <a href="bootstrap-guide.html">Guide Bootstrap</a>
+            <a href="git-guide.html">Guide Git</a>
+            <a href="mysql-guide.html">Guide MySQL</a>
+            <a href="favoris.html" class="fav-link">⭐ Favoris <span id="fav-count"></span></a>
+        </p>
+    </aside>
+
+    <nav>
+        <div class="nav-logo">
+            <svg viewBox="0 0 100 52" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#777BB3" d="M0 0h100v52H0z"/>
+                <path fill="#FFF" d="M10 10h8c4 0 6 2 6 5s-2 5-6 5h-4v6h-4V10zm4 7h3c2 0 3-1 3-2s-1-2-3-2h-3v4zm13-7h4v6h6v-6h4v16h-4v-6h-6v6h-4V10zm18 0h8c4 0 6 2 6 5s-2 5-6 5h-4v6h-4V10zm4 7h3c2 0 3-1 3-2s-1-2-3-2h-3v4z"/>
+            </svg>
+        </div>
+        <ul>
+            <li><a href="#bases">Bases</a></li>
+            <li><a href="#chaines">Chaînes</a></li>
+            <li><a href="#tableaux">Tableaux</a></li>
+            <li><a href="#fichiers">Fichiers</a></li>
+            <li><a href="#dates">Dates</a></li>
+            <li><a href="#math">Mathématiques</a></li>
+            <li><a href="#filtres">Filtres</a></li>
+            <li><a href="#pdo">PDO/MySQL</a></li>
+            <li><a href="#json">JSON</a></li>
+            <li><a href="#php8">PHP 8</a></li>
+        </ul>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Rechercher..." />
+        </div>
+    </nav>
+
+    <main>
+        <section id="bases">
+            <h2>🚀 Fonctions de Base</h2>
+
+            <div class="tag-card">
+                <h3>echo</h3>
+                <p><strong>C'est quoi ?</strong> Affiche du texte ou des variables à l'écran. C'est la fonction la plus utilisée en PHP pour sortir du contenu.</p>
+                <p><strong>Pourquoi ?</strong> Pour afficher n'importe quoi : du HTML, du texte, des variables... C'est ta meilleure amie pour débugger et générer des pages dynamiques !</p>
+                <p><strong>Astuce :</strong> Tu peux afficher plusieurs éléments séparés par des virgules. Plus rapide que print().</p>
+                <code>echo "Hello World!";
+echo "Bonjour ", $nom, " !";
+echo "&lt;h1&gt;Titre&lt;/h1&gt;";</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>var_dump()</h3>
+                <p><strong>C'est quoi ?</strong> Affiche des informations détaillées sur une variable : son type, sa valeur, sa taille...</p>
+                <p><strong>Pourquoi ?</strong> Super utile pour débugger ! Tu vois exactement ce qu'il y a dans ta variable, même les tableaux complexes ou les objets.</p>
+                <p><strong>Conseil :</strong> Utilise-la pendant le développement, mais retire-la en production. Pour du code propre, préfère print_r() ou error_log().</p>
+                <code>$data = ["nom" => "Marie", "age" => 25];
+var_dump($data);
+// Affiche: array(2) { ["nom"]=> string(5) "Marie" ["age"]=> int(25) }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>isset()</h3>
+                <p><strong>C'est quoi ?</strong> Vérifie si une variable existe et n'est pas null. Retourne true ou false.</p>
+                <p><strong>Pourquoi ?</strong> Pour éviter les erreurs ! Avant d'utiliser une variable, vérifie qu'elle existe. Indispensable avec les formulaires ($_POST, $_GET).</p>
+                <p><strong>Important :</strong> isset() retourne false si la variable vaut null, même si elle existe !</p>
+                <code>if (isset($_POST['email'])) {
+    $email = $_POST['email'];
+} else {
+    echo "Email non fourni";
+}</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>empty()</h3>
+                <p><strong>C'est quoi ?</strong> Vérifie si une variable est vide : "", 0, null, false, tableau vide... tout ça est considéré "vide".</p>
+                <p><strong>Pourquoi ?</strong> Pour valider les données d'un formulaire. Si un champ est vide, tu peux afficher une erreur.</p>
+                <p><strong>Astuce :</strong> "0" (string) est vide mais 0.0 ne l'est pas ! Attention aux surprises.</p>
+                <code>if (empty($username)) {
+    echo "Le nom d'utilisateur est requis";
+}
+// Vide : "", 0, "0", null, false, []</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>die() / exit()</h3>
+                <p><strong>C'est quoi ?</strong> Arrête immédiatement l'exécution du script PHP. die() et exit() sont identiques.</p>
+                <p><strong>Pourquoi ?</strong> Pour stopper le script en cas d'erreur critique (connexion DB échouée, fichier manquant...) et afficher un message.</p>
+                <p><strong>Conseil :</strong> Utilise-le avec parcimonie ! Préfère les exceptions pour une meilleure gestion des erreurs.</p>
+                <code>$db = mysqli_connect("localhost", "user", "pass");
+if (!$db) {
+    die("Erreur de connexion : " . mysqli_connect_error());
+}</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>gettype()</h3>
+                <p><strong>C'est quoi ?</strong> Retourne le type d'une variable sous forme de string : "integer", "string", "array", "object"...</p>
+                <p><strong>Pourquoi ?</strong> Pour vérifier le type d'une variable, surtout quand tu reçois des données externes.</p>
+                <p><strong>Alternative :</strong> is_int(), is_string(), is_array()... sont plus rapides et mieux pour les conditions.</p>
+                <code>$age = 25;
+echo gettype($age);  // "integer"
+$nom = "Paul";
+echo gettype($nom);  // "string"</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>unset()</h3>
+                <p><strong>C'est quoi ?</strong> Détruit une variable. Elle n'existe plus après ça.</p>
+                <p><strong>Pourquoi ?</strong> Pour libérer de la mémoire (gros tableaux) ou supprimer des données sensibles (mots de passe après usage).</p>
+                <p><strong>Note :</strong> Dans une fonction, unset() ne détruit que la copie locale, pas la variable globale !</p>
+                <code>$password = "secret123";
+// ... utilisation ...
+unset($password);  // Plus de trace du mot de passe
+unset($bigArray);  // Libère la mémoire</code>
+            </div>
+        </section>
+
+        <section id="chaines">
+            <h2>📝 Fonctions de Chaînes</h2>
+
+            <div class="tag-card">
+                <h3>strlen()</h3>
+                <p><strong>C'est quoi ?</strong> Retourne la longueur d'une chaîne (nombre de caractères).</p>
+                <p><strong>Pourquoi ?</strong> Pour valider un mot de passe (min 8 caractères), limiter un texte, vérifier qu'un champ n'est pas vide...</p>
+                <p><strong>Attention :</strong> Compte les octets, pas les caractères UTF-8 ! Pour les accents, utilise mb_strlen().</p>
+                <code>$password = "azerty123";
+if (strlen($password) < 8) {
+    echo "Mot de passe trop court";
+}</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>str_replace()</h3>
+                <p><strong>C'est quoi ?</strong> Remplace toutes les occurrences d'un texte par un autre dans une chaîne.</p>
+                <p><strong>Pourquoi ?</strong> Pour nettoyer du texte, censurer des mots, corriger des erreurs courantes, remplacer des espaces par des underscores...</p>
+                <p><strong>Bonus :</strong> Peut remplacer plusieurs mots à la fois avec des tableaux !</p>
+                <code>$text = "Bonjour monde!";
+echo str_replace("monde", "PHP", $text);  // "Bonjour PHP!"
+
+$bad = ["idiot", "stupide"];
+$clean = str_replace($bad, "***", $comment);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>trim()</h3>
+                <p><strong>C'est quoi ?</strong> Supprime les espaces (et tabulations, retours à la ligne) au début et à la fin d'une chaîne.</p>
+                <p><strong>Pourquoi ?</strong> Les utilisateurs mettent souvent des espaces par erreur dans les formulaires. Nettoie avant de sauvegarder !</p>
+                <p><strong>Variantes :</strong> ltrim() (gauche seulement), rtrim() (droite seulement).</p>
+                <code>$email = "  user@example.com  ";
+$clean = trim($email);  // "user@example.com"
+
+$name = trim($_POST['name']);  // Nettoyage formulaire</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>strtolower() / strtoupper()</h3>
+                <p><strong>C'est quoi ?</strong> Convertit une chaîne entièrement en minuscules (lower) ou majuscules (upper).</p>
+                <p><strong>Pourquoi ?</strong> Pour comparer des emails sans tenir compte de la casse, normaliser des données, créer des slugs d'URL...</p>
+                <p><strong>UTF-8 :</strong> Pour les accents, utilise mb_strtolower() et mb_strtoupper() !</p>
+                <code>$email1 = strtolower("USER@EXAMPLE.COM");  // "user@example.com"
+$title = strtoupper("titre");  // "TITRE"
+
+if (strtolower($input) === "oui") { /* ... */ }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>substr()</h3>
+                <p><strong>C'est quoi ?</strong> Extrait une portion d'une chaîne. Tu choisis où commencer et combien de caractères prendre.</p>
+                <p><strong>Pourquoi ?</strong> Pour créer des aperçus ("Lire la suite..."), extraire une année d'une date, tronquer des textes longs...</p>
+                <p><strong>Astuce :</strong> Position négative = compte depuis la fin ! substr($str, -3) prend les 3 derniers caractères.</p>
+                <code>$text = "Bonjour le monde";
+echo substr($text, 0, 7);  // "Bonjour"
+echo substr($text, 8);     // "le monde"
+echo substr($text, -5);    // "monde"</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>explode()</h3>
+                <p><strong>C'est quoi ?</strong> Transforme une chaîne en tableau en la coupant à chaque séparateur.</p>
+                <p><strong>Pourquoi ?</strong> Pour splitter une liste CSV, découper une phrase en mots, séparer prénom/nom...</p>
+                <p><strong>Opposé :</strong> implode() fait l'inverse (tableau → chaîne) !</p>
+                <code>$tags = "php,javascript,css";
+$array = explode(",", $tags);  // ["php", "javascript", "css"]
+
+$words = explode(" ", "Hello world");  // ["Hello", "world"]</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>implode()</h3>
+                <p><strong>C'est quoi ?</strong> Transforme un tableau en chaîne en joignant les éléments avec un séparateur.</p>
+                <p><strong>Pourquoi ?</strong> Pour créer des listes (ex: "pomme, poire, banane"), générer du SQL (WHERE id IN (1,2,3)), afficher des tags...</p>
+                <p><strong>Alias :</strong> join() fait exactement la même chose !</p>
+                <code>$fruits = ["pomme", "poire", "banane"];
+echo implode(", ", $fruits);  // "pomme, poire, banane"
+
+$ids = [1, 2, 3];
+echo "WHERE id IN (" . implode(",", $ids) . ")";</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>str_contains()</h3>
+                <p><strong>C'est quoi ?</strong> Vérifie si une chaîne contient un texte. Retourne true ou false. NOUVEAU en PHP 8 !</p>
+                <p><strong>Pourquoi ?</strong> Avant PHP 8, on devait utiliser strpos() !== false, c'était moche. Maintenant c'est simple et lisible !</p>
+                <p><strong>Bonus :</strong> str_starts_with() et str_ends_with() pour début et fin !</p>
+                <code>if (str_contains($email, "@")) {
+    echo "Email valide";
+}
+
+if (str_starts_with($url, "https://")) { /* ... */ }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>htmlspecialchars()</h3>
+                <p><strong>C'est quoi ?</strong> Convertit les caractères spéciaux en entités HTML pour éviter les failles XSS.</p>
+                <p><strong>Pourquoi ?</strong> SÉCURITÉ ! Empêche les utilisateurs d'injecter du code malveillant. À TOUJOURS utiliser avant d'afficher du contenu utilisateur !</p>
+                <p><strong>Essentiel :</strong> & devient &amp;, < devient &lt;, > devient &gt;, " devient &quot;</p>
+                <code>$user_input = "&lt;script&gt;alert('XSS')&lt;/script&gt;";
+echo htmlspecialchars($user_input);
+// Affiche le texte sans exécuter le script
+
+echo htmlspecialchars($comment, ENT_QUOTES, 'UTF-8');</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>sprintf()</h3>
+                <p><strong>C'est quoi ?</strong> Formate une chaîne avec des placeholders : %s pour string, %d pour nombre, %f pour float...</p>
+                <p><strong>Pourquoi ?</strong> Pour créer des messages propres et réutilisables, formater des nombres (prix, dates), générer du SQL préparé...</p>
+                <p><strong>Astuce :</strong> %.2f formate un float avec 2 décimales !</p>
+                <code>$name = "Marie";
+$age = 25;
+echo sprintf("Bonjour %s, tu as %d ans", $name, $age);
+
+$price = 19.99;
+echo sprintf("Prix: %.2f €", $price);  // "Prix: 19.99 €"</code>
+            </div>
+        </section>
+
+        <section id="tableaux">
+            <h2>🗂️ Fonctions de Tableaux</h2>
+
+            <div class="tag-card">
+                <h3>count()</h3>
+                <p><strong>C'est quoi ?</strong> Retourne le nombre d'éléments dans un tableau.</p>
+                <p><strong>Pourquoi ?</strong> Pour vérifier qu'un tableau n'est pas vide, compter des résultats, faire des boucles...</p>
+                <p><strong>Astuce :</strong> count($array, COUNT_RECURSIVE) compte aussi les sous-tableaux !</p>
+                <code>$users = ["Alice", "Bob", "Charlie"];
+echo count($users);  // 3
+
+if (count($results) === 0) {
+    echo "Aucun résultat";
+}</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>array_push()</h3>
+                <p><strong>C'est quoi ?</strong> Ajoute un ou plusieurs éléments à la fin d'un tableau.</p>
+                <p><strong>Pourquoi ?</strong> Pour construire des listes dynamiquement, accumuler des résultats dans une boucle...</p>
+                <p><strong>Raccourci :</strong> $array[] = $value fait la même chose et est plus rapide !</p>
+                <code>$fruits = ["pomme", "poire"];
+array_push($fruits, "banane", "orange");
+// $fruits = ["pomme", "poire", "banane", "orange"]
+
+$list[] = $new_item;  // Plus simple !</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>array_merge()</h3>
+                <p><strong>C'est quoi ?</strong> Fusionne deux ou plusieurs tableaux en un seul.</p>
+                <p><strong>Pourquoi ?</strong> Pour combiner des résultats, fusionner des configurations, joindre des listes...</p>
+                <p><strong>Attention :</strong> Les clés numériques sont réindexées ! Pour garder les clés, utilise l'opérateur + !</p>
+                <code>$arr1 = ["a", "b"];
+$arr2 = ["c", "d"];
+$result = array_merge($arr1, $arr2);  // ["a", "b", "c", "d"]
+
+$config = array_merge($defaults, $user_config);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>array_filter()</h3>
+                <p><strong>C'est quoi ?</strong> Filtre un tableau en gardant uniquement les éléments qui passent un test (callback).</p>
+                <p><strong>Pourquoi ?</strong> Pour supprimer les valeurs vides, filtrer des nombres pairs, garder les utilisateurs actifs...</p>
+                <p><strong>Pratique :</strong> Sans callback, supprime automatiquement les valeurs falsy (null, 0, false, "").</p>
+                <code>$numbers = [1, 2, 3, 4, 5];
+$even = array_filter($numbers, fn($n) => $n % 2 === 0);  // [2, 4]
+
+$clean = array_filter($data);  // Supprime les valeurs vides</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>array_map()</h3>
+                <p><strong>C'est quoi ?</strong> Applique une fonction à chaque élément d'un tableau et retourne le nouveau tableau.</p>
+                <p><strong>Pourquoi ?</strong> Pour transformer des données : multiplier tous les prix, mettre en majuscules, extraire des IDs d'objets...</p>
+                <p><strong>Moderne :</strong> Utilise les arrow functions (fn) de PHP 7.4+ pour un code concis !</p>
+                <code>$prices = [10, 20, 30];
+$with_tax = array_map(fn($p) => $p * 1.2, $prices);  // [12, 24, 36]
+
+$names = array_map('strtoupper', $names);  // Tout en majuscules</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>array_reduce()</h3>
+                <p><strong>C'est quoi ?</strong> Réduit un tableau à une seule valeur en appliquant une fonction d'accumulation.</p>
+                <p><strong>Pourquoi ?</strong> Pour calculer une somme, un produit, concaténer des strings, trouver un max...</p>
+                <p><strong>Puissant :</strong> Plus flexible que array_sum(), tu contrôles tout le processus !</p>
+                <code>$numbers = [1, 2, 3, 4, 5];
+$sum = array_reduce($numbers, fn($carry, $n) => $carry + $n, 0);  // 15
+
+$total = array_reduce($prices, fn($sum, $p) => $sum + $p, 0);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>in_array()</h3>
+                <p><strong>C'est quoi ?</strong> Vérifie si une valeur existe dans un tableau. Retourne true ou false.</p>
+                <p><strong>Pourquoi ?</strong> Pour vérifier des permissions, valider un choix dans une liste, chercher un élément...</p>
+                <p><strong>Important :</strong> 3ème paramètre true = comparaison stricte (=== recommandé) !</p>
+                <code>$roles = ["admin", "editor", "user"];
+if (in_array("admin", $roles)) {
+    echo "Accès autorisé";
+}
+
+in_array("5", [5], true);  // false (strict)</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>array_key_exists()</h3>
+                <p><strong>C'est quoi ?</strong> Vérifie si une clé existe dans un tableau associatif, même si sa valeur est null.</p>
+                <p><strong>Pourquoi ?</strong> Différent de isset() qui retourne false si la valeur est null. Utile pour les API et configs.</p>
+                <p><strong>Astuce :</strong> Depuis PHP 7, on peut aussi utiliser ?? (null coalescing operator).</p>
+                <code>$user = ["name" => "Alice", "age" => null];
+array_key_exists("age", $user);  // true
+isset($user["age"]);             // false
+
+$name = $user["name"] ?? "Anonyme";</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>array_unique()</h3>
+                <p><strong>C'est quoi ?</strong> Supprime les doublons d'un tableau et garde uniquement les valeurs uniques.</p>
+                <p><strong>Pourquoi ?</strong> Pour nettoyer des listes (tags, catégories), éliminer les entrées dupliquées...</p>
+                <p><strong>Note :</strong> Préserve les clés originales ! Utilise array_values() après pour réindexer.</p>
+                <code>$tags = ["php", "js", "php", "css", "js"];
+$unique = array_unique($tags);  // ["php", "js", "css"]
+
+$clean = array_values(array_unique($dirty));</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>sort() / rsort()</h3>
+                <p><strong>C'est quoi ?</strong> Trie un tableau par ordre croissant (sort) ou décroissant (rsort). MODIFIE le tableau original !</p>
+                <p><strong>Pourquoi ?</strong> Pour afficher des listes dans l'ordre (prix, noms, dates...), classer des résultats...</p>
+                <p><strong>Variantes :</strong> asort() garde les clés, usort() avec fonction personnalisée, natsort() pour tri naturel.</p>
+                <code>$numbers = [3, 1, 4, 1, 5];
+sort($numbers);   // [1, 1, 3, 4, 5]
+rsort($numbers);  // [5, 4, 3, 1, 1]
+
+$names = ["Zoé", "Alice", "Bob"];
+sort($names);  // ["Alice", "Bob", "Zoé"]</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>array_slice()</h3>
+                <p><strong>C'est quoi ?</strong> Extrait une portion d'un tableau (comme substr() mais pour les tableaux).</p>
+                <p><strong>Pourquoi ?</strong> Pour paginer des résultats, prendre les 10 premiers, ignorer les 5 derniers...</p>
+                <p><strong>Astuce :</strong> Positions négatives comptent depuis la fin ! Ne modifie PAS le tableau original.</p>
+                <code>$users = ["A", "B", "C", "D", "E"];
+$page1 = array_slice($users, 0, 2);  // ["A", "B"]
+$page2 = array_slice($users, 2, 2);  // ["C", "D"]
+$last3 = array_slice($users, -3);    // ["C", "D", "E"]</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>array_column()</h3>
+                <p><strong>C'est quoi ?</strong> Extrait une colonne d'un tableau multidimensionnel (parfait pour les résultats SQL).</p>
+                <p><strong>Pourquoi ?</strong> Pour récupérer uniquement les IDs, les emails, les noms... d'une liste d'objets/tableaux.</p>
+                <p><strong>Bonus :</strong> 2ème paramètre pour réindexer par une autre colonne !</p>
+                <code>$users = [
+    ["id" => 1, "name" => "Alice"],
+    ["id" => 2, "name" => "Bob"]
+];
+$names = array_column($users, "name");  // ["Alice", "Bob"]
+$byId = array_column($users, "name", "id");  // [1 => "Alice", 2 => "Bob"]</code>
+            </div>
+        </section>
+
+        <section id="fichiers">
+            <h2>📁 Fonctions de Fichiers</h2>
+
+            <div class="tag-card">
+                <h3>file_get_contents()</h3>
+                <p><strong>C'est quoi ?</strong> Lit tout le contenu d'un fichier (ou URL) et le retourne en string.</p>
+                <p><strong>Pourquoi ?</strong> La façon la plus simple de lire un fichier entier. Parfait pour les petits fichiers, configs, APIs...</p>
+                <p><strong>Attention :</strong> Charge tout en mémoire ! Pour les gros fichiers, utilise fopen() + fgets().</p>
+                <code>$content = file_get_contents("config.txt");
+echo $content;
+
+$json = file_get_contents("https://api.example.com/data");
+$data = json_decode($json, true);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>file_put_contents()</h3>
+                <p><strong>C'est quoi ?</strong> Écrit du contenu dans un fichier. Crée le fichier s'il n'existe pas, le remplace sinon.</p>
+                <p><strong>Pourquoi ?</strong> La façon la plus simple d'écrire dans un fichier. Logs, cache, exports...</p>
+                <p><strong>Flag FILE_APPEND :</strong> Ajoute à la fin au lieu de remplacer ! Parfait pour les logs.</p>
+                <code>file_put_contents("log.txt", "Erreur survenue\n");
+
+// Ajouter sans écraser
+file_put_contents("log.txt", "Nouvelle ligne\n", FILE_APPEND);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>file_exists()</h3>
+                <p><strong>C'est quoi ?</strong> Vérifie si un fichier ou dossier existe. Retourne true ou false.</p>
+                <p><strong>Pourquoi ?</strong> Pour éviter les erreurs avant de lire/écrire, vérifier un upload, tester une config...</p>
+                <p><strong>Combo :</strong> is_file() pour fichiers seulement, is_dir() pour dossiers seulement.</p>
+                <code>if (file_exists("config.php")) {
+    require "config.php";
+} else {
+    die("Fichier de config manquant");
+}</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>unlink()</h3>
+                <p><strong>C'est quoi ?</strong> Supprime un fichier. Attention, c'est définitif !</p>
+                <p><strong>Pourquoi ?</strong> Pour nettoyer des fichiers temporaires, supprimer des uploads, vider un cache...</p>
+                <p><strong>Sécurité :</strong> Vérifie toujours avec file_exists() avant ! Retourne false si ça échoue.</p>
+                <code>if (file_exists("temp.txt")) {
+    unlink("temp.txt");
+    echo "Fichier supprimé";
+}</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>scandir()</h3>
+                <p><strong>C'est quoi ?</strong> Liste tous les fichiers et dossiers d'un répertoire. Retourne un tableau.</p>
+                <p><strong>Pourquoi ?</strong> Pour lister des uploads, afficher une galerie d'images, trouver des fichiers...</p>
+                <p><strong>Note :</strong> Inclut "." et ".." ! Filtre-les avec array_diff() ou une condition.</p>
+                <code>$files = scandir("uploads/");
+print_r($files);  // [".", "..", "image1.jpg", "doc.pdf"]
+
+$clean = array_diff(scandir("uploads/"), [".", ".."]);
+foreach ($clean as $file) { echo $file . "\n"; }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>mkdir()</h3>
+                <p><strong>C'est quoi ?</strong> Crée un nouveau dossier.</p>
+                <p><strong>Pourquoi ?</strong> Pour organiser des uploads, créer des dossiers temporaires, structurer un cache...</p>
+                <p><strong>Permissions :</strong> 2ème param = permissions (0777 par défaut). 3ème param true = récursif (crée les parents) !</p>
+                <code>mkdir("uploads/2024");
+
+// Créer toute la structure
+mkdir("cache/users/images", 0755, true);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>copy()</h3>
+                <p><strong>C'est quoi ?</strong> Copie un fichier d'un endroit à un autre.</p>
+                <p><strong>Pourquoi ?</strong> Pour dupliquer des fichiers, faire des backups, déplacer des uploads...</p>
+                <p><strong>Note :</strong> Écrase la destination si elle existe ! Vérifie avec file_exists() si besoin.</p>
+                <code>copy("original.jpg", "copie.jpg");
+
+if (!file_exists("backup.txt")) {
+    copy("data.txt", "backup.txt");
+}</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>rename()</h3>
+                <p><strong>C'est quoi ?</strong> Renomme un fichier ou un dossier. Peut aussi servir à déplacer !</p>
+                <p><strong>Pourquoi ?</strong> Pour renommer des uploads, organiser des fichiers, déplacer entre dossiers...</p>
+                <p><strong>Astuce :</strong> Change le chemin complet pour déplacer : rename("old/file.txt", "new/file.txt").</p>
+                <code>rename("temp.txt", "final.txt");
+
+// Déplacer un fichier
+rename("uploads/temp.jpg", "images/photo.jpg");</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>pathinfo()</h3>
+                <p><strong>C'est quoi ?</strong> Retourne des infos sur un chemin : dossier, nom, extension...</p>
+                <p><strong>Pourquoi ?</strong> Pour extraire l'extension d'un upload, vérifier le type de fichier, construire de nouveaux chemins...</p>
+                <p><strong>Flags :</strong> PATHINFO_DIRNAME, PATHINFO_BASENAME, PATHINFO_EXTENSION, PATHINFO_FILENAME.</p>
+                <code>$info = pathinfo("uploads/photo.jpg");
+// ["dirname" => "uploads", "basename" => "photo.jpg",
+//  "extension" => "jpg", "filename" => "photo"]
+
+$ext = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>filesize()</h3>
+                <p><strong>C'est quoi ?</strong> Retourne la taille d'un fichier en octets.</p>
+                <p><strong>Pourquoi ?</strong> Pour vérifier qu'un upload n'est pas trop gros, afficher la taille, calculer un quota...</p>
+                <p><strong>Format :</strong> Divise par 1024 pour Ko, 1024² pour Mo, 1024³ pour Go.</p>
+                <code>$size = filesize("video.mp4");
+echo $size . " octets";
+
+$mb = round($size / 1024 / 1024, 2);
+echo "Taille: " . $mb . " Mo";</code>
+            </div>
+        </section>
+
+        <section id="dates">
+            <h2>📅 Fonctions de Dates</h2>
+
+            <div class="tag-card">
+                <h3>date()</h3>
+                <p><strong>C'est quoi ?</strong> Formate une date/heure. Le format est super flexible : "Y-m-d", "d/m/Y H:i:s"...</p>
+                <p><strong>Pourquoi ?</strong> Pour afficher la date actuelle, formater des timestamps, créer des logs avec date/heure...</p>
+                <p><strong>Formats courants :</strong> Y = année (2024), m = mois (01-12), d = jour (01-31), H = heure (00-23), i = minutes, s = secondes.</p>
+                <code>echo date("Y-m-d");          // "2024-01-15"
+echo date("d/m/Y H:i:s");    // "15/01/2024 14:30:45"
+echo date("l, F j, Y");      // "Monday, January 15, 2024"</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>time()</h3>
+                <p><strong>C'est quoi ?</strong> Retourne le timestamp actuel (nombre de secondes depuis le 1er janvier 1970).</p>
+                <p><strong>Pourquoi ?</strong> Pour mesurer des durées, créer des tokens temporaires, comparer des dates...</p>
+                <p><strong>Combo :</strong> Ajoute/soustraie des secondes pour calculer des dates futures/passées !</p>
+                <code>$now = time();  // Ex: 1705327845
+
+// Dans 7 jours
+$future = time() + (7 * 24 * 60 * 60);
+echo date("Y-m-d", $future);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>strtotime()</h3>
+                <p><strong>C'est quoi ?</strong> Convertit une date en texte en timestamp. SUPER PUISSANT ! Comprend "tomorrow", "+1 week", "next Monday"...</p>
+                <p><strong>Pourquoi ?</strong> Pour calculer des dates facilement, parser des dates d'utilisateurs, faire des comparaisons...</p>
+                <p><strong>Magic :</strong> strtotime("2024-01-15"), strtotime("+1 month"), strtotime("last Friday")... tout marche !</p>
+                <code>$ts = strtotime("2024-12-25");
+echo date("Y-m-d", $ts);  // "2024-12-25"
+
+$tomorrow = strtotime("+1 day");
+$nextWeek = strtotime("+1 week");
+$lastYear = strtotime("-1 year");</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>DateTime (classe)</h3>
+                <p><strong>C'est quoi ?</strong> Une classe orientée objet pour manipuler des dates. Plus moderne et puissante que date() !</p>
+                <p><strong>Pourquoi ?</strong> Pour des calculs complexes, gérer les fuseaux horaires, faire des intervalles, modifier des dates...</p>
+                <p><strong>Méthodes :</strong> ->format(), ->modify(), ->diff(), ->add(), ->sub()... Beaucoup plus flexible !</p>
+                <code>$date = new DateTime("2024-01-15");
+echo $date->format("Y-m-d");  // "2024-01-15"
+
+$date->modify("+1 month");
+$date->add(new DateInterval("P7D"));  // +7 jours
+$diff = $date->diff(new DateTime("2024-12-25"));</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>microtime()</h3>
+                <p><strong>C'est quoi ?</strong> Retourne le timestamp avec les microsecondes (précision extrême).</p>
+                <p><strong>Pourquoi ?</strong> Pour mesurer les performances, chronométrer l'exécution de code, créer des IDs uniques...</p>
+                <p><strong>Astuce :</strong> microtime(true) retourne un float facile à utiliser !</p>
+                <code>$start = microtime(true);
+// ... code à mesurer ...
+$end = microtime(true);
+$duration = $end - $start;
+echo "Durée: " . ($duration * 1000) . " ms";</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>date_default_timezone_set()</h3>
+                <p><strong>C'est quoi ?</strong> Définit le fuseau horaire par défaut pour toutes les fonctions de dates.</p>
+                <p><strong>Pourquoi ?</strong> Pour avoir les bonnes heures dans tes logs, afficher l'heure locale, éviter les warnings...</p>
+                <p><strong>Important :</strong> À mettre au début de ton script ou dans php.ini ! Évite les décalages horaires.</p>
+                <code>date_default_timezone_set("Europe/Paris");
+echo date("H:i");  // Heure française
+
+date_default_timezone_set("America/New_York");
+echo date("H:i");  // Heure New York</code>
+            </div>
+        </section>
+
+        <section id="math">
+            <h2>🔢 Fonctions Mathématiques</h2>
+
+            <div class="tag-card">
+                <h3>rand() / mt_rand()</h3>
+                <p><strong>C'est quoi ?</strong> Génère un nombre aléatoire. mt_rand() est plus rapide et meilleur.</p>
+                <p><strong>Pourquoi ?</strong> Pour créer des codes aléatoires, des couleurs random, des jeux, des tests...</p>
+                <p><strong>PHP 7+ :</strong> random_int() pour de la vraie sécurité (cryptographie, tokens, mots de passe) !</p>
+                <code>$dice = rand(1, 6);  // Dé à 6 faces
+
+$code = mt_rand(1000, 9999);  // Code à 4 chiffres
+$secure = random_int(100000, 999999);  // Token sécurisé</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>round() / ceil() / floor()</h3>
+                <p><strong>C'est quoi ?</strong> Arrondit un nombre. round() = normal, ceil() = toujours vers le haut, floor() = toujours vers le bas.</p>
+                <p><strong>Pourquoi ?</strong> Pour afficher des prix, calculer des pages de pagination, arrondir des pourcentages...</p>
+                <p><strong>Astuce :</strong> round($n, 2) arrondit à 2 décimales !</p>
+                <code>echo round(4.6);   // 5
+echo ceil(4.1);    // 5 (plafond)
+echo floor(4.9);   // 4 (plancher)
+
+$price = round(19.99876, 2);  // 19.99</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>abs()</h3>
+                <p><strong>C'est quoi ?</strong> Retourne la valeur absolue d'un nombre (toujours positif).</p>
+                <p><strong>Pourquoi ?</strong> Pour calculer des distances, des différences, des écarts... sans se soucier du signe.</p>
+                <p><strong>Exemple :</strong> La distance entre deux points est toujours positive !</p>
+                <code>echo abs(-10);   // 10
+echo abs(10);    // 10
+
+$diff = abs($price1 - $price2);  // Écart de prix</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>max() / min()</h3>
+                <p><strong>C'est quoi ?</strong> Retourne la valeur maximum ou minimum parmi plusieurs valeurs ou un tableau.</p>
+                <p><strong>Pourquoi ?</strong> Pour trouver le prix le plus haut/bas, l'âge max/min, limiter des valeurs...</p>
+                <p><strong>Pratique :</strong> Accepte plusieurs arguments OU un tableau !</p>
+                <code>echo max(5, 10, 3, 8);  // 10
+echo min(5, 10, 3, 8);  // 3
+
+$prices = [19, 25, 15, 30];
+echo max($prices);  // 30</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>pow() / sqrt()</h3>
+                <p><strong>C'est quoi ?</strong> pow() = puissance (2³ = 8), sqrt() = racine carrée (√16 = 4).</p>
+                <p><strong>Pourquoi ?</strong> Pour des calculs géométriques, scientifiques, cryptographiques...</p>
+                <p><strong>Raccourci :</strong> $a ** $b est plus lisible que pow($a, $b) depuis PHP 5.6 !</p>
+                <code>echo pow(2, 3);   // 8 (2³)
+echo 2 ** 3;      // 8 (syntaxe moderne)
+echo sqrt(16);    // 4 (√16)
+
+$hypotenuse = sqrt(pow($a, 2) + pow($b, 2));</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>number_format()</h3>
+                <p><strong>C'est quoi ?</strong> Formate un nombre avec séparateurs de milliers et décimales.</p>
+                <p><strong>Pourquoi ?</strong> Pour afficher des prix joliment, formater des stats, rendre les nombres lisibles...</p>
+                <p><strong>Paramètres :</strong> (nombre, décimales, séparateur décimal, séparateur milliers).</p>
+                <code>echo number_format(1234567.89, 2, ",", " ");  // "1 234 567,89"
+
+$price = number_format($amount, 2, ".", "");  // 19.99
+echo number_format(1000000);  // "1,000,000"</code>
+            </div>
+        </section>
+
+        <section id="filtres">
+            <h2>🛡️ Fonctions de Filtres & Validation</h2>
+
+            <div class="tag-card">
+                <h3>filter_var()</h3>
+                <p><strong>C'est quoi ?</strong> Valide et nettoie des données avec des filtres prédéfinis (email, URL, IP, int...).</p>
+                <p><strong>Pourquoi ?</strong> SÉCURITÉ ! Valide les formulaires proprement. Plus fiable que des regex maison !</p>
+                <p><strong>Filtres courants :</strong> FILTER_VALIDATE_EMAIL, FILTER_VALIDATE_URL, FILTER_VALIDATE_INT, FILTER_SANITIZE_STRING...</p>
+                <code>if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    echo "Email valide";
+}
+
+$url = filter_var($input, FILTER_VALIDATE_URL);
+$clean = filter_var($text, FILTER_SANITIZE_STRING);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>filter_input()</h3>
+                <p><strong>C'est quoi ?</strong> Récupère ET filtre directement depuis $_GET, $_POST, $_COOKIE... en une seule étape !</p>
+                <p><strong>Pourquoi ?</strong> Plus sécurisé et concis que récupérer puis filtrer séparément. Best practice pour les formulaires !</p>
+                <p><strong>Types :</strong> INPUT_GET, INPUT_POST, INPUT_COOKIE, INPUT_SERVER.</p>
+                <code>$email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+if ($email === false) {
+    echo "Email invalide";
+}
+
+$age = filter_input(INPUT_GET, 'age', FILTER_VALIDATE_INT);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>password_hash()</h3>
+                <p><strong>C'est quoi ?</strong> Hash un mot de passe de manière sécurisée avec bcrypt. JAMAIS stocker en clair !</p>
+                <p><strong>Pourquoi ?</strong> SÉCURITÉ CRITIQUE ! Protège les mots de passe même si la DB est hackée. Utilise un salt automatique.</p>
+                <p><strong>Algo :</strong> PASSWORD_DEFAULT utilise bcrypt (ou mieux dans le futur). Ne JAMAIS utiliser md5() ou sha1() !</p>
+                <code>$password = "secret123";
+$hash = password_hash($password, PASSWORD_DEFAULT);
+// $hash = "$2y$10$..." (60 caractères, stocke ça en DB)
+
+// Lors de l'inscription
+$hashed = password_hash($_POST['password'], PASSWORD_DEFAULT);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>password_verify()</h3>
+                <p><strong>C'est quoi ?</strong> Vérifie si un mot de passe correspond au hash. Utilise avec password_hash() !</p>
+                <p><strong>Pourquoi ?</strong> Pour la connexion ! Compare le mot de passe saisi avec le hash en base de données.</p>
+                <p><strong>Important :</strong> Retourne true ou false. NE JAMAIS comparer les hashs directement (===) !</p>
+                <code>$hash = "$2y$10$...";  // Hash depuis la DB
+if (password_verify($_POST['password'], $hash)) {
+    echo "Connexion réussie";
+} else {
+    echo "Mot de passe incorrect";
+}</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>strip_tags()</h3>
+                <p><strong>C'est quoi ?</strong> Supprime les balises HTML et PHP d'une chaîne.</p>
+                <p><strong>Pourquoi ?</strong> Pour nettoyer du contenu utilisateur, extraire le texte pur, éviter les failles XSS...</p>
+                <p><strong>Attention :</strong> Préfère htmlspecialchars() pour afficher ! strip_tags() est pour extraire du texte.</p>
+                <code>$html = "&lt;p&gt;Hello &lt;b&gt;World&lt;/b&gt;&lt;/p&gt;";
+echo strip_tags($html);  // "Hello World"
+
+// Garder certaines balises
+echo strip_tags($html, "&lt;b&gt;&lt;i&gt;");  // "Hello &lt;b&gt;World&lt;/b&gt;"</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>preg_match()</h3>
+                <p><strong>C'est quoi ?</strong> Teste si une chaîne correspond à une regex (expression régulière).</p>
+                <p><strong>Pourquoi ?</strong> Pour valider des formats complexes : téléphone, code postal, mot de passe fort...</p>
+                <p><strong>Astuce :</strong> Retourne 1 si match, 0 si non, false si erreur. 3ème param capture les groupes !</p>
+                <code>// Valider un code postal français
+if (preg_match("/^[0-9]{5}$/", $zip)) {
+    echo "Code postal valide";
+}
+
+// Mot de passe fort (8+ chars, 1 maj, 1 chiffre)
+preg_match("/^(?=.*[A-Z])(?=.*\d).{8,}$/", $password);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>preg_replace()</h3>
+                <p><strong>C'est quoi ?</strong> Remplace du texte qui correspond à une regex (str_replace() sous stéroïdes).</p>
+                <p><strong>Pourquoi ?</strong> Pour des remplacements complexes : nettoyer des espaces multiples, formater du texte, extraire des patterns...</p>
+                <p><strong>Puissant :</strong> Utilise des groupes de capture et des références arrière ($1, $2...) !</p>
+                <code>// Supprimer tous les espaces multiples
+$clean = preg_replace("/\s+/", " ", $text);
+
+// Formatter un numéro de téléphone
+$phone = preg_replace("/(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/", "$1.$2.$3.$4.$5", "0612345678");
+// "06.12.34.56.78"</code>
+            </div>
+        </section>
+
+        <section id="pdo">
+            <h2>🗄️ PDO & MySQL</h2>
+
+            <div class="tag-card">
+                <h3>new PDO()</h3>
+                <p><strong>C'est quoi ?</strong> Crée une connexion à une base de données MySQL (ou autres). PDO = PHP Data Objects.</p>
+                <p><strong>Pourquoi ?</strong> Pour interagir avec ta base de données : SELECT, INSERT, UPDATE, DELETE... de manière sécurisée !</p>
+                <p><strong>DSN :</strong> "mysql:host=localhost;dbname=madb;charset=utf8mb4". Toujours mettre charset=utf8mb4 !</p>
+                <code>try {
+    $pdo = new PDO("mysql:host=localhost;dbname=mydb;charset=utf8mb4", "user", "pass");
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Erreur DB : " . $e->getMessage());
+}</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>$pdo->prepare()</h3>
+                <p><strong>C'est quoi ?</strong> Prépare une requête SQL avec des placeholders (? ou :nom). ESSENTIEL pour la sécurité !</p>
+                <p><strong>Pourquoi ?</strong> Protège contre les injections SQL ! Les valeurs sont échappées automatiquement. TOUJOURS utiliser ça !</p>
+                <p><strong>Placeholders :</strong> ? (position) ou :name (nommé). Les nommés sont plus lisibles.</p>
+                <code>// Placeholders positionnels
+$stmt = $pdo->prepare("SELECT * FROM users WHERE email = ? AND active = ?");
+
+// Placeholders nommés (recommandé)
+$stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email AND active = :active");</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>$stmt->execute()</h3>
+                <p><strong>C'est quoi ?</strong> Exécute une requête préparée en passant les valeurs des placeholders.</p>
+                <p><strong>Pourquoi ?</strong> Pour lancer la requête avec les vraies valeurs. Retourne true si succès, false sinon.</p>
+                <p><strong>Sécurité :</strong> Les valeurs sont automatiquement échappées. Jamais de concaténation dans le SQL !</p>
+                <code>// Avec placeholders positionnels
+$stmt->execute([$email, 1]);
+
+// Avec placeholders nommés
+$stmt->execute([':email' => $email, ':active' => 1]);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>$stmt->fetch() / fetchAll()</h3>
+                <p><strong>C'est quoi ?</strong> Récupère les résultats d'un SELECT. fetch() = 1 ligne, fetchAll() = toutes les lignes.</p>
+                <p><strong>Pourquoi ?</strong> Pour lire les données retournées par ta requête SELECT.</p>
+                <p><strong>Modes :</strong> PDO::FETCH_ASSOC (tableau associatif), PDO::FETCH_OBJ (objet), PDO::FETCH_BOTH (défaut, les deux).</p>
+                <code>$stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
+$stmt->execute([1]);
+$user = $stmt->fetch(PDO::FETCH_ASSOC);  // ["id" => 1, "name" => "Alice"]
+
+$users = $stmt->fetchAll(PDO::FETCH_ASSOC);  // Tous les résultats</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>$stmt->rowCount()</h3>
+                <p><strong>C'est quoi ?</strong> Retourne le nombre de lignes affectées par un INSERT, UPDATE ou DELETE.</p>
+                <p><strong>Pourquoi ?</strong> Pour vérifier si ta requête a modifié des données. Si 0 = aucune ligne affectée.</p>
+                <p><strong>Attention :</strong> Ne fonctionne PAS fiablement avec SELECT ! Utilise count() sur fetchAll() à la place.</p>
+                <code>$stmt = $pdo->prepare("UPDATE users SET active = 1 WHERE id = ?");
+$stmt->execute([5]);
+if ($stmt->rowCount() > 0) {
+    echo "Utilisateur activé";
+}</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>$pdo->lastInsertId()</h3>
+                <p><strong>C'est quoi ?</strong> Retourne l'ID auto-incrémenté du dernier INSERT.</p>
+                <p><strong>Pourquoi ?</strong> Après un INSERT, tu veux souvent récupérer l'ID créé pour l'utiliser ailleurs.</p>
+                <p><strong>Utile :</strong> Pour lier des tables (créer user puis ses permissions), rediriger vers la page créée...</p>
+                <code>$stmt = $pdo->prepare("INSERT INTO users (name, email) VALUES (?, ?)");
+$stmt->execute(["Alice", "alice@example.com"]);
+$userId = $pdo->lastInsertId();
+echo "Utilisateur créé avec l'ID : " . $userId;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>$pdo->beginTransaction()</h3>
+                <p><strong>C'est quoi ?</strong> Démarre une transaction. Les requêtes suivantes ne sont pas appliquées tant que tu ne fais pas commit().</p>
+                <p><strong>Pourquoi ?</strong> Pour garantir l'intégrité : soit TOUT passe, soit RIEN. Parfait pour les virements bancaires, commandes e-commerce...</p>
+                <p><strong>Méthodes :</strong> beginTransaction(), commit() (valider), rollBack() (annuler).</p>
+                <code>try {
+    $pdo->beginTransaction();
+    $stmt1 = $pdo->prepare("UPDATE accounts SET balance = balance - 100 WHERE id = 1");
+    $stmt1->execute();
+    $stmt2 = $pdo->prepare("UPDATE accounts SET balance = balance + 100 WHERE id = 2");
+    $stmt2->execute();
+    $pdo->commit();
+} catch (Exception $e) {
+    $pdo->rollBack();  // Annule tout en cas d'erreur
+}</code>
+            </div>
+        </section>
+
+        <section id="json">
+            <h2>📦 JSON</h2>
+
+            <div class="tag-card">
+                <h3>json_encode()</h3>
+                <p><strong>C'est quoi ?</strong> Convertit un tableau ou objet PHP en chaîne JSON.</p>
+                <p><strong>Pourquoi ?</strong> Pour envoyer des données à une API, stocker en DB, communiquer avec JavaScript...</p>
+                <p><strong>Options :</strong> JSON_PRETTY_PRINT (lisible), JSON_UNESCAPED_UNICODE (accents corrects), JSON_UNESCAPED_SLASHES.</p>
+                <code>$data = ["name" => "Alice", "age" => 25];
+$json = json_encode($data);  // '{"name":"Alice","age":25}'
+
+// Plus lisible
+$pretty = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>json_decode()</h3>
+                <p><strong>C'est quoi ?</strong> Convertit une chaîne JSON en tableau ou objet PHP.</p>
+                <p><strong>Pourquoi ?</strong> Pour lire des données d'API, parser du JSON stocké, recevoir des données de JavaScript...</p>
+                <p><strong>Important :</strong> 2ème param true = tableau associatif (recommandé). Sinon c'est un objet stdClass.</p>
+                <code>$json = '{"name":"Alice","age":25}';
+$data = json_decode($json, true);  // ["name" => "Alice", "age" => 25]
+
+$obj = json_decode($json);  // stdClass Object
+echo $obj->name;  // "Alice"</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>json_last_error()</h3>
+                <p><strong>C'est quoi ?</strong> Retourne le code d'erreur du dernier json_encode() ou json_decode(). 0 = pas d'erreur.</p>
+                <p><strong>Pourquoi ?</strong> Pour vérifier si le JSON est valide. json_decode() retourne null en cas d'erreur (ambiguë si JSON = null).</p>
+                <p><strong>Alternative :</strong> json_last_error_msg() pour un message d'erreur lisible !</p>
+                <code>$data = json_decode($json, true);
+if (json_last_error() !== JSON_ERROR_NONE) {
+    echo "JSON invalide : " . json_last_error_msg();
+} else {
+    // Traite $data
+}</code>
+            </div>
+        </section>
+
+        <section id="php8">
+            <h2>🆕 Nouveautés PHP 8</h2>
+
+            <div class="tag-card">
+                <h3>Opérateur Nullsafe ?-></h3>
+                <p><strong>C'est quoi ?</strong> Accède à une propriété/méthode seulement si l'objet n'est pas null. Évite les erreurs !</p>
+                <p><strong>Pourquoi ?</strong> Avant, il fallait des isset() ou des ? : partout. Maintenant c'est concis et lisible !</p>
+                <p><strong>Retour :</strong> Si l'objet est null, retourne null au lieu de lancer une erreur.</p>
+                <code>// Avant PHP 8
+$country = isset($user) && isset($user->address) ? $user->address->country : null;
+
+// PHP 8
+$country = $user?->address?->country;  // null si user ou address est null</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>Attributs nommés</h3>
+                <p><strong>C'est quoi ?</strong> Appelle une fonction en nommant les paramètres, dans n'importe quel ordre !</p>
+                <p><strong>Pourquoi ?</strong> Plus lisible, évite les erreurs d'ordre, skip les paramètres optionnels du milieu...</p>
+                <p><strong>Exemple :</strong> array_fill(start_index: 0, count: 100, value: 50) est plus clair que array_fill(0, 100, 50).</p>
+                <code>// Avant
+array_fill(0, 100, 50);  // C'est quoi 0, 100, 50 ?
+
+// PHP 8
+array_fill(start_index: 0, count: 100, value: 50);  // Clair !
+
+htmlspecialchars($text, double_encode: false);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>Match expression</h3>
+                <p><strong>C'est quoi ?</strong> Comme switch, mais en mieux : retourne une valeur, comparaison stricte (===), pas de break !</p>
+                <p><strong>Pourquoi ?</strong> Plus concis et sûr que switch. Génial pour mapper des valeurs, router des actions...</p>
+                <p><strong>Important :</strong> Lance une erreur si aucun cas ne match (contrairement à switch) !</p>
+                <code>// Avant avec switch
+switch ($status) {
+    case 'draft': $label = 'Brouillon'; break;
+    case 'published': $label = 'Publié'; break;
+    default: $label = 'Inconnu';
+}
+
+// PHP 8 avec match
+$label = match($status) {
+    'draft' => 'Brouillon',
+    'published' => 'Publié',
+    default => 'Inconnu'
+};</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>Union Types</h3>
+                <p><strong>C'est quoi ?</strong> Déclare qu'un paramètre/retour peut être de plusieurs types : string|int, array|null...</p>
+                <p><strong>Pourquoi ?</strong> Pour un typage fort mais flexible. Remplace les docblocks @param string|int par du vrai code !</p>
+                <p><strong>Pratique :</strong> int|float, string|null (ou juste ?string pour nullable).</p>
+                <code>function process(string|int $id): array|null {
+    if (is_string($id)) {
+        return ["uuid" => $id];
+    }
+    return null;
+}
+
+function find(int|string $id): User|null { /* ... */ }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>Promotion de propriétés dans le constructeur</h3>
+                <p><strong>C'est quoi ?</strong> Déclare et initialise des propriétés directement dans le constructeur. Moins de code répétitif !</p>
+                <p><strong>Pourquoi ?</strong> Avant, il fallait déclarer la propriété, puis l'assigner dans le constructeur. Maintenant c'est en une ligne !</p>
+                <p><strong>Gain :</strong> Économie de 50% du code pour les classes simples !</p>
+                <code>// Avant PHP 8
+class User {
+    private string $name;
+    public function __construct(string $name) {
+        $this->name = $name;
+    }
+}
+
+// PHP 8
+class User {
+    public function __construct(private string $name) {}
+}</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>str_starts_with() / str_ends_with()</h3>
+                <p><strong>C'est quoi ?</strong> Vérifie si une chaîne commence ou finit par un texte. ENFIN natives en PHP 8 !</p>
+                <p><strong>Pourquoi ?</strong> Avant il fallait utiliser substr() ou strpos() === 0, c'était moche. Maintenant c'est lisible !</p>
+                <p><strong>Combo :</strong> Avec str_contains(), tu as tout pour tester des chaînes facilement !</p>
+                <code>if (str_starts_with($url, "https://")) {
+    echo "URL sécurisée";
+}
+
+if (str_ends_with($filename, ".pdf")) {
+    echo "Fichier PDF";
+}
+
+str_contains($email, "@");  // Vérifie présence</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>throw dans les expressions</h3>
+                <p><strong>C'est quoi ?</strong> Permet de lancer une exception dans une expression (ternaire, null coalescing, arrow function...).</p>
+                <p><strong>Pourquoi ?</strong> Plus besoin de structures if/else juste pour throw. Code plus concis et élégant !</p>
+                <p><strong>Utile :</strong> Validation en une ligne, valeurs par défaut avec throw...</p>
+                <code>// Avant PHP 8
+$value = $_GET['id'] ?? null;
+if ($value === null) throw new Exception("ID manquant");
+
+// PHP 8
+$value = $_GET['id'] ?? throw new Exception("ID manquant");
+
+$user = findUser($id) ?? throw new NotFoundException();</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>Attributes (Annotations)</h3>
+                <p><strong>C'est quoi ?</strong> Ajoute des métadonnées aux classes, méthodes, propriétés... Syntaxe : #[MonAttribut].</p>
+                <p><strong>Pourquoi ?</strong> Remplace les annotations docblock par du vrai code parsé. Utilisé par les frameworks (routes, validation...).</p>
+                <p><strong>Exemple :</strong> Symfony et autres frameworks utilisent ça pour les routes, validators, serializers...</p>
+                <code>// Routes avec attributs
+#[Route('/api/users', methods: ['GET'])]
+public function getUsers() { /* ... */ }
+
+// Validation
+class User {
+    #[Assert\NotBlank]
+    #[Assert\Email]
+    public string $email;
+}</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>Mixed type</h3>
+                <p><strong>C'est quoi ?</strong> Type qui accepte n'importe quoi : int, string, array, object, null... TOUT !</p>
+                <p><strong>Pourquoi ?</strong> Pour documenter explicitement qu'une fonction accepte/retourne n'importe quoi. Mieux que pas de type !</p>
+                <p><strong>Note :</strong> Préfère des types précis quand possible. mixed = "je sais pas" mais au moins c'est documenté !</p>
+                <code>function process(mixed $data): mixed {
+    if (is_array($data)) return count($data);
+    if (is_string($data)) return strlen($data);
+    return $data;
+}
+
+function getValue(): mixed { return $this->value; }</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>Opérateur Nullsafe ?? Throw</h3>
+                <p><strong>C'est quoi ?</strong> Combine ?? (null coalescing) et throw. Si la valeur est null, lance une exception !</p>
+                <p><strong>Pourquoi ?</strong> Validation en une ligne ! Plus besoin de if pour vérifier puis throw.</p>
+                <p><strong>Pattern :</strong> Parfait pour valider les entrées requises de manière concise.</p>
+                <code>// Validation d'entrées
+$email = $_POST['email'] ?? throw new InvalidArgumentException("Email requis");
+$id = $_GET['id'] ?? throw new BadRequestException("ID manquant");
+
+// Config
+$apiKey = $config['api_key'] ?? throw new ConfigException("API key non configurée");</code>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 - Guides Dev Web</p>
+        <p>Fait avec ❤️ pour apprendre le développement web</p>
+        <p><a href="index.html">Retour à l'accueil</a></p>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+        // Enregistrer le Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then((reg) => console.log('Service Worker enregistré', reg))
+                .catch((err) => console.log('Erreur Service Worker', err));
+        }
+    </script>
+</body>
+</html>

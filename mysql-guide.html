@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide MySQL 9</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#3498db">
+</head>
+<body>
+    <div id="progress-bar"></div>
+
+    <button id="theme-toggle" onclick="toggleTheme()">
+        <span id="theme-toggle-icon">🌙</span>
+    </button>
+    <aside>
+        <h1>Le Guide Complet de MySQL 9</h1>
+        <p class="subtitle">Toutes les commandes MySQL 9 expliquées simplement !</p>
+        <p>
+            <a href="html-guide.html">Guide HTML</a>
+            <a href="css-guide.html">Guide CSS</a>
+            <a href="js-guide.html">Guide JavaScript</a>
+            <a href="bootstrap-guide.html">Guide Bootstrap</a>
+            <a href="git-guide.html">Guide Git</a>
+            <a href="php-guide.html">Guide PHP</a>
+            <a href="favoris.html" class="fav-link">⭐ Favoris <span id="fav-count"></span></a>
+        </p>
+    </aside>
+
+    <nav>
+        <div class="nav-logo">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#00758F" d="M0 0h100v100H0z"/>
+                <path fill="#F29111" d="M20 30h15v40H20z"/>
+                <path fill="#E48E00" d="M40 25h15v45H40z"/>
+                <path fill="#FFF" d="M65 35c0-5 3-8 7-8s7 3 7 8v30c0 5-3 8-7 8s-7-3-7-8V35z"/>
+            </svg>
+        </div>
+        <ul>
+            <li><a href="#bases">Bases de données</a></li>
+            <li><a href="#tables">Tables</a></li>
+            <li><a href="#select">SELECT</a></li>
+            <li><a href="#insert">INSERT/UPDATE</a></li>
+            <li><a href="#jointures">Jointures</a></li>
+            <li><a href="#fonctions">Fonctions</a></li>
+            <li><a href="#agregation">Agrégation</a></li>
+            <li><a href="#avance">Avancé</a></li>
+        </ul>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Rechercher..." />
+        </div>
+    </nav>
+
+    <main>
+        <section id="bases">
+            <h2>🗄️ Gestion des Bases de Données</h2>
+
+            <div class="tag-card">
+                <h3>CREATE DATABASE</h3>
+                <p><strong>C'est quoi ?</strong> Crée une nouvelle base de données vide. C'est la première étape avant de créer des tables !</p>
+                <p><strong>Pourquoi ?</strong> Chaque projet a sa propre base de données. Un blog, un e-commerce, un réseau social = 3 bases distinctes.</p>
+                <p><strong>Astuce :</strong> Ajoute IF NOT EXISTS pour éviter les erreurs si la base existe déjà !</p>
+                <code>CREATE DATABASE mon_site;
+CREATE DATABASE IF NOT EXISTS blog_db;
+
+-- Avec encodage UTF-8 (recommandé)
+CREATE DATABASE shop CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>SHOW DATABASES</h3>
+                <p><strong>C'est quoi ?</strong> Affiche la liste de toutes les bases de données sur le serveur MySQL.</p>
+                <p><strong>Pourquoi ?</strong> Pour voir quelles bases existent, retrouver le nom exact d'une base, vérifier qu'une création a fonctionné...</p>
+                <p><strong>Variante :</strong> SHOW SCHEMAS fait exactement la même chose (DATABASE = SCHEMA en MySQL).</p>
+                <code>SHOW DATABASES;
+-- Résultat : information_schema, mysql, mon_site, blog_db, shop...</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>USE</h3>
+                <p><strong>C'est quoi ?</strong> Sélectionne une base de données pour travailler dedans. Toutes les requêtes suivantes ciblent cette base.</p>
+                <p><strong>Pourquoi ?</strong> Obligatoire avant de créer/lire des tables ! Tu dois "entrer" dans la base pour l'utiliser.</p>
+                <p><strong>Important :</strong> À faire au début de chaque session SQL ou dans ton code PHP après la connexion.</p>
+                <code>USE mon_site;
+-- Maintenant toutes les requêtes concernent "mon_site"
+
+SELECT * FROM users;  -- Cherche dans mon_site.users</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>DROP DATABASE</h3>
+                <p><strong>C'est quoi ?</strong> Supprime définitivement une base de données ET toutes ses tables ! IRRÉVERSIBLE !</p>
+                <p><strong>Pourquoi ?</strong> Pour nettoyer les bases de test, supprimer un vieux projet... ATTENTION, c'est très dangereux !</p>
+                <p><strong>Sécurité :</strong> Fais TOUJOURS un backup avant ! Utilise IF EXISTS pour éviter les erreurs.</p>
+                <code>DROP DATABASE IF EXISTS old_project;
+
+-- ⚠️ DANGER : Supprime TOUT définitivement !
+DROP DATABASE mon_site;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>SHOW TABLES</h3>
+                <p><strong>C'est quoi ?</strong> Affiche toutes les tables dans la base de données active (celle sélectionnée avec USE).</p>
+                <p><strong>Pourquoi ?</strong> Pour voir quelles tables existent, retrouver le nom exact, vérifier une création...</p>
+                <p><strong>Astuce :</strong> Utilise DESCRIBE nom_table pour voir la structure d'une table !</p>
+                <code>USE blog_db;
+SHOW TABLES;
+-- Résultat : users, posts, comments, categories...</code>
+            </div>
+        </section>
+
+        <section id="tables">
+            <h2>📋 Gestion des Tables</h2>
+
+            <div class="tag-card">
+                <h3>CREATE TABLE</h3>
+                <p><strong>C'est quoi ?</strong> Crée une nouvelle table avec ses colonnes et leurs types (INT, VARCHAR, DATE...).</p>
+                <p><strong>Pourquoi ?</strong> Les tables stockent tes données. users, products, orders... c'est le cœur de ta base !</p>
+                <p><strong>Types courants :</strong> INT (nombres), VARCHAR(255) (texte court), TEXT (texte long), DATE, DATETIME, BOOLEAN.</p>
+                <code>CREATE TABLE users (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>PRIMARY KEY</h3>
+                <p><strong>C'est quoi ?</strong> Définit la colonne qui identifie UNIQUEMENT chaque ligne. Généralement un ID auto-incrémenté.</p>
+                <p><strong>Pourquoi ?</strong> Chaque ligne DOIT être identifiable ! L'ID permet de modifier/supprimer une ligne précise sans ambiguïté.</p>
+                <p><strong>Important :</strong> PRIMARY KEY = NOT NULL + UNIQUE automatiquement. Une seule par table !</p>
+                <code>CREATE TABLE products (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(200),
+    price DECIMAL(10, 2)
+);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>AUTO_INCREMENT</h3>
+                <p><strong>C'est quoi ?</strong> Génère automatiquement un nombre croissant (1, 2, 3...) pour chaque nouvelle ligne.</p>
+                <p><strong>Pourquoi ?</strong> Pour les IDs ! Tu n'as pas à les gérer manuellement, MySQL s'en occupe.</p>
+                <p><strong>Astuce :</strong> Toujours sur une PRIMARY KEY de type INT. Commence à 1 par défaut.</p>
+                <code>CREATE TABLE orders (
+    id INT PRIMARY KEY AUTO_INCREMENT,  -- 1, 2, 3...
+    user_id INT,
+    total DECIMAL(10, 2)
+);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>NOT NULL</h3>
+                <p><strong>C'est quoi ?</strong> Empêche une colonne d'avoir des valeurs NULL (vides). La valeur est OBLIGATOIRE.</p>
+                <p><strong>Pourquoi ?</strong> Pour garantir l'intégrité des données. Un email NULL, un nom NULL = bug assuré !</p>
+                <p><strong>Combo :</strong> Souvent utilisé avec DEFAULT pour fournir une valeur par défaut.</p>
+                <code>CREATE TABLE posts (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(200) NOT NULL,        -- Obligatoire
+    content TEXT NOT NULL,              -- Obligatoire
+    views INT NOT NULL DEFAULT 0        -- 0 si non fourni
+);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>UNIQUE</h3>
+                <p><strong>C'est quoi ?</strong> Garantit que toutes les valeurs d'une colonne sont différentes. Pas de doublons !</p>
+                <p><strong>Pourquoi ?</strong> Pour les emails, usernames, codes... Il ne peut pas y avoir deux utilisateurs avec le même email !</p>
+                <p><strong>Note :</strong> UNIQUE accepte plusieurs NULL (NULL ≠ NULL en SQL).</p>
+                <code>CREATE TABLE users (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    email VARCHAR(255) UNIQUE NOT NULL,     -- Pas de doublons
+    username VARCHAR(50) UNIQUE NOT NULL    -- Pas de doublons
+);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>DEFAULT</h3>
+                <p><strong>C'est quoi ?</strong> Définit une valeur par défaut si aucune valeur n'est fournie lors de l'INSERT.</p>
+                <p><strong>Pourquoi ?</strong> Pour éviter les NULL, initialiser des compteurs à 0, mettre la date actuelle automatiquement...</p>
+                <p><strong>Valeurs spéciales :</strong> CURRENT_TIMESTAMP pour la date/heure actuelle, NOW(), NULL...</p>
+                <code>CREATE TABLE articles (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(200) NOT NULL,
+    status VARCHAR(20) DEFAULT 'draft',           -- 'draft' par défaut
+    views INT DEFAULT 0,                          -- 0 par défaut
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP -- Date actuelle
+);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>FOREIGN KEY</h3>
+                <p><strong>C'est quoi ?</strong> Crée un lien entre deux tables. Référence la PRIMARY KEY d'une autre table.</p>
+                <p><strong>Pourquoi ?</strong> Pour les relations ! Un post appartient à un user, une commande contient des produits...</p>
+                <p><strong>Options :</strong> ON DELETE CASCADE (supprime les enfants), ON UPDATE CASCADE (met à jour les enfants).</p>
+                <code>CREATE TABLE posts (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(200),
+    user_id INT,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+-- Si un user est supprimé, ses posts aussi !</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>ALTER TABLE</h3>
+                <p><strong>C'est quoi ?</strong> Modifie une table existante : ajouter/supprimer des colonnes, changer des types...</p>
+                <p><strong>Pourquoi ?</strong> Les besoins évoluent ! Ajoute une colonne avatar, change un VARCHAR(50) en VARCHAR(100)...</p>
+                <p><strong>Actions :</strong> ADD (ajouter), DROP (supprimer), MODIFY (modifier type), CHANGE (renommer + modifier).</p>
+                <code>-- Ajouter une colonne
+ALTER TABLE users ADD COLUMN phone VARCHAR(20);
+
+-- Modifier le type
+ALTER TABLE users MODIFY email VARCHAR(300);
+
+-- Supprimer une colonne
+ALTER TABLE users DROP COLUMN phone;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>DROP TABLE</h3>
+                <p><strong>C'est quoi ?</strong> Supprime définitivement une table et TOUTES ses données ! IRRÉVERSIBLE !</p>
+                <p><strong>Pourquoi ?</strong> Pour nettoyer les tables de test, supprimer une fonctionnalité... TRÈS DANGEREUX !</p>
+                <p><strong>Sécurité :</strong> Backup obligatoire ! Utilise IF EXISTS pour éviter les erreurs.</p>
+                <code>DROP TABLE IF EXISTS old_logs;
+
+-- ⚠️ ATTENTION : Supprime la table ET toutes les données !
+DROP TABLE posts;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>DESCRIBE / DESC</h3>
+                <p><strong>C'est quoi ?</strong> Affiche la structure d'une table : colonnes, types, clés, NULL, defaults...</p>
+                <p><strong>Pourquoi ?</strong> Pour voir comment une table est construite, vérifier les types, les contraintes...</p>
+                <p><strong>Alias :</strong> DESC est un raccourci de DESCRIBE. SHOW COLUMNS FROM table fait pareil.</p>
+                <code>DESCRIBE users;
+DESC users;
+-- Affiche : Field, Type, Null, Key, Default, Extra</code>
+            </div>
+        </section>
+
+        <section id="select">
+            <h2>🔍 Requêtes SELECT</h2>
+
+            <div class="tag-card">
+                <h3>SELECT *</h3>
+                <p><strong>C'est quoi ?</strong> Récupère TOUTES les colonnes de toutes les lignes d'une table.</p>
+                <p><strong>Pourquoi ?</strong> Pour voir rapidement tout le contenu d'une table. Pratique en développement !</p>
+                <p><strong>Attention :</strong> En production, évite SELECT * ! Sélectionne uniquement les colonnes nécessaires (performance).</p>
+                <code>SELECT * FROM users;
+-- Retourne TOUTES les colonnes de TOUS les users
+
+SELECT * FROM products;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>SELECT colonnes</h3>
+                <p><strong>C'est quoi ?</strong> Récupère uniquement les colonnes spécifiées. Plus performant que SELECT * !</p>
+                <p><strong>Pourquoi ?</strong> Pour ne charger que ce dont tu as besoin. Pas besoin du mot de passe pour afficher un nom !</p>
+                <p><strong>Best practice :</strong> TOUJOURS préférer ça à SELECT * en production !</p>
+                <code>SELECT name, email FROM users;
+-- Seulement name et email
+
+SELECT id, title, price FROM products;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>WHERE</h3>
+                <p><strong>C'est quoi ?</strong> Filtre les résultats selon une condition. Retourne uniquement les lignes qui matchent.</p>
+                <p><strong>Pourquoi ?</strong> Pour chercher un utilisateur précis, filtrer par prix, par date, par statut...</p>
+                <p><strong>Opérateurs :</strong> = (égal), != (différent), > < >= <= (comparaison), LIKE (pattern), IN (liste).</p>
+                <code>SELECT * FROM users WHERE id = 5;
+SELECT * FROM products WHERE price > 100;
+SELECT * FROM posts WHERE status = 'published';
+SELECT * FROM users WHERE email LIKE '%@gmail.com';</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>AND / OR / NOT</h3>
+                <p><strong>C'est quoi ?</strong> Combine plusieurs conditions dans WHERE. AND = toutes vraies, OR = au moins une vraie, NOT = inverse.</p>
+                <p><strong>Pourquoi ?</strong> Pour des filtres complexes : produits entre 10€ et 50€, utilisateurs actifs OU admins...</p>
+                <p><strong>Astuce :</strong> Utilise des parenthèses pour grouper les conditions complexes !</p>
+                <code>SELECT * FROM products WHERE price > 10 AND price < 50;
+SELECT * FROM users WHERE role = 'admin' OR role = 'editor';
+SELECT * FROM posts WHERE status = 'published' AND NOT deleted;
+SELECT * FROM users WHERE (age > 18 AND country = 'FR') OR vip = 1;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>LIKE</h3>
+                <p><strong>C'est quoi ?</strong> Cherche un pattern dans un texte. % = n'importe quels caractères, _ = 1 caractère.</p>
+                <p><strong>Pourquoi ?</strong> Pour chercher "Jean" dans "Jean-Pierre", tous les emails Gmail, les noms commençant par "A"...</p>
+                <p><strong>Patterns :</strong> 'A%' (commence par A), '%@gmail.com' (finit par), '%test%' (contient test).</p>
+                <code>SELECT * FROM users WHERE name LIKE 'Jean%';     -- Jean, Jeanne, Jean-Pierre
+SELECT * FROM users WHERE email LIKE '%@gmail.com';  -- Tous les Gmail
+SELECT * FROM posts WHERE title LIKE '%PHP%';        -- Contient "PHP"
+SELECT * FROM users WHERE name LIKE 'M_rie';         -- Marie, Mirie</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>IN</h3>
+                <p><strong>C'est quoi ?</strong> Vérifie si une valeur est dans une liste. Remplace plusieurs OR !</p>
+                <p><strong>Pourquoi ?</strong> Plus lisible que OR OR OR... Parfait pour filtrer par IDs, statuts, catégories...</p>
+                <p><strong>Opposé :</strong> NOT IN pour exclure une liste de valeurs.</p>
+                <code>SELECT * FROM users WHERE id IN (1, 5, 10, 15);
+SELECT * FROM posts WHERE status IN ('published', 'featured');
+SELECT * FROM products WHERE category_id IN (2, 4, 7);
+SELECT * FROM users WHERE role NOT IN ('banned', 'suspended');</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>BETWEEN</h3>
+                <p><strong>C'est quoi ?</strong> Filtre les valeurs dans un intervalle (inclusif). Équivaut à >= X AND <= Y.</p>
+                <p><strong>Pourquoi ?</strong> Pour les prix (10€ à 50€), les dates (du 1er au 31 janvier), les âges...</p>
+                <p><strong>Important :</strong> Les bornes sont INCLUSES ! BETWEEN 10 AND 50 inclut 10 et 50.</p>
+                <code>SELECT * FROM products WHERE price BETWEEN 10 AND 50;
+SELECT * FROM users WHERE age BETWEEN 18 AND 25;
+SELECT * FROM orders WHERE created_at BETWEEN '2024-01-01' AND '2024-01-31';
+SELECT * FROM posts WHERE views BETWEEN 100 AND 1000;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>ORDER BY</h3>
+                <p><strong>C'est quoi ?</strong> Trie les résultats par une ou plusieurs colonnes. ASC = croissant (défaut), DESC = décroissant.</p>
+                <p><strong>Pourquoi ?</strong> Pour afficher les produits du moins au plus cher, les posts du plus récent au plus ancien...</p>
+                <p><strong>Multi-colonnes :</strong> ORDER BY col1 ASC, col2 DESC trie par col1 puis col2.</p>
+                <code>SELECT * FROM products ORDER BY price ASC;      -- Du moins cher au plus cher
+SELECT * FROM posts ORDER BY created_at DESC;   -- Du plus récent au plus ancien
+SELECT * FROM users ORDER BY name ASC;          -- Ordre alphabétique
+SELECT * FROM products ORDER BY category, price DESC;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>LIMIT</h3>
+                <p><strong>C'est quoi ?</strong> Limite le nombre de résultats retournés. Prend les X premiers résultats.</p>
+                <p><strong>Pourquoi ?</strong> Pour paginer, afficher les 10 derniers posts, les 5 meilleurs produits...</p>
+                <p><strong>OFFSET :</strong> LIMIT 10 OFFSET 20 = saute 20, prend 10 (page 3 si 10 par page).</p>
+                <code>SELECT * FROM posts ORDER BY created_at DESC LIMIT 10;  -- Les 10 derniers posts
+SELECT * FROM products ORDER BY price ASC LIMIT 5;      -- Les 5 moins chers
+SELECT * FROM users LIMIT 20 OFFSET 40;                 -- Page 3 (20 par page)</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>DISTINCT</h3>
+                <p><strong>C'est quoi ?</strong> Retourne uniquement les valeurs UNIQUES, supprime les doublons.</p>
+                <p><strong>Pourquoi ?</strong> Pour lister les catégories uniques, les pays des users, les statuts possibles...</p>
+                <p><strong>Note :</strong> Appliqué sur TOUTES les colonnes sélectionnées. Ligne complète unique !</p>
+                <code>SELECT DISTINCT category FROM products;     -- Toutes les catégories uniques
+SELECT DISTINCT country FROM users;          -- Tous les pays uniques
+SELECT DISTINCT status FROM orders;          -- Tous les statuts possibles
+SELECT DISTINCT city, country FROM users;    -- Combinaisons ville+pays uniques</code>
+            </div>
+        </section>
+
+        <section id="insert">
+            <h2>✏️ INSERT, UPDATE, DELETE</h2>
+
+            <div class="tag-card">
+                <h3>INSERT INTO</h3>
+                <p><strong>C'est quoi ?</strong> Ajoute une ou plusieurs nouvelles lignes dans une table.</p>
+                <p><strong>Pourquoi ?</strong> Pour créer un nouveau user, ajouter un produit, enregistrer une commande...</p>
+                <p><strong>Syntaxes :</strong> Spécifier les colonnes (recommandé) ou donner toutes les valeurs dans l'ordre.</p>
+                <code>-- Méthode recommandée (colonnes spécifiées)
+INSERT INTO users (name, email, role) VALUES ('Alice', 'alice@mail.com', 'user');
+
+-- Plusieurs lignes à la fois
+INSERT INTO products (name, price) VALUES
+    ('Produit 1', 19.99),
+    ('Produit 2', 29.99),
+    ('Produit 3', 39.99);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>UPDATE</h3>
+                <p><strong>C'est quoi ?</strong> Modifie les valeurs d'une ou plusieurs colonnes dans les lignes existantes.</p>
+                <p><strong>Pourquoi ?</strong> Pour changer un email, mettre à jour un prix, modifier un statut...</p>
+                <p><strong>ATTENTION :</strong> TOUJOURS utiliser WHERE sinon TOUTES les lignes sont modifiées !</p>
+                <code>-- Modifier un user précis
+UPDATE users SET email = 'newemail@mail.com' WHERE id = 5;
+
+-- Modifier plusieurs colonnes
+UPDATE products SET price = 24.99, stock = 100 WHERE id = 10;
+
+-- ⚠️ DANGER : Sans WHERE, modifie TOUTES les lignes !
+UPDATE posts SET status = 'published';  -- TOUS les posts deviennent published !</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>DELETE</h3>
+                <p><strong>C'est quoi ?</strong> Supprime une ou plusieurs lignes d'une table. DÉFINITIF !</p>
+                <p><strong>Pourquoi ?</strong> Pour supprimer un compte user, retirer un produit, nettoyer de vieilles données...</p>
+                <p><strong>DANGER :</strong> TOUJOURS utiliser WHERE ! Sans WHERE = supprime TOUTE la table !</p>
+                <code>-- Supprimer un user précis
+DELETE FROM users WHERE id = 5;
+
+-- Supprimer plusieurs lignes
+DELETE FROM posts WHERE status = 'draft' AND created_at < '2023-01-01';
+
+-- ⚠️ CATASTROPHE : Sans WHERE, vide TOUTE la table !
+DELETE FROM products;  -- TOUT est supprimé !</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>REPLACE INTO</h3>
+                <p><strong>C'est quoi ?</strong> INSERT qui UPDATE si la clé primaire ou UNIQUE existe déjà. Sinon INSERT normal.</p>
+                <p><strong>Pourquoi ?</strong> Pour "upsert" : met à jour si existe, crée sinon. Pratique pour les imports !</p>
+                <p><strong>Attention :</strong> Supprime puis réinsère ! Utilise INSERT ... ON DUPLICATE KEY UPDATE pour un vrai update.</p>
+                <code>-- Si id=1 existe, remplace, sinon crée
+REPLACE INTO users (id, name, email) VALUES (1, 'Bob', 'bob@mail.com');
+
+-- Pratique pour les configs
+REPLACE INTO settings (key, value) VALUES ('theme', 'dark');</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>INSERT ... ON DUPLICATE KEY UPDATE</h3>
+                <p><strong>C'est quoi ?</strong> INSERT qui UPDATE seulement les colonnes spécifiées si la clé existe. Vrai UPSERT !</p>
+                <p><strong>Pourquoi ?</strong> Meilleur que REPLACE ! Met à jour sans supprimer, préserve les autres colonnes.</p>
+                <p><strong>Utilisation :</strong> Imports, synchronisations, compteurs (incrémente au lieu de remplacer)...</p>
+                <code>INSERT INTO products (id, name, price, stock)
+VALUES (1, 'Produit', 29.99, 50)
+ON DUPLICATE KEY UPDATE price = 29.99, stock = 50;
+
+-- Incrémenter un compteur
+INSERT INTO views (page_id, count) VALUES (1, 1)
+ON DUPLICATE KEY UPDATE count = count + 1;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>TRUNCATE TABLE</h3>
+                <p><strong>C'est quoi ?</strong> Vide complètement une table (supprime toutes les lignes) mais garde la structure.</p>
+                <p><strong>Pourquoi ?</strong> Plus rapide que DELETE FROM table. Réinitialise l'AUTO_INCREMENT à 1 !</p>
+                <p><strong>Différence avec DELETE :</strong> TRUNCATE ne peut pas avoir de WHERE, plus rapide, réinitialise les IDs.</p>
+                <code>TRUNCATE TABLE logs;  -- Vide la table logs, AUTO_INCREMENT repart à 1
+
+-- Équivaut à DELETE mais en mieux :
+-- DELETE FROM logs;  (plus lent, garde le dernier AUTO_INCREMENT)</code>
+            </div>
+        </section>
+
+        <section id="jointures">
+            <h2>🔗 Jointures (JOINs)</h2>
+
+            <div class="tag-card">
+                <h3>INNER JOIN</h3>
+                <p><strong>C'est quoi ?</strong> Combine deux tables et retourne UNIQUEMENT les lignes qui ont une correspondance dans les DEUX tables.</p>
+                <p><strong>Pourquoi ?</strong> Pour avoir les posts AVEC leur auteur, les commandes AVEC leurs produits... Relations 1-N !</p>
+                <p><strong>Important :</strong> Si pas de match, la ligne n'apparaît pas ! Le JOIN le plus courant.</p>
+                <code>-- Posts avec nom de l'auteur
+SELECT posts.title, users.name
+FROM posts
+INNER JOIN users ON posts.user_id = users.id;
+
+-- Commandes avec infos client
+SELECT orders.id, users.email, orders.total
+FROM orders
+INNER JOIN users ON orders.user_id = users.id;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>LEFT JOIN</h3>
+                <p><strong>C'est quoi ?</strong> Retourne TOUTES les lignes de la table de gauche + les matchs de droite (NULL si pas de match).</p>
+                <p><strong>Pourquoi ?</strong> Pour avoir TOUS les users même ceux sans posts, TOUS les produits même sans commandes...</p>
+                <p><strong>Astuce :</strong> Pour trouver les users SANS posts : WHERE posts.id IS NULL !</p>
+                <code>-- TOUS les users + leurs posts (NULL si aucun post)
+SELECT users.name, posts.title
+FROM users
+LEFT JOIN posts ON users.id = posts.user_id;
+
+-- Users SANS posts
+SELECT users.name
+FROM users
+LEFT JOIN posts ON users.id = posts.user_id
+WHERE posts.id IS NULL;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>RIGHT JOIN</h3>
+                <p><strong>C'est quoi ?</strong> Retourne TOUTES les lignes de la table de droite + les matchs de gauche (NULL si pas de match).</p>
+                <p><strong>Pourquoi ?</strong> Inverse de LEFT JOIN. Peu utilisé (on préfère réécrire avec LEFT JOIN).</p>
+                <p><strong>Note :</strong> RIGHT JOIN users = users LEFT JOIN... Même résultat en inversant l'ordre !</p>
+                <code>-- TOUS les posts + leur auteur (NULL si user supprimé)
+SELECT posts.title, users.name
+FROM users
+RIGHT JOIN posts ON users.id = posts.user_id;
+
+-- Équivaut à :
+SELECT posts.title, users.name
+FROM posts
+LEFT JOIN users ON posts.user_id = users.id;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>Jointures multiples</h3>
+                <p><strong>C'est quoi ?</strong> Combine plus de 2 tables avec plusieurs JOINs successifs.</p>
+                <p><strong>Pourquoi ?</strong> Pour des données complexes : posts + auteur + catégorie, commandes + produits + clients...</p>
+                <p><strong>Lisibilité :</strong> Utilise des alias (AS) pour raccourcir les noms de tables !</p>
+                <code>-- Posts avec auteur ET catégorie
+SELECT p.title, u.name AS author, c.name AS category
+FROM posts AS p
+INNER JOIN users AS u ON p.user_id = u.id
+INNER JOIN categories AS c ON p.category_id = c.id;
+
+-- Commandes avec produits ET clients
+SELECT o.id, u.email, p.name, p.price
+FROM orders AS o
+INNER JOIN users AS u ON o.user_id = u.id
+INNER JOIN order_items AS oi ON o.id = oi.order_id
+INNER JOIN products AS p ON oi.product_id = p.id;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>USING</h3>
+                <p><strong>C'est quoi ?</strong> Raccourci pour ON quand les colonnes de jointure ont le MÊME nom dans les deux tables.</p>
+                <p><strong>Pourquoi ?</strong> Plus court et lisible ! Au lieu de ON users.id = posts.id, juste USING(id).</p>
+                <p><strong>Condition :</strong> Fonctionne uniquement si les colonnes ont exactement le même nom !</p>
+                <code>-- Si user_id existe dans les deux tables
+SELECT * FROM posts JOIN users USING(user_id);
+
+-- Équivaut à :
+SELECT * FROM posts JOIN users ON posts.user_id = users.user_id;
+
+-- Plus propre avec USING !
+SELECT * FROM orders JOIN order_items USING(order_id);</code>
+            </div>
+        </section>
+
+        <section id="fonctions">
+            <h2>🔧 Fonctions SQL</h2>
+
+            <div class="tag-card">
+                <h3>CONCAT()</h3>
+                <p><strong>C'est quoi ?</strong> Concatène (colle) plusieurs chaînes de caractères ensemble.</p>
+                <p><strong>Pourquoi ?</strong> Pour créer "Prénom Nom", formatter des adresses, générer des slugs...</p>
+                <p><strong>Astuce :</strong> CONCAT_WS(séparateur, ...) pour insérer un séparateur entre chaque élément !</p>
+                <code>SELECT CONCAT(first_name, ' ', last_name) AS full_name FROM users;
+-- "John Doe"
+
+SELECT CONCAT_WS(' - ', id, name, price) FROM products;
+-- "1 - Produit - 19.99"</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>UPPER() / LOWER()</h3>
+                <p><strong>C'est quoi ?</strong> Convertit un texte en MAJUSCULES (UPPER) ou minuscules (LOWER).</p>
+                <p><strong>Pourquoi ?</strong> Pour normaliser des données, comparer sans casse, formater l'affichage...</p>
+                <p><strong>Pratique :</strong> Pour les recherches insensibles à la casse !</p>
+                <code>SELECT UPPER(name) FROM users;  -- "ALICE", "BOB"
+SELECT LOWER(email) FROM users;  -- "alice@mail.com"
+
+-- Recherche insensible à la casse
+SELECT * FROM users WHERE LOWER(email) = LOWER('Alice@Mail.COM');</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>LENGTH() / CHAR_LENGTH()</h3>
+                <p><strong>C'est quoi ?</strong> LENGTH = octets, CHAR_LENGTH = caractères. Avec UTF-8, préfère CHAR_LENGTH !</p>
+                <p><strong>Pourquoi ?</strong> Pour valider la longueur (mots de passe min 8), trouver les titres trop longs...</p>
+                <p><strong>Différence :</strong> "é" = 1 caractère mais 2 octets en UTF-8. CHAR_LENGTH('é') = 1, LENGTH('é') = 2.</p>
+                <code>SELECT name, CHAR_LENGTH(name) AS len FROM users;
+-- "Alice" => 5
+
+SELECT * FROM posts WHERE CHAR_LENGTH(title) > 100;  -- Titres trop longs</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>SUBSTRING() / SUBSTR()</h3>
+                <p><strong>C'est quoi ?</strong> Extrait une portion d'une chaîne. SUBSTRING(texte, position, longueur).</p>
+                <p><strong>Pourquoi ?</strong> Pour tronquer des textes, extraire un code, prendre les 3 premiers caractères...</p>
+                <p><strong>Position :</strong> Commence à 1 (pas 0 !). Longueur optionnelle (prend jusqu'à la fin si omise).</p>
+                <code>SELECT SUBSTRING(title, 1, 50) AS preview FROM posts;  -- 50 premiers caractères
+
+SELECT SUBSTRING(email, 1, 3) AS code FROM users;  -- 3 premiers chars
+-- "alice@mail.com" => "ali"</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>TRIM() / LTRIM() / RTRIM()</h3>
+                <p><strong>C'est quoi ?</strong> Supprime les espaces. TRIM = gauche+droite, LTRIM = gauche, RTRIM = droite.</p>
+                <p><strong>Pourquoi ?</strong> Pour nettoyer les données d'import, supprimer les espaces parasites des formulaires...</p>
+                <p><strong>Custom :</strong> TRIM(BOTH 'x' FROM 'xxxHelloxxx') = 'Hello' (supprime 'x' au lieu d'espace).</p>
+                <code>SELECT TRIM(name) FROM users;       -- "  Alice  " => "Alice"
+SELECT LTRIM(comment) FROM posts;   -- Supprime espaces à gauche
+SELECT RTRIM(text) FROM articles;   -- Supprime espaces à droite</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>REPLACE()</h3>
+                <p><strong>C'est quoi ?</strong> Remplace toutes les occurrences d'une sous-chaîne par une autre.</p>
+                <p><strong>Pourquoi ?</strong> Pour corriger des erreurs, nettoyer des données, formatter du texte...</p>
+                <p><strong>Sensible à la casse :</strong> REPLACE('Hello', 'h', 'J') = 'Hello' (pas de match). Utilise LOWER() si besoin.</p>
+                <code>SELECT REPLACE(description, 'oldword', 'newword') FROM products;
+
+UPDATE users SET email = REPLACE(email, '@old.com', '@new.com');
+
+SELECT REPLACE(phone, '-', '') FROM contacts;  -- Supprime les tirets</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>NOW() / CURDATE() / CURTIME()</h3>
+                <p><strong>C'est quoi ?</strong> NOW = date+heure actuelle, CURDATE = date seulement, CURTIME = heure seulement.</p>
+                <p><strong>Pourquoi ?</strong> Pour les timestamps, logs, calculer l'âge, filtrer par date...</p>
+                <p><strong>Format :</strong> NOW() = '2024-01-15 14:30:00', CURDATE() = '2024-01-15', CURTIME() = '14:30:00'.</p>
+                <code>INSERT INTO logs (message, created_at) VALUES ('Test', NOW());
+
+SELECT * FROM posts WHERE DATE(created_at) = CURDATE();  -- Posts d'aujourd'hui
+
+SELECT NOW(), CURDATE(), CURTIME();</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>DATE_FORMAT()</h3>
+                <p><strong>C'est quoi ?</strong> Formate une date selon un pattern. %Y = année, %m = mois, %d = jour, %H = heure...</p>
+                <p><strong>Pourquoi ?</strong> Pour afficher les dates joliment : "15/01/2024", "15 janvier 2024", "Lundi 15"...</p>
+                <p><strong>Patterns courants :</strong> %Y-%m-%d (ISO), %d/%m/%Y (FR), %W %d %M %Y (texte complet).</p>
+                <code>SELECT DATE_FORMAT(created_at, '%d/%m/%Y') FROM posts;  -- "15/01/2024"
+SELECT DATE_FORMAT(NOW(), '%W %d %M %Y');  -- "Monday 15 January 2024"
+SELECT DATE_FORMAT(created_at, '%H:%i:%s') FROM logs;  -- "14:30:45"</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>DATEDIFF() / TIMESTAMPDIFF()</h3>
+                <p><strong>C'est quoi ?</strong> DATEDIFF = différence en jours. TIMESTAMPDIFF = différence en unité choisie (seconde, heure, mois...).</p>
+                <p><strong>Pourquoi ?</strong> Pour calculer des âges, des durées, trouver les posts de plus de 30 jours...</p>
+                <p><strong>Unités :</strong> SECOND, MINUTE, HOUR, DAY, WEEK, MONTH, YEAR.</p>
+                <code>SELECT DATEDIFF(NOW(), created_at) AS days_old FROM posts;
+
+SELECT TIMESTAMPDIFF(YEAR, birthdate, CURDATE()) AS age FROM users;
+
+SELECT * FROM posts WHERE DATEDIFF(NOW(), created_at) > 30;  -- +30 jours</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>IFNULL() / COALESCE()</h3>
+                <p><strong>C'est quoi ?</strong> IFNULL(a, b) = b si a est NULL. COALESCE(a, b, c...) = première valeur non-NULL.</p>
+                <p><strong>Pourquoi ?</strong> Pour gérer les NULL, fournir des valeurs par défaut, éviter les champs vides...</p>
+                <p><strong>Différence :</strong> IFNULL = 2 paramètres. COALESCE = N paramètres, prend la 1ère non-NULL.</p>
+                <code>SELECT name, IFNULL(phone, 'N/A') AS phone FROM users;
+-- Si phone NULL => "N/A"
+
+SELECT COALESCE(nickname, username, email, 'Anonymous') AS display_name FROM users;
+-- Prend la 1ère valeur non-NULL</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>CASE WHEN</h3>
+                <p><strong>C'est quoi ?</strong> Comme un if/else SQL. Retourne des valeurs différentes selon des conditions.</p>
+                <p><strong>Pourquoi ?</strong> Pour créer des colonnes calculées, catégoriser des données, formater l'affichage...</p>
+                <p><strong>Syntaxe :</strong> CASE WHEN condition THEN valeur WHEN... ELSE défaut END.</p>
+                <code>SELECT name,
+    CASE
+        WHEN age < 18 THEN 'Mineur'
+        WHEN age < 65 THEN 'Adulte'
+        ELSE 'Senior'
+    END AS category
+FROM users;
+
+SELECT title,
+    CASE status
+        WHEN 'draft' THEN 'Brouillon'
+        WHEN 'published' THEN 'Publié'
+        ELSE 'Inconnu'
+    END AS status_fr
+FROM posts;</code>
+            </div>
+        </section>
+
+        <section id="agregation">
+            <h2>📊 Fonctions d'Agrégation</h2>
+
+            <div class="tag-card">
+                <h3>COUNT()</h3>
+                <p><strong>C'est quoi ?</strong> Compte le nombre de lignes. COUNT(*) = toutes les lignes, COUNT(colonne) = lignes non-NULL.</p>
+                <p><strong>Pourquoi ?</strong> Pour compter les users, les posts, les commandes... Stats de base !</p>
+                <p><strong>Astuce :</strong> COUNT(DISTINCT colonne) compte les valeurs uniques !</p>
+                <code>SELECT COUNT(*) AS total_users FROM users;
+SELECT COUNT(published_at) FROM posts;  -- Posts publiés (non-NULL)
+SELECT COUNT(DISTINCT category_id) FROM products;  -- Nombre de catégories</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>SUM()</h3>
+                <p><strong>C'est quoi ?</strong> Additionne toutes les valeurs d'une colonne numérique.</p>
+                <p><strong>Pourquoi ?</strong> Pour calculer le total des ventes, la somme des prix, le total des vues...</p>
+                <p><strong>Note :</strong> Ignore les NULL. Si toutes les valeurs sont NULL, retourne NULL.</p>
+                <code>SELECT SUM(price) AS total_sales FROM orders;
+SELECT SUM(views) AS total_views FROM posts;
+SELECT SUM(stock) AS total_stock FROM products WHERE category = 'electronics';</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>AVG()</h3>
+                <p><strong>C'est quoi ?</strong> Calcule la moyenne d'une colonne numérique.</p>
+                <p><strong>Pourquoi ?</strong> Pour le prix moyen, la note moyenne, l'âge moyen des users...</p>
+                <p><strong>Astuce :</strong> ROUND(AVG(price), 2) pour arrondir à 2 décimales !</p>
+                <code>SELECT AVG(price) AS average_price FROM products;
+SELECT ROUND(AVG(rating), 2) AS avg_rating FROM reviews;
+SELECT AVG(age) AS average_age FROM users;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>MIN() / MAX()</h3>
+                <p><strong>C'est quoi ?</strong> MIN = valeur minimale, MAX = valeur maximale d'une colonne.</p>
+                <p><strong>Pourquoi ?</strong> Pour le produit le moins/plus cher, le post le plus ancien/récent, l'âge min/max...</p>
+                <p><strong>Fonctionne aussi sur :</strong> Dates (plus ancienne/récente), textes (ordre alphabétique) !</p>
+                <code>SELECT MIN(price) AS cheapest, MAX(price) AS most_expensive FROM products;
+SELECT MIN(created_at) AS oldest_post FROM posts;
+SELECT MAX(age) AS oldest_user FROM users;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>GROUP BY</h3>
+                <p><strong>C'est quoi ?</strong> Regroupe les lignes par valeurs identiques et applique des fonctions d'agrégation sur chaque groupe.</p>
+                <p><strong>Pourquoi ?</strong> Pour compter par catégorie, sommer par utilisateur, statistiques par mois...</p>
+                <p><strong>Règle :</strong> Toute colonne dans SELECT (hors agrégation) DOIT être dans GROUP BY !</p>
+                <code>SELECT category_id, COUNT(*) AS count FROM products GROUP BY category_id;
+-- Nombre de produits par catégorie
+
+SELECT user_id, SUM(total) AS total_spent FROM orders GROUP BY user_id;
+-- Total dépensé par user
+
+SELECT DATE(created_at) AS date, COUNT(*) FROM posts GROUP BY DATE(created_at);
+-- Nombre de posts par jour</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>HAVING</h3>
+                <p><strong>C'est quoi ?</strong> Filtre les résultats APRÈS GROUP BY (WHERE filtre AVANT GROUP BY).</p>
+                <p><strong>Pourquoi ?</strong> Pour filtrer sur les agrégations : catégories avec +10 produits, users ayant dépensé +100€...</p>
+                <p><strong>Différence avec WHERE :</strong> WHERE = lignes individuelles, HAVING = groupes agrégés.</p>
+                <code>SELECT category_id, COUNT(*) AS count
+FROM products
+GROUP BY category_id
+HAVING COUNT(*) > 10;
+-- Catégories avec plus de 10 produits
+
+SELECT user_id, SUM(total) AS spent
+FROM orders
+GROUP BY user_id
+HAVING SUM(total) > 100;
+-- Users ayant dépensé +100€</code>
+            </div>
+        </section>
+
+        <section id="avance">
+            <h2>⚡ Fonctionnalités Avancées</h2>
+
+            <div class="tag-card">
+                <h3>INDEX</h3>
+                <p><strong>C'est quoi ?</strong> Crée un index sur une colonne pour accélérer les recherches (WHERE, JOIN, ORDER BY...).</p>
+                <p><strong>Pourquoi ?</strong> PERFORMANCE ! Les requêtes sur colonnes indexées sont 10x à 1000x plus rapides !</p>
+                <p><strong>Sur quoi ?</strong> PRIMARY KEY (auto), FOREIGN KEY, colonnes dans WHERE/JOIN fréquents, email, username...</p>
+                <code>CREATE INDEX idx_email ON users(email);
+CREATE INDEX idx_user_id ON posts(user_id);
+CREATE INDEX idx_created_at ON orders(created_at);
+
+-- Index composite (plusieurs colonnes)
+CREATE INDEX idx_user_status ON posts(user_id, status);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>UNIQUE INDEX</h3>
+                <p><strong>C'est quoi ?</strong> Index qui garantit l'unicité des valeurs (comme UNIQUE) ET accélère les recherches.</p>
+                <p><strong>Pourquoi ?</strong> Email, username, slug... doivent être uniques ET rapides à chercher !</p>
+                <p><strong>Bonus :</strong> Plus rapide que UNIQUE seul car optimisé pour les recherches.</p>
+                <code>CREATE UNIQUE INDEX idx_email ON users(email);
+CREATE UNIQUE INDEX idx_username ON users(username);
+CREATE UNIQUE INDEX idx_slug ON posts(slug);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>SHOW INDEX</h3>
+                <p><strong>C'est quoi ?</strong> Affiche tous les index d'une table avec leurs détails.</p>
+                <p><strong>Pourquoi ?</strong> Pour vérifier quels index existent, diagnostiquer les problèmes de performance...</p>
+                <p><strong>Infos :</strong> Nom, colonne, type (UNIQUE, PRIMARY...), cardinalité...</p>
+                <code>SHOW INDEX FROM users;
+SHOW INDEX FROM posts;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>DROP INDEX</h3>
+                <p><strong>C'est quoi ?</strong> Supprime un index d'une table.</p>
+                <p><strong>Pourquoi ?</strong> Pour nettoyer les index inutilisés, recréer un index différent...</p>
+                <p><strong>Note :</strong> Ne supprime PAS les données, juste l'index (les requêtes deviennent plus lentes).</p>
+                <code>DROP INDEX idx_email ON users;
+DROP INDEX idx_created_at ON posts;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>EXPLAIN</h3>
+                <p><strong>C'est quoi ?</strong> Analyse une requête et montre comment MySQL va l'exécuter (index utilisés, ordre...).</p>
+                <p><strong>Pourquoi ?</strong> Pour OPTIMISER ! Voir si les index sont utilisés, détecter les problèmes de performance...</p>
+                <p><strong>Colonnes clés :</strong> possible_keys (index dispo), key (index utilisé), rows (lignes scannées), Extra.</p>
+                <code>EXPLAIN SELECT * FROM users WHERE email = 'test@mail.com';
+-- Montre si l'index sur email est utilisé
+
+EXPLAIN SELECT * FROM posts WHERE created_at > '2024-01-01';
+-- Vérifie l'utilisation de l'index</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>VIEW</h3>
+                <p><strong>C'est quoi ?</strong> Une "table virtuelle" basée sur une requête SELECT. Les données ne sont pas stockées !</p>
+                <p><strong>Pourquoi ?</strong> Pour simplifier les requêtes complexes, sécuriser l'accès (masquer des colonnes), réutiliser du code...</p>
+                <p><strong>Utilisation :</strong> SELECT sur une VIEW comme sur une table normale !</p>
+                <code>CREATE VIEW active_users AS
+SELECT id, name, email FROM users WHERE active = 1;
+
+-- Utilisation
+SELECT * FROM active_users;
+
+-- Vue avec jointure
+CREATE VIEW posts_with_authors AS
+SELECT p.id, p.title, u.name AS author
+FROM posts p JOIN users u ON p.user_id = u.id;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>TRANSACTION</h3>
+                <p><strong>C'est quoi ?</strong> Groupe plusieurs requêtes en un bloc atomique : TOUT passe ou RIEN ne passe !</p>
+                <p><strong>Pourquoi ?</strong> Garantir l'intégrité ! Virement bancaire, commande e-commerce... soit tout réussit, soit on annule.</p>
+                <p><strong>Commandes :</strong> START TRANSACTION, COMMIT (valide), ROLLBACK (annule).</p>
+                <code>START TRANSACTION;
+
+UPDATE accounts SET balance = balance - 100 WHERE id = 1;
+UPDATE accounts SET balance = balance + 100 WHERE id = 2;
+
+COMMIT;  -- Valide les deux UPDATE
+
+-- Si erreur :
+ROLLBACK;  -- Annule tout, retour à l'état initial</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>SUBQUERY (Sous-requête)</h3>
+                <p><strong>C'est quoi ?</strong> Une requête SELECT dans une autre requête. Peut être dans WHERE, SELECT, FROM...</p>
+                <p><strong>Pourquoi ?</strong> Pour des filtres complexes, calculer des valeurs, comparer avec des agrégations...</p>
+                <p><strong>Types :</strong> Scalaire (1 valeur), ligne (1 ligne), table (plusieurs lignes), corrélée (référence la requête parent).</p>
+                <code>-- Users qui ont posté
+SELECT * FROM users WHERE id IN (SELECT DISTINCT user_id FROM posts);
+
+-- Produits plus chers que la moyenne
+SELECT * FROM products WHERE price > (SELECT AVG(price) FROM products);
+
+-- Sous-requête dans SELECT
+SELECT name, (SELECT COUNT(*) FROM posts WHERE user_id = users.id) AS post_count
+FROM users;</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>UNION</h3>
+                <p><strong>C'est quoi ?</strong> Combine les résultats de plusieurs SELECT en un seul résultat. Supprime les doublons par défaut.</p>
+                <p><strong>Pourquoi ?</strong> Pour fusionner des données de tables différentes, combiner des filtres incompatibles...</p>
+                <p><strong>Contraintes :</strong> Même nombre de colonnes, types compatibles. UNION ALL garde les doublons (plus rapide).</p>
+                <code>SELECT name, email FROM users WHERE role = 'admin'
+UNION
+SELECT name, email FROM users WHERE role = 'editor';
+-- Tous les admins ET editors (sans doublons)
+
+SELECT id, title FROM posts
+UNION ALL
+SELECT id, title FROM drafts;
+-- Combine posts + drafts (garde les doublons)</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>EXISTS / NOT EXISTS</h3>
+                <p><strong>C'est quoi ?</strong> Vérifie si une sous-requête retourne au moins 1 ligne. Retourne true/false.</p>
+                <p><strong>Pourquoi ?</strong> Plus performant que IN pour les grandes tables. Arrête dès qu'il trouve 1 ligne !</p>
+                <p><strong>Utilisation :</strong> Trouver les users AVEC posts, les catégories SANS produits...</p>
+                <code>-- Users qui ont posté (performant)
+SELECT * FROM users u WHERE EXISTS (
+    SELECT 1 FROM posts p WHERE p.user_id = u.id
+);
+
+-- Catégories sans produits
+SELECT * FROM categories c WHERE NOT EXISTS (
+    SELECT 1 FROM products p WHERE p.category_id = c.id
+);</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>JSON (MySQL 9)</h3>
+                <p><strong>C'est quoi ?</strong> MySQL peut stocker et manipuler du JSON nativement ! Type de colonne JSON.</p>
+                <p><strong>Pourquoi ?</strong> Pour stocker des données flexibles (settings, metadata), éviter des tables complexes...</p>
+                <p><strong>Fonctions :</strong> JSON_EXTRACT, JSON_SET, JSON_ARRAY, JSON_OBJECT, -> et ->> (raccourcis).</p>
+                <code>CREATE TABLE settings (
+    id INT PRIMARY KEY,
+    config JSON
+);
+
+INSERT INTO settings (id, config) VALUES (1, '{"theme": "dark", "lang": "fr"}');
+
+-- Extraction
+SELECT config->'$.theme' FROM settings;  -- "dark"
+SELECT config->>'$.theme' FROM settings;  -- dark (sans quotes)
+
+-- Modification
+UPDATE settings SET config = JSON_SET(config, '$.theme', 'light');</code>
+            </div>
+
+            <div class="tag-card">
+                <h3>WINDOW FUNCTIONS (MySQL 8+)</h3>
+                <p><strong>C'est quoi ?</strong> Fonctions d'agrégation sur une "fenêtre" de lignes. ROW_NUMBER, RANK, DENSE_RANK, LEAD, LAG...</p>
+                <p><strong>Pourquoi ?</strong> Pour calculer des rangs, des moyennes glissantes, comparer avec la ligne précédente...</p>
+                <p><strong>Syntaxe :</strong> fonction() OVER (PARTITION BY... ORDER BY...).</p>
+                <code>-- Numéroter les lignes
+SELECT id, name, ROW_NUMBER() OVER (ORDER BY created_at) AS row_num FROM users;
+
+-- Top 3 par catégorie
+SELECT * FROM (
+    SELECT *, RANK() OVER (PARTITION BY category_id ORDER BY price DESC) AS rank
+    FROM products
+) AS ranked WHERE rank <= 3;
+
+-- Prix de la ligne précédente
+SELECT id, price, LAG(price) OVER (ORDER BY id) AS prev_price FROM products;</code>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 - Guides Dev Web</p>
+        <p>Fait avec ❤️ pour apprendre le développement web</p>
+        <p><a href="index.html">Retour à l'accueil</a></p>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+        // Enregistrer le Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then((reg) => console.log('Service Worker enregistré', reg))
+                .catch((err) => console.log('Erreur Service Worker', err));
+        }
+    </script>
+</body>
+</html>
