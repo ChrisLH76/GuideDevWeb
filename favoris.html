@@ -239,7 +239,7 @@
                         <button class="visit-btn" onclick="window.location.href='${escapeHtml(fav.url)}'">
                             Voir
                         </button>
-                        <button class="remove-btn" onclick="removeFavorite(event, ${index})">
+                        <button class="remove-btn" onclick="removeFavorite(event, ${index}); return false;">
                             Supprimer
                         </button>
                     </div>
@@ -248,13 +248,25 @@
         }
 
         function removeFavorite(event, index) {
-            event.preventDefault();
-            event.stopPropagation();
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+
+            console.log('Suppression du favori à l\'index:', index);
+
             let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+            console.log('Favoris avant suppression:', favorites);
+
             favorites.splice(index, 1);
+            console.log('Favoris après suppression:', favorites);
+
             localStorage.setItem('favorites', JSON.stringify(favorites));
+
+            // Recharger l'affichage
             loadFavorites();
             updateFavCount();
+
             return false;
         }
 
