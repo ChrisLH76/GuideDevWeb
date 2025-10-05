@@ -1,17 +1,18 @@
 const CACHE_NAME = 'guides-dev-v1';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/html-guide.html',
-  '/css-guide.html',
-  '/js-guide.html',
-  '/bootstrap-guide.html',
-  '/git-guide.html',
-  '/php-guide.html',
-  '/mysql-guide.html',
-  '/favoris.html',
-  '/style.css',
-  '/app.js'
+  './',
+  './index.html',
+  './html-guide.html',
+  './css-guide.html',
+  './js-guide.html',
+  './bootstrap-guide.html',
+  './git-guide.html',
+  './php-guide.html',
+  './mysql-guide.html',
+  './favoris.html',
+  './introduction.html',
+  './style.css',
+  './app.js'
 ];
 
 // Installation du Service Worker
