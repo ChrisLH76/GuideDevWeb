@@ -202,6 +202,7 @@
             const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
             const favoritesList = document.getElementById('favorites-list');
             const emptyState = document.getElementById('empty-state');
+            const statsSection = document.getElementById('stats-section');
 
             console.log('Favoris chargés:', favorites);
             console.log('Nombre de favoris:', favorites.length);
@@ -209,6 +210,9 @@
             if (favorites.length === 0) {
                 favoritesList.innerHTML = '';
                 emptyState.style.display = 'block';
+                if (statsSection) {
+                    statsSection.style.display = 'none';
+                }
                 return;
             }
 
