@@ -122,7 +122,9 @@ function isFavorite(title) {
 function toggleFavorite(title, button, card) {
     let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
     const page = document.title;
-    const url = window.location.pathname + '#' + card.querySelector('h3').id;
+    // Utiliser le nom du fichier actuel au lieu du pathname complet
+    const currentFile = window.location.pathname.split('/').pop() || 'index.html';
+    const url = currentFile + '#' + card.querySelector('h3').id;
 
     const index = favorites.findIndex(fav => fav.title === title);
 
