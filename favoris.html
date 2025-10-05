@@ -200,6 +200,9 @@
             const favoritesList = document.getElementById('favorites-list');
             const emptyState = document.getElementById('empty-state');
 
+            console.log('Favoris chargés:', favorites);
+            console.log('Nombre de favoris:', favorites.length);
+
             if (favorites.length === 0) {
                 emptyState.style.display = 'block';
                 return;
