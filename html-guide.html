@@ -5,8 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guide HTML</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#3498db">
 </head>
 <body>
+    <div id="progress-bar"></div>
+
+    <button id="theme-toggle" onclick="toggleTheme()">
+        <span id="theme-toggle-icon">🌙</span>
+    </button>
     <aside>
         <h1>Le Guide Complet des Balises HTML</h1>
         <p class="subtitle">Toutes les balises HTML expliquées simplement !</p>
@@ -17,6 +24,7 @@
             <a href="git-guide.html">Guide Git</a>
             <a href="php-guide.html">Guide PHP</a>
             <a href="mysql-guide.html">Guide MySQL</a>
+            <a href="favoris.html" class="fav-link">⭐ Favoris <span id="fav-count"></span></a>
         </p>
     </aside>
 
@@ -1309,17 +1317,18 @@ France</code>
                 const h3 = card.querySelector('h3');
                 const tagName = h3.textContent.toLowerCase().replace(/[<>]/g, '');
 
-                if (tagName.includes(searchTerm)) {
-                    // Surligner la carte
-                    card.style.backgroundColor = '#fff3cd';
-
-                    // Scroller vers le premier résultat
-                    if (document.querySelector('.tag-card[style*="background-color"]') === card) {
-                        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
-                }
             });
         });
+    </script>
+
+    <script src="app.js"></script>
+    <script>
+        // Enregistrer le Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then((reg) => console.log('Service Worker enregistré', reg))
+                .catch((err) => console.log('Erreur Service Worker', err));
+        }
     </script>
 </body>
 </html>

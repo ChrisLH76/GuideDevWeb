@@ -5,8 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guide des Propriétés CSS</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#3498db">
 </head>
 <body>
+    <div id="progress-bar"></div>
+
+    <button id="theme-toggle" onclick="toggleTheme()">
+        <span id="theme-toggle-icon">🌙</span>
+    </button>
     <aside>
         <h1>Le Guide Complet du CSS</h1>
         <p class="subtitle">Toutes les propriétés CSS expliquées simplement !</p>
@@ -17,6 +24,7 @@
             <a href="git-guide.html">Guide Git</a>
             <a href="php-guide.html">Guide PHP</a>
             <a href="mysql-guide.html">Guide MySQL</a>
+            <a href="favoris.html" class="fav-link">⭐ Favoris <span id="fav-count"></span></a>
         </p>
     </aside>
 
@@ -1959,36 +1967,14 @@ element.addEventListener('animationend', () => {
         </p>
     </footer>
     
+    <script src="app.js"></script>
     <script>
-        const searchInput = document.getElementById('searchInput');
-        const allCards = document.querySelectorAll('.tag-card');
-
-        searchInput.addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase().trim();
-
-            // Réinitialiser tous les backgrounds
-            allCards.forEach(card => {
-                card.style.backgroundColor = '';
-            });
-
-            if (searchTerm === '') return;
-
-            // Chercher dans tous les h3
-            allCards.forEach(card => {
-                const h3 = card.querySelector('h3');
-                const propertyName = h3.textContent.toLowerCase().trim();
-
-                if (propertyName.includes(searchTerm)) {
-                    // Surligner la carte
-                    card.style.backgroundColor = '#fff3cd';
-
-                    // Scroller vers le premier résultat
-                    if (document.querySelector('.tag-card[style*="background-color"]') === card) {
-                        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
-                }
-            });
-        });
+        // Enregistrer le Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then((reg) => console.log('Service Worker enregistré', reg))
+                .catch((err) => console.log('Erreur Service Worker', err));
+        }
     </script>
 </body>
 </html>
