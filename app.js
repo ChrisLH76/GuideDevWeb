@@ -1,4 +1,14 @@
 // ========================================
+// SÉCURITÉ - FONCTION DE SANITIZATION
+// ========================================
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+// ========================================
 // MODE SOMBRE / CLAIR
 // ========================================
 
@@ -188,7 +198,7 @@ function initGlobalSearch() {
         // Afficher suggestions
         if (searchTerm.length >= 2 && suggestions.length > 0) {
             suggestionsBox.innerHTML = suggestions.slice(0, 5).map(s =>
-                `<div class="suggestion-item" data-title="${s.title}">${s.title}</div>`
+                `<div class="suggestion-item" data-title="${escapeHtml(s.title)}">${escapeHtml(s.title)}</div>`
             ).join('');
             suggestionsBox.style.display = 'block';
 

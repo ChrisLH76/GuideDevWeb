@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <title>Mes Favoris - Guides Dev Web</title>
     <link rel="stylesheet" href="style.css">
     <style>
@@ -211,11 +214,11 @@
             favoritesList.innerHTML = favorites.map((fav, index) => `
                 <div class="fav-item">
                     <div class="fav-info">
-                        <h3>${fav.title}</h3>
-                        <p>📚 ${fav.page}</p>
+                        <h3>${escapeHtml(fav.title)}</h3>
+                        <p>📚 ${escapeHtml(fav.page)}</p>
                     </div>
                     <div class="fav-actions">
-                        <button class="visit-btn" onclick="window.location.href='${fav.url}'">
+                        <button class="visit-btn" onclick="window.location.href='${escapeHtml(fav.url)}'">
                             Voir
                         </button>
                         <button class="remove-btn" onclick="removeFavorite(${index})">
