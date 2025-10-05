@@ -230,11 +230,13 @@
         }
 
         function removeFavorite(index) {
+            event.preventDefault();
             let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
             favorites.splice(index, 1);
             localStorage.setItem('favorites', JSON.stringify(favorites));
             loadFavorites();
             updateFavCount();
+            return false;
         }
 
         function loadStats() {
